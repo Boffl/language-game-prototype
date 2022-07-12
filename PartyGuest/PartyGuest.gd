@@ -9,7 +9,7 @@ extends KinematicBody2D
 
 
 
-var personality
+
 var bot_name
 var present # True
 var thirst # 0

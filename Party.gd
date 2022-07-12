@@ -8,8 +8,7 @@ func inivte_guests(num):
 	for n in num:
 		var bot = party_guest.instance()
 		
-		bot.personality = n
-		bot.bot_name = str(n+1)
+		bot.init_bot()
 		print(bot.bot_name)
 		# choose a random location on path2D
 		var bot_spawn_location = get_node("YSort/BotPath/BotSpawnLocation")
