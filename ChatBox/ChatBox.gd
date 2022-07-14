@@ -16,8 +16,7 @@ var bot_answer
 signal request_finished
 
 var url = "https://api.openai.com/v1/completions"
-var gpt3_key = OS.get_environment("GPT3-KEY")
-#var gpt3_key = ""
+#var gpt3_key = OS.get_environment("GPT3-KEY")
 var api_key_request = "Authorization: Bearer " + gpt3_key
 var parameters 
 var gpt3_prompt
@@ -58,7 +57,7 @@ func add_message(player, text):
 
 func answer(bot, text):
 	# Get the bot that the chatbox is attached to, it is the grandparent
-	bot = get_parent().get_parent()
+	bot = get_parent().get_parent().get_parent()
 	bot.do_somethin()
 	
 	username = 'bot' + bot.bot_name
@@ -113,7 +112,7 @@ func _on_HTTPRequest_request_completed(result, response_code, headers, body):
 	# parse and extract answer
 	var json = parse_json(body.get_string_from_utf8())
 	print(body.get_string_from_utf8())
-	bot_answer = json['choices'][0]['text']
+	bot_answer = json['choices'][0]['text'].strip_edges(true, true)
 	chat_log.append("Friend: " + bot_answer)
 	
 	# signal that result has been yielded

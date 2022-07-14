@@ -1,8 +1,20 @@
-[gd_scene load_steps=3 format=2]
+[gd_scene load_steps=7 format=2]
 
 [ext_resource path="res://ChatBox/ChatBox.gd" type="Script" id=1]
+[ext_resource path="res://Assets/Fonts/orange-kid.regular.otf" type="DynamicFontData" id=2]
 
 [sub_resource type="CanvasItemMaterial" id=1]
+
+[sub_resource type="DynamicFont" id=2]
+size = 22
+font_data = ExtResource( 2 )
+
+[sub_resource type="DynamicFontData" id=3]
+font_path = "res://Assets/Fonts/orange-kid.regular.otf"
+
+[sub_resource type="DynamicFont" id=4]
+size = 22
+font_data = SubResource( 3 )
 
 [node name="ChatBox" type="Control"]
 anchor_right = 0.59
@@ -22,29 +34,29 @@ margin_bottom = 5.0
 light_mask = 2
 material = SubResource( 1 )
 margin_right = 798.0
-margin_bottom = 431.0
+margin_bottom = 418.0
 size_flags_horizontal = 3
 size_flags_vertical = 3
+custom_fonts/normal_font = SubResource( 2 )
 bbcode_enabled = true
-bbcode_text = "Hello [color=#00abc7]world[/color]"
-text = "Hello world"
 scroll_following = true
 
 [node name="HBoxContainer" type="HBoxContainer" parent="VBoxContainer"]
-margin_top = 435.0
+margin_top = 422.0
 margin_right = 798.0
 margin_bottom = 459.0
 
 [node name="Label" type="Label" parent="VBoxContainer/HBoxContainer"]
-margin_top = 5.0
-margin_bottom = 19.0
+margin_top = 11.0
+margin_bottom = 25.0
 
 [node name="LineEdit" type="LineEdit" parent="VBoxContainer/HBoxContainer"]
 margin_left = 4.0
 margin_right = 798.0
-margin_bottom = 24.0
+margin_bottom = 37.0
 size_flags_horizontal = 3
 size_flags_vertical = 3
+custom_fonts/font = SubResource( 4 )
 
 [node name="HTTPRequest" type="HTTPRequest" parent="."]
 
