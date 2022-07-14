@@ -34,7 +34,7 @@ margin_bottom = 5.0
 light_mask = 2
 material = SubResource( 1 )
 margin_right = 798.0
-margin_bottom = 441.0
+margin_bottom = 418.0
 size_flags_horizontal = 3
 size_flags_vertical = 3
 custom_fonts/normal_font = SubResource( 2 )
@@ -42,17 +42,18 @@ bbcode_enabled = true
 scroll_following = true
 
 [node name="HBoxContainer" type="HBoxContainer" parent="VBoxContainer"]
-margin_top = 445.0
+margin_top = 422.0
 margin_right = 798.0
 margin_bottom = 459.0
 
 [node name="Label" type="Label" parent="VBoxContainer/HBoxContainer"]
-margin_bottom = 14.0
+margin_top = 11.0
+margin_bottom = 25.0
 
 [node name="LineEdit" type="LineEdit" parent="VBoxContainer/HBoxContainer"]
 margin_left = 4.0
 margin_right = 798.0
-margin_bottom = 14.0
+margin_bottom = 37.0
 size_flags_horizontal = 3
 size_flags_vertical = 3
 custom_fonts/font = SubResource( 4 )
