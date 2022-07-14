@@ -8,6 +8,82 @@
 
 config_version=4
 
+_global_script_classes=[ {
+"base": "Node2D",
+"class": "dance",
+"language": "GDScript",
+"path": "res://PartyGuest/Actions/dance.gd"
+}, {
+"base": "Node2D",
+"class": "drink_alc",
+"language": "GDScript",
+"path": "res://PartyGuest/Actions/drink_alc.gd"
+}, {
+"base": "Node2D",
+"class": "drink_water",
+"language": "GDScript",
+"path": "res://PartyGuest/Actions/drink_water.gd"
+}, {
+"base": "Node2D",
+"class": "eat",
+"language": "GDScript",
+"path": "res://PartyGuest/Actions/eat.gd"
+}, {
+"base": "Node2D",
+"class": "fight",
+"language": "GDScript",
+"path": "res://PartyGuest/Actions/fight.gd"
+}, {
+"base": "Node2D",
+"class": "leave",
+"language": "GDScript",
+"path": "res://PartyGuest/Actions/leave.gd"
+}, {
+"base": "Node2D",
+"class": "move",
+"language": "GDScript",
+"path": "res://PartyGuest/Actions/move.gd"
+}, {
+"base": "Node2D",
+"class": "pee",
+"language": "GDScript",
+"path": "res://PartyGuest/Actions/pee.gd"
+}, {
+"base": "Node2D",
+"class": "play_game",
+"language": "GDScript",
+"path": "res://PartyGuest/Actions/play_game.gd"
+}, {
+"base": "Node2D",
+"class": "talk",
+"language": "GDScript",
+"path": "res://PartyGuest/Actions/talk.gd"
+}, {
+"base": "Node2D",
+"class": "vomit",
+"language": "GDScript",
+"path": "res://PartyGuest/Actions/vomit.gd"
+}, {
+"base": "Node2D",
+"class": "wait",
+"language": "GDScript",
+"path": "res://PartyGuest/Actions/wait.gd"
+} ]
+_global_script_class_icons={
+"dance": "",
+"drink_alc": "",
+"drink_water": "",
+"eat": "",
+"fight": "",
+"leave": "",
+"move": "",
+"pee": "",
+"play_game": "",
+"talk": "",
+"vomit": "",
+"wait": ""
+}
+
 [application]
 
 config/name="Party Simulator"

@@ -19,7 +19,7 @@ func inivte_guests(num):
 		# add to a group to find them easily
 		bot.add_to_group('bots')
 		
-		self.add_child(bot)
+		get_node("YSort").add_child(bot)
 	
 
 func _ready():
@@ -27,5 +27,8 @@ func _ready():
 	inivte_guests(5)
 	bots = get_tree().get_nodes_in_group("bots")
 	bots[0].do_somethin()
+	
+	# set nr of guests
+	get_node("Camera/StatsLabel").set_text("NR OF GUESTS: " + str(5))
 	
 
