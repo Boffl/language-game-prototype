@@ -3,6 +3,8 @@ extends KinematicBody2D
 
 
 
+
+
 # Declare member variables here. Examples:
 
 # Values are filled individually in in the initialization
@@ -46,7 +48,8 @@ func init_bot():
 	file.close()
 	var index = rng.randi_range(0, len(names) - 1)
 	bot_name = names[index]
-
+	
+	present = true
 	thirst = 0
 	hunger = 0
 	intoxication = 0
@@ -69,6 +72,5 @@ func _physics_process(_delta):
 	thirst += 0.00001
 	intoxication -= 0.00001
 	tiredness += 0.000001
-
 
 
