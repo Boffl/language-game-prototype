@@ -17,6 +17,7 @@ signal request_finished
 
 var url = "https://api.openai.com/v1/completions"
 #var gpt3_key = OS.get_environment("GPT3-KEY")
+var gpt3_key = "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"
 var api_key_request = "Authorization: Bearer " + gpt3_key
 var parameters 
 var gpt3_prompt

@@ -15,12 +15,14 @@ var response = ""
 # Called when the node enters the scene tree for the first time.
 func _ready():
 	pass # Replace with function body.
+	get_node("InteractionLabel").hide()
 
 
 
 func _physics_process(delta):
 	# Called at every computation step
 	walking(delta)
+	interacting(delta)
 	
 	
 func walking(delta):
@@ -42,8 +44,28 @@ func walking(delta):
 
 func interacting(delta):
 	var bodies = get_node("TalkingArea").get_overlapping_areas()
-	if bodies != []:
+	if bodies.size() > 0:
+	
+			#if body.is_in_group() > we can later add in groups to differentiate between different objects
+			
+		# display InteractionLabel	
+		
+		get_node("InteractionLabel").show()
+		var conversation_partner = bodies[0].get_parent()
+		# talking to the person
 		if Input.is_action_just_pressed("ui_accept"):
-			print("Let's talk!")
+			get_node("InteractionLabel").set_text("press ESC to stop talking")
+			
+			conversation_partner.start_conversation()
+			print("Player is talking to " + conversation_partner.bot_name)
+		
+		# cancel chatBox
+		if Input.is_action_just_pressed("ui_cancel"):
+			conversation_partner.end_conversation()
+			get_node("InteractionLabel").set_text("press SPACE to talk")
+	
+	# hide interaction label if not near any objects
+	elif bodies.size() == 0:
+		get_node("InteractionLabel").hide()
 			
 		

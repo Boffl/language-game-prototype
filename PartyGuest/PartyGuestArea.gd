@@ -1,10 +1,12 @@
 extends Area2D
-
+"""
 onready var chatBox = get_node("CanvasLayer/ChatBox")
 
 
 func _ready():
 	get_node("CanvasLayer").remove_child(chatBox)
+
+
 
 func _on_PartyGuestArea_body_entered(body):
 	if body.name == "Player":
@@ -17,3 +19,4 @@ func _on_PartyGuestArea_body_entered(body):
 func _on_PartyGuestArea_body_exited(body):
 	if body.name == "Player":
 		get_node("CanvasLayer").remove_child(chatBox)
+"""

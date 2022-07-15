@@ -1,7 +1,8 @@
-[gd_scene load_steps=5 format=2]
+[gd_scene load_steps=7 format=2]
 
 [ext_resource path="res://Assets/Player/Player.png" type="Texture" id=1]
 [ext_resource path="res://Player/Player.gd" type="Script" id=2]
+[ext_resource path="res://Assets/Fonts/orange-kid.regular.otf" type="DynamicFontData" id=3]
 
 [sub_resource type="CapsuleShape2D" id=1]
 radius = 8.0
@@ -9,6 +10,10 @@ height = 16.0
 
 [sub_resource type="CapsuleShape2D" id=2]
 height = 0.0
+
+[sub_resource type="DynamicFont" id=3]
+size = 11
+font_data = ExtResource( 3 )
 
 [node name="Player" type="KinematicBody2D"]
 script = ExtResource( 2 )
@@ -27,3 +32,12 @@ offset = Vector2( 0, -14 )
 [node name="CollisionShape2D" type="CollisionShape2D" parent="TalkingArea"]
 rotation = 1.5708
 shape = SubResource( 2 )
+
+[node name="InteractionLabel" type="Label" parent="."]
+margin_left = -32.0
+margin_top = -48.0
+margin_right = 40.0
+margin_bottom = -34.0
+custom_colors/font_color = Color( 0, 0, 0, 1 )
+custom_fonts/font = SubResource( 3 )
+text = "press SPACE to talk"

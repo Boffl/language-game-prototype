@@ -8,8 +8,10 @@ extends KinematicBody2D
 # Declare member variables here. Examples:
 
 # Values are filled individually in in the initialization
+onready var chatBox = get_node("PartyGuestArea/CanvasLayer/ChatBox")
 
-
+# list of lists of all past conversations
+var past_conversations = []
 
 
 var bot_name
@@ -32,6 +34,10 @@ var aggression # random.uniform(0, 1)
 var like_other_agent # {} #TODO
 # _init with arguments is not allowed here, see:
 # https://github.com/godotengine/godot/issues/15866
+
+
+func _ready():
+	get_node("PartyGuestArea/CanvasLayer").remove_child(chatBox)
 
 
 func do_somethin():
@@ -72,5 +78,17 @@ func _physics_process(_delta):
 	thirst += 0.00001
 	intoxication -= 0.00001
 	tiredness += 0.000001
+
+
+func start_conversation():
+	get_node("PartyGuestArea/CanvasLayer").add_child(chatBox)
+
+	
+func end_conversation():
+	past_conversations.append(get_node("PartyGuestArea/CanvasLayer/ChatBox").chat_log)
+	
+	# calculate sentiment of conversation or something
+	
+	get_node("PartyGuestArea/CanvasLayer").remove_child(chatBox)
 
 
