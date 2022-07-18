@@ -7,7 +7,7 @@ onready var inputField = get_node("VBoxContainer/HBoxContainer/LineEdit")
 # onready var bot = get_node("../../../partyGuest")
 
 
-var partyGuest 
+var partyGuest
 var username
 var color
 var answer
@@ -52,14 +52,14 @@ func add_message(username, text, color):
 
 func text_entered(text):
 	
-	if text != '':
+	if text != '' and not text.ends_with("Write your message here."):
 		username = players['player']['name']
 		color = players['player']['color']
 		add_message(username, text, color) # add message to the chatlog
 		inputField.text = ''  # clear input field
 		
 		# get the party guest, and the corresponding prompt
-		partyGuest = get_parent().get_parent().get_parent()
+		
 		username = partyGuest.guest_name
 		color = players['bot']['color']
 		
@@ -77,9 +77,13 @@ func text_entered(text):
 		
 		# add answer to the chat
 		add_message(username, answer, color)
+	else:
+		print("nope...")
 
 
 func _ready():
+	partyGuest = get_parent().get_parent().get_parent()
+	inputField.text = "You are talking to " + partyGuest.guest_name + ". Write your message here."
 	inputField.connect("text_entered", self, "text_entered")
 	$HTTPRequest.connect("request_completed", self, "_on_HTTPRequest_request_completed")
 	
