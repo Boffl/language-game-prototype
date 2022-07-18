@@ -16,7 +16,7 @@ var bot_answer
 signal request_finished
 
 var url = "https://api.openai.com/v1/completions"
-var gpt3_key = OS.get_environment("API-KEY")
+var gpt3_key = OS.get_environment("API_KEY")
 var api_key_request = "Authorization: Bearer " + gpt3_key
 var parameters 
 var gpt3_prompt
@@ -70,6 +70,7 @@ func answer(bot, text):
 
 
 func text_entered(text):
+	
 	if text != '':
 		username = players['player1']['name']
 		add_message(username, text)
@@ -112,8 +113,14 @@ func _on_HTTPRequest_request_completed(result, response_code, headers, body):
 	# parse and extract answer
 	var json = parse_json(body.get_string_from_utf8())
 	print(body.get_string_from_utf8())
-	bot_answer = json['choices'][0]['text'].strip_edges(true, true)
-	chat_log.append("Friend: " + bot_answer)
+	if json.has("error"):
+		# TODO: this should appear on the screen maybe. At least if it is a problem with the 
+		# API key, such that we can inform the users if their API key has expired
+		print("There was an error with parsing the request:")
+		print(json["error"]["message"])
+	else:
+		bot_answer = json['choices'][0]['text'].strip_edges(true, true)
+		chat_log.append("Friend: " + bot_answer)
 	
 	# signal that result has been yielded
 	emit_signal("request_finished")
