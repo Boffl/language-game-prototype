@@ -13,6 +13,10 @@ onready var chatBox = get_node("PartyGuestArea/CanvasLayer/ChatBox")
 # list of lists of all past conversations
 var past_conversations = []
 
+# simple boolean, to stop movement, when talking
+# movement is not yet implemented, but just to be consistent with the Player script
+var can_move = true 
+
 
 var guest_name # using just 'name' is not good, since it already an attribute in the namespace of the parent class
 var present # True

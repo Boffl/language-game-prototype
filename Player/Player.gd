@@ -58,7 +58,7 @@ func interacting(delta):
 		# talking to the person
 		if Input.is_action_just_pressed("ui_accept"):
 			can_move = false
-			# partyGuest.can_move = false
+			partyGuest.can_move = false
 			get_node("InteractionLabel").set_text("press ESC to stop talking")
 			
 			partyGuest.start_conversation()
@@ -69,6 +69,7 @@ func interacting(delta):
 			can_move = true
 			partyGuest.end_conversation()
 			get_node("InteractionLabel").set_text("press SPACE to talk")
+			partyGuest.can_move = true
 	
 	# hide interaction label if not near any objects
 	elif bodies.size() == 0:
