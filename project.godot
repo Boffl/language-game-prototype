@@ -8,34 +8,94 @@
 
 config_version=4
 
+_global_script_classes=[ {
+"base": "Node2D",
+"class": "dance",
+"language": "GDScript",
+"path": "res://PartyGuest/Actions/dance.gd"
+}, {
+"base": "Node2D",
+"class": "drink_alc",
+"language": "GDScript",
+"path": "res://PartyGuest/Actions/drink_alc.gd"
+}, {
+"base": "Node2D",
+"class": "drink_water",
+"language": "GDScript",
+"path": "res://PartyGuest/Actions/drink_water.gd"
+}, {
+"base": "Node2D",
+"class": "eat",
+"language": "GDScript",
+"path": "res://PartyGuest/Actions/eat.gd"
+}, {
+"base": "Node2D",
+"class": "fight",
+"language": "GDScript",
+"path": "res://PartyGuest/Actions/fight.gd"
+}, {
+"base": "Node2D",
+"class": "leave",
+"language": "GDScript",
+"path": "res://PartyGuest/Actions/leave.gd"
+}, {
+"base": "Node2D",
+"class": "move",
+"language": "GDScript",
+"path": "res://PartyGuest/Actions/move.gd"
+}, {
+"base": "Node2D",
+"class": "pee",
+"language": "GDScript",
+"path": "res://PartyGuest/Actions/pee.gd"
+}, {
+"base": "Node2D",
+"class": "play_game",
+"language": "GDScript",
+"path": "res://PartyGuest/Actions/play_game.gd"
+}, {
+"base": "Node2D",
+"class": "talk",
+"language": "GDScript",
+"path": "res://PartyGuest/Actions/talk.gd"
+}, {
+"base": "Node2D",
+"class": "vomit",
+"language": "GDScript",
+"path": "res://PartyGuest/Actions/vomit.gd"
+}, {
+"base": "Node2D",
+"class": "wait",
+"language": "GDScript",
+"path": "res://PartyGuest/Actions/wait.gd"
+} ]
+_global_script_class_icons={
+"dance": "",
+"drink_alc": "",
+"drink_water": "",
+"eat": "",
+"fight": "",
+"leave": "",
+"move": "",
+"pee": "",
+"play_game": "",
+"talk": "",
+"vomit": "",
+"wait": ""
+}
+
 [application]
 
-config/name="Party_Game_first_ideas"
-run/main_scene="res://party-location.tscn"
+config/name="Party Simulator"
+run/main_scene="res://Party.tscn"
 config/icon="res://icon.png"
 
-[input]
+[display]
 
-right={
-"deadzone": 0.5,
-"events": [ Object(InputEventKey,"resource_local_to_scene":false,"resource_name":"","device":0,"alt":false,"shift":false,"control":false,"meta":false,"command":false,"pressed":false,"scancode":16777233,"physical_scancode":0,"unicode":0,"echo":false,"script":null)
- ]
-}
-left={
-"deadzone": 0.5,
-"events": [ Object(InputEventKey,"resource_local_to_scene":false,"resource_name":"","device":0,"alt":false,"shift":false,"control":false,"meta":false,"command":false,"pressed":false,"scancode":16777231,"physical_scancode":0,"unicode":0,"echo":false,"script":null)
- ]
-}
-up={
-"deadzone": 0.5,
-"events": [ Object(InputEventKey,"resource_local_to_scene":false,"resource_name":"","device":0,"alt":false,"shift":false,"control":false,"meta":false,"command":false,"pressed":false,"scancode":16777232,"physical_scancode":0,"unicode":0,"echo":false,"script":null)
- ]
-}
-down={
-"deadzone": 0.5,
-"events": [ Object(InputEventKey,"resource_local_to_scene":false,"resource_name":"","device":0,"alt":false,"shift":false,"control":false,"meta":false,"command":false,"pressed":false,"scancode":16777234,"physical_scancode":0,"unicode":0,"echo":false,"script":null)
- ]
-}
+window/size/width=640
+window/size/height=360
+window/stretch/mode="2d"
+window/stretch/aspect="keep"
 
 [physics]
 
