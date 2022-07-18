@@ -28,13 +28,13 @@ anchor_right = 1.0
 anchor_bottom = 1.0
 margin_top = 3.0
 margin_right = -3.0
-margin_bottom = 5.0
+margin_bottom = 44.0
 
 [node name="RichTextLabel" type="RichTextLabel" parent="VBoxContainer"]
 light_mask = 2
 material = SubResource( 1 )
 margin_right = 798.0
-margin_bottom = 418.0
+margin_bottom = 457.0
 size_flags_horizontal = 3
 size_flags_vertical = 3
 custom_fonts/normal_font = SubResource( 2 )
@@ -42,9 +42,9 @@ bbcode_enabled = true
 scroll_following = true
 
 [node name="HBoxContainer" type="HBoxContainer" parent="VBoxContainer"]
-margin_top = 422.0
+margin_top = 461.0
 margin_right = 798.0
-margin_bottom = 459.0
+margin_bottom = 498.0
 
 [node name="LineEdit" type="LineEdit" parent="VBoxContainer/HBoxContainer"]
 margin_right = 798.0

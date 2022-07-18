@@ -52,7 +52,9 @@ func add_message(username, text, color):
 
 func text_entered(text):
 	
+	# don't let the user send the empty string, or the initial message...
 	if text != '' and not text.ends_with("Write your message here."):
+		
 		username = players['player']['name']
 		color = players['player']['color']
 		add_message(username, text, color) # add message to the chatlog
@@ -77,15 +79,13 @@ func text_entered(text):
 		
 		# add answer to the chat
 		add_message(username, answer, color)
-	else:
-		print("nope...")
 
 
 func _ready():
 	partyGuest = get_parent().get_parent().get_parent()
 	inputField.text = "You are talking to " + partyGuest.guest_name + ". Write your message here."
 	inputField.connect("text_entered", self, "text_entered")
-	$HTTPRequest.connect("request_completed", self, "_on_HTTPRequest_request_completed")
+	# $HTTPRequest.connect("request_completed", self, "_on_HTTPRequest_request_completed")
 	
 	
 	
