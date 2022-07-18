@@ -60,15 +60,15 @@ func text_entered(text):
 		add_message(username, text, color) # add message to the chatlog
 		inputField.text = ''  # clear input field
 		
-		# get the party guest, and the corresponding prompt
-		
+		# from her on the username and color correspond to the partyGuest
 		username = partyGuest.guest_name
 		color = players['bot']['color']
 		
 		# TODO: implement prompt design for party guests
-		# promt = partyGuest.prompt
+		# personality of the bot = partyGuest.personality_prompt
 		prompt = background_info + "\n"
-		prompt += "you are talking to " + username
+		prompt += "you are talking to " + username + "\n"
+		# prompt += personality + "\n"
 		prompt += chatLog.text + "\n" 
 		prompt += username + ": "
 		print(prompt)
