@@ -57,7 +57,7 @@ func interacting(delta):
 			get_node("InteractionLabel").set_text("press ESC to stop talking")
 			
 			conversation_partner.start_conversation()
-			print("Player is talking to " + conversation_partner.bot_name)
+			print("Player is talking to " + conversation_partner.guest_name)
 		
 		# cancel chatBox
 		if Input.is_action_just_pressed("ui_cancel"):

@@ -14,7 +14,7 @@ onready var chatBox = get_node("PartyGuestArea/CanvasLayer/ChatBox")
 var past_conversations = []
 
 
-var bot_name
+var guest_name # using just 'name' is not good, since it already an attribute in the namespace of the parent class
 var present # True
 var thirst # 0
 var hunger # 0
@@ -54,7 +54,7 @@ func init_bot():
 	var names = str2var(file.get_as_text())
 	file.close()
 	var index = rng.randi_range(0, len(names) - 1)
-	bot_name = names[index]
+	guest_name = names[index]
 	
 	present = true
 	thirst = 0
@@ -86,7 +86,7 @@ func start_conversation():
 
 	
 func end_conversation():
-	past_conversations.append(get_node("PartyGuestArea/CanvasLayer/ChatBox").chat_log)
+	# past_conversations.append(get_node("PartyGuestArea/CanvasLayer/ChatBox").chat_log)
 	
 	# calculate sentiment of conversation or something
 	

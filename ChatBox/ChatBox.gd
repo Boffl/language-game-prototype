@@ -7,10 +7,11 @@ onready var inputField = get_node("VBoxContainer/HBoxContainer/LineEdit")
 # onready var bot = get_node("../../../partyGuest")
 
 
-var bot 
+var partyGuest 
 var username
 var color
-var bot_answer
+var answer
+var prompt
 
 
 signal request_finished
@@ -22,12 +23,9 @@ var parameters
 var gpt3_prompt
 var background_info = "You are at a party. All your friends are there. The party is in your apartment and you're the host. \n"
 
-var chat_log = []
-
- # we can change the names later, for now this makes the colors in the chat
-var players = {'player1':{'name': 'player1', 'color': '#34c5f1'},
-				'bot1':{'name': 'bot1', 'color': '#f1c234'},
-				'bot2': {'name': 'bot2', 'color': '#ffffff'},
+ # some general settings for the player and the bots
+var players = {'player':{'name': 'you', 'color': '#34c5f1'},
+				'bot':{'name': 'bot', 'color': '#f1c234'},
 				}
 
 
@@ -42,46 +40,43 @@ func _input(event):
 		if event.pressed and event.scancode == KEY_ESCAPE:
 			inputField.release_focus()
 
-func add_message(player, text):
-	username = players[player]['name']
-	color = players[player]['color']
+func add_message(username, text, color):
 	chatLog.bbcode_text += '\n' # new line
-	# change the color, so each bot and the player1 get their own color
+	# change the color, so the bot and the player get their own color
 	# the bbcode field is some sort of rich text format where [color=xyz]text, bla bla[/color] changes the color
-	# alternatively we can just give a color to the player1 and all the bots have the same
-	# color. at least for now we plan on just having one on one conversations.. but lets see
-	chatLog.bbcode_text += '[color=' + color + ']' + '[' + username + ']: ' 
+	# as of now all bots have the same text color, in the future we could change this
+	chatLog.bbcode_text += '[color=' + color + ']'  + username + ': ' 
 	chatLog.bbcode_text +=  text
 	chatLog.bbcode_text += '[/color]'
-
-
-func answer(bot, text):
-	# Get the bot that the chatbox is attached to, it is the grandparent
-	bot = get_parent().get_parent().get_parent()
-	bot.do_somethin()
-	
-	username = 'bot' + bot.bot_name
-	# text color, could later store this with the bot itself?
-	color = players['bot1']['color']
-
-	chatLog.bbcode_text += '\n' # new line
-	chatLog.bbcode_text += '[color=' + color + ']' + '[' + username + ']: ' + text
-
 
 
 func text_entered(text):
 	
 	if text != '':
-		username = players['player1']['name']
-		add_message(username, text)
-		inputField.text = ''
+		username = players['player']['name']
+		color = players['player']['color']
+		add_message(username, text, color) # add message to the chatlog
+		inputField.text = ''  # clear input field
+		
+		# get the party guest, and the corresponding prompt
+		partyGuest = get_parent().get_parent().get_parent()
+		username = partyGuest.guest_name
+		color = players['bot']['color']
+		
+		# TODO: implement prompt design for party guests
+		# promt = partyGuest.prompt
+		prompt = background_info + "\n"
+		prompt += "you are talking to " + username
+		prompt += chatLog.text + "\n" 
+		prompt += username + ": "
+		print(prompt)
 		
 		# send prompt to api and wait for answer signal
-		request_answer(text)
+		request_answer(prompt)
 		yield(self, "request_finished")
 		
-		# pass answer to bot
-		answer(bot, bot_answer)
+		# add answer to the chat
+		add_message(username, answer, color)
 
 
 func _ready():
@@ -91,19 +86,15 @@ func _ready():
 	
 	
 func request_answer(prompt):
-	chat_log.append("You: " + prompt)
-
-	gpt3_prompt = background_info + PoolStringArray(chat_log).join("\n") + "\n Friend:"
 	
 	parameters = {
 		"model": "text-davinci-002",
-		"prompt": gpt3_prompt,
+		"prompt": prompt,
 		"temperature": 0.5,
 		"max_tokens": 40,
-		"top_p": 1.0,
 		"frequency_penalty": 0.5,
 		"presence_penalty": 0.0,
-		"stop": ["You:"]
+		"stop": ["you:"]
 		}
 		
 	$HTTPRequest.request(url, ["Content-Type: application/json", api_key_request], true, HTTPClient.METHOD_POST, JSON.print(parameters))
@@ -112,15 +103,16 @@ func request_answer(prompt):
 func _on_HTTPRequest_request_completed(result, response_code, headers, body):
 	# parse and extract answer
 	var json = parse_json(body.get_string_from_utf8())
-	print(body.get_string_from_utf8())
+	# print(body.get_string_from_utf8())
+	
+	# catch errors in the response:
 	if json.has("error"):
 		# TODO: this should appear on the screen maybe. At least if it is a problem with the 
 		# API key, such that we can inform the users if their API key has expired
 		print("There was an error with parsing the request:")
 		print(json["error"]["message"])
 	else:
-		bot_answer = json['choices'][0]['text'].strip_edges(true, true)
-		chat_log.append("Friend: " + bot_answer)
+		answer = json['choices'][0]['text'].strip_edges(true, true)
 	
 	# signal that result has been yielded
 	emit_signal("request_finished")
