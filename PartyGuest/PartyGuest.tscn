@@ -35,6 +35,3 @@ margin_left = 103.0
 margin_top = 53.0
 margin_right = 169.4
 margin_bottom = 97.2
-
-[connection signal="body_entered" from="PartyGuestArea" to="PartyGuestArea" method="_on_PartyGuestArea_body_entered"]
-[connection signal="body_exited" from="PartyGuestArea" to="PartyGuestArea" method="_on_PartyGuestArea_body_exited"]
