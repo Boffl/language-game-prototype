@@ -25,7 +25,7 @@ var background_info = "You are at a party. All your friends are there. The party
 
  # some general settings for the player and the bots
 var players = {'player':{'name': 'you', 'color': '#34c5f1'},
-				'bot':{'name': 'bot', 'color': '#f1c234'},
+				'bot':{'name': 'bot', 'color': '#840000'},
 				}
 
 
