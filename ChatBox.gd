@@ -10,6 +10,8 @@ onready var inputField = get_node("VBoxContainer/HBoxContainer/LineEdit")
 var bot 
 var username
 var color
+var prompt = ""
+var key = OS.get_environment("GPT3-KEY")
  # we can change the names later, for now this makes the colors in the chat
 var players = {'player1':{'name': 'player1', 'color': '#34c5f1'},
 				'bot1':{'name': 'bot1', 'color': '#f1c234'},
@@ -47,12 +49,31 @@ func answer(bot, text):
 	bot = get_parent().get_parent()
 	bot.do_somethin()
 	
+	
 	username = 'bot' + bot.bot_name
 	# text color, could later store this with the bot itself?
 	color = players['bot1']['color']
-
-	chatLog.bbcode_text += '\n' # new line
-	chatLog.bbcode_text += '[color=' + color + ']' + '[' + username + ']: ' + text
+	
+	prompt = chatLog.text + '\n[' +username + ']:'
+	print(prompt.c_escape())
+	
+	
+	var output = []
+	var command = 'curl -u :'+key+' '
+	command += """https:\/\/api.openai.com\/v1\/completions -H \"Content-Type: application/json\" """
+	command += """-d \"{\\\"model\\\": \\\"text-davinci-002\\\", \\\"temperature\\\": 0, \\\"max_tokens\\\": 20"""
+	command += ",\\\"prompt\\\":\\\""+prompt.c_escape()+"\\\""
+	command += "}\""
+	
+	var exit_code = OS.execute("cmd.exe", ["/C",command], true, output)
+	print(exit_code)
+	print(command)
+	print(output)
+	if exit_code == 0:
+		var output_dict = parse_json(output[0])
+		var answer = output_dict['choices'][0]['text']
+		chatLog.bbcode_text += '\n' # new line
+		chatLog.bbcode_text += '[color=' + color + ']' + '[' + username + ']: ' + answer
 
 
 
@@ -66,5 +87,9 @@ func text_entered(text):
 
 func _ready():
 	inputField.connect("text_entered", self, "text_entered")
+
+	# print(output)
+	
+
 
 

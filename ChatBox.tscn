@@ -45,3 +45,7 @@ margin_right = 1025.0
 margin_bottom = 24.0
 size_flags_horizontal = 3
 size_flags_vertical = 3
+
+[node name="HTTPRequest" type="HTTPRequest" parent="."]
+
+[connection signal="request_completed" from="HTTPRequest" to="." method="_on_HTTPRequest_request_completed"]
