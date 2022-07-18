@@ -54,20 +54,20 @@ func interacting(delta):
 		# display InteractionLabel	
 		
 		get_node("InteractionLabel").show()
-		var conversation_partner = bodies[0].get_parent()
+		var partyGuest = bodies[0].get_parent()
 		# talking to the person
 		if Input.is_action_just_pressed("ui_accept"):
 			can_move = false
-			# conversation_partner.can_move = false
+			# partyGuest.can_move = false
 			get_node("InteractionLabel").set_text("press ESC to stop talking")
 			
-			conversation_partner.start_conversation()
-			print("Player is talking to " + conversation_partner.guest_name)
+			partyGuest.start_conversation()
+			print("Player is talking to " + partyGuest.guest_name)
 		
 		# cancel chatBox
 		if Input.is_action_just_pressed("ui_cancel"):
 			can_move = true
-			conversation_partner.end_conversation()
+			partyGuest.end_conversation()
 			get_node("InteractionLabel").set_text("press SPACE to talk")
 	
 	# hide interaction label if not near any objects
