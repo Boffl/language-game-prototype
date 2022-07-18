@@ -11,6 +11,8 @@ const FRICTION = 2000
 var velocity = Vector2.ZERO
 var response = ""
 
+var can_move = true  # simple boolean, to stop movement, when talking
+
 
 # Called when the node enters the scene tree for the first time.
 func _ready():
@@ -39,7 +41,8 @@ func walking(delta):
 	else:
 		velocity = velocity.move_toward(Vector2.ZERO, FRICTION * delta)
 	
-	move_and_slide(velocity)
+	if can_move:
+		move_and_slide(velocity)
 	
 
 func interacting(delta):
@@ -54,6 +57,8 @@ func interacting(delta):
 		var conversation_partner = bodies[0].get_parent()
 		# talking to the person
 		if Input.is_action_just_pressed("ui_accept"):
+			can_move = false
+			# conversation_partner.can_move = false
 			get_node("InteractionLabel").set_text("press ESC to stop talking")
 			
 			conversation_partner.start_conversation()
@@ -61,6 +66,7 @@ func interacting(delta):
 		
 		# cancel chatBox
 		if Input.is_action_just_pressed("ui_cancel"):
+			can_move = true
 			conversation_partner.end_conversation()
 			get_node("InteractionLabel").set_text("press SPACE to talk")
 	

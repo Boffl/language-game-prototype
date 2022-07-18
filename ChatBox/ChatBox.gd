@@ -67,7 +67,7 @@ func text_entered(text):
 		# TODO: implement prompt design for party guests
 		# personality of the bot = partyGuest.personality_prompt
 		prompt = background_info + "\n"
-		prompt += "you are talking to " + username + "\n"
+		prompt += "You are talking to " + username 
 		# prompt += personality + "\n"
 		prompt += chatLog.text + "\n" 
 		prompt += username + ": "
