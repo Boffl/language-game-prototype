@@ -41,7 +41,8 @@ func _ready():
 
 
 func do_somethin():
-	print('player is talking to %s thirst: %s hunger: %s' % [bot_name, thirst, hunger])
+	pass
+	# print('player is talking to %s thirst: %s hunger: %s' % [bot_name, thirst, hunger])
 
 func init_bot():
 	var rng = RandomNumberGenerator.new()

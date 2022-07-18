@@ -10,7 +10,7 @@ func inivte_guests(num):
 		
 		bot.init_bot()
 		best_action(bot)
-		print(bot.bot_name)
+		# print(bot.bot_name)
 		# choose a random location on path2D
 		var bot_spawn_location = get_node("YSort/BotPath/BotSpawnLocation")
 		bot_spawn_location.offset = randi()
@@ -35,7 +35,7 @@ func _ready():
 
 func best_action(bot):
 	var actions = load("res://PartyGuest/Actions/all_actions.gd").new()
-	print(actions.best_action(bot))
+	# print(actions.best_action(bot))
 		# Create a timer node
 	var t = Timer.new()
 	t.set_wait_time(5.0)
