@@ -12,6 +12,7 @@ var velocity = Vector2.ZERO
 var response = ""
 
 var can_move = true  # simple boolean, to stop movement, when talking
+var is_talking = false
 
 
 # Called when the node enters the scene tree for the first time.
@@ -53,19 +54,22 @@ func interacting(delta):
 		var partyGuest = bodies[0].get_parent()
 		# talking to the person
 		if Input.is_action_just_pressed("ui_accept"):
-			can_move = false
-			partyGuest.can_move = false
-			get_node("InteractionLabel").set_text("press ESC to stop talking")
-			
-			partyGuest.start_conversation()
-			print("Player is talking to " + partyGuest.guest_name)
+			if not is_talking: # change the state only if not in state
+				is_talking = true
+				can_move = false
+				partyGuest.can_move = false
+				get_node("InteractionLabel").set_text("press ESC to stop talking")
+				
+				partyGuest.start_conversation()
+				print("Player is talking to " + partyGuest.guest_name)
 		
 		# cancel chatBox
 		if Input.is_action_just_pressed("ui_cancel"):
-			can_move = true
-			partyGuest.end_conversation()
-			get_node("InteractionLabel").set_text("press SPACE to talk")
-			partyGuest.can_move = true
+			if is_talking:
+				can_move = true
+				partyGuest.end_conversation()
+				get_node("InteractionLabel").set_text("press SPACE to talk")
+				partyGuest.can_move = true
 	
 	# hide interaction label if not near any objects
 	elif bodies.size() == 0:
