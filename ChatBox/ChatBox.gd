@@ -71,7 +71,7 @@ func text_entered(text):
 		# prompt += personality + "\n"
 		prompt += chatLog.text + "\n" 
 		prompt += username + ": "
-		print(prompt)
+		# print(prompt)
 		
 		# send prompt to api and wait for answer signal
 		request_answer(prompt)
