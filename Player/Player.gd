@@ -66,8 +66,10 @@ func interacting(delta):
 		# cancel chatBox
 		if Input.is_action_just_pressed("ui_cancel"):
 			if is_talking:
+				is_talking = false
 				can_move = true
 				partyGuest.end_conversation()
+				print("Player is no longer talking to " + partyGuest.guest_name)
 				get_node("InteractionLabel").set_text("press SPACE to talk")
 				partyGuest.can_move = true
 	
