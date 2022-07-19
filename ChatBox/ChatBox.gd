@@ -40,21 +40,18 @@ func _input(event):
 		if event.pressed and event.scancode == KEY_ESCAPE:
 			inputField.release_focus()
 
+
 func add_message(username, text, color):
-	chatLog.bbcode_text += '\n' # new line
+	chatLog.append_bbcode('\n')
 	# change the color, so the bot and the player get their own color
 	# the bbcode field is some sort of rich text format where [color=xyz]text, bla bla[/color] changes the color
 	# as of now all bots have the same text color, in the future we could change this
-	chatLog.bbcode_text += '[color=' + color + ']'  + username + ': ' 
-	chatLog.bbcode_text +=  text
-	chatLog.bbcode_text += '[/color]'
+	chatLog.append_bbcode('[color=' + color + ']'  + username + ': ' + text + '[/color]' )
 
 
 func text_entered(text):
-	
-	# don't let the user send the empty string, or the initial message...
-	if text != '' and not text.ends_with("Write your message here."):
-		
+	# don't let the user send the empty string
+	if text != '':
 		username = players['player']['name']
 		color = players['player']['color']
 		add_message(username, text, color) # add message to the chatlog
@@ -64,7 +61,7 @@ func text_entered(text):
 		username = partyGuest.guest_name
 		color = players['bot']['color']
 		
-		# TODO: implement prompt design for party guests
+		# TODO: implement prompt design for party guests > maybe in new function that can be called here?
 		# personality of the bot = partyGuest.personality_prompt
 		prompt = background_info + "\n"
 		prompt += "You are talking to " + username 
@@ -83,8 +80,9 @@ func text_entered(text):
 
 func _ready():
 	partyGuest = get_parent().get_parent().get_parent()
-	inputField.text = "You are talking to " + partyGuest.guest_name + ". Write your message here."
+	inputField.placeholder_text = "You are talking to " + partyGuest.guest_name + ". Write your message here."
 	inputField.connect("text_entered", self, "text_entered")
+	
 	# $HTTPRequest.connect("request_completed", self, "_on_HTTPRequest_request_completed")
 	
 	

@@ -1,11 +1,14 @@
 extends KinematicBody2D
 
 
+""" Preloading Sprites"""
+
+var partyguest_sprites = [preload("res://Assets/PartyGuest/PartyGuest1.png"),
+							preload("res://Assets/PartyGuest/PartyGuest2.png"),
+							preload("res://Assets/PartyGuest/PartyGuest3.png")]
+							
 
 
-
-
-# Declare member variables here. Examples:
 
 # Values are filled individually in in the initialization
 onready var chatBox = get_node("PartyGuestArea/CanvasLayer/ChatBox")
@@ -17,6 +20,15 @@ var past_conversations = []
 # movement is not yet implemented, but just to be consistent with the Player script
 var can_move = true 
 
+var velocity
+var reaction_time = 100
+var max_speed = 20
+
+var path =  []
+var target_coordinates = ''
+var target_object = "box"
+
+onready var LinePath = Line2D.new()
 
 var guest_name # using just 'name' is not good, since it already an attribute in the namespace of the parent class
 var present # True
@@ -42,6 +54,65 @@ var like_other_agent # {} #TODO
 
 func _ready():
 	get_node("PartyGuestArea/CanvasLayer").remove_child(chatBox)
+	
+	# pick a random texture for the PartyGuest
+	get_node("Sprite").set_texture(partyguest_sprites[randi() % len(partyguest_sprites)])
+	
+	# spawn in path for PartyGuest
+	get_parent().get_parent().add_child(LinePath)
+	LinePath.set_default_color(Color(1, 0.5, 0.5, 0.7))
+	LinePath.set_width(5)
+	
+
+func _physics_process(_delta):
+	
+	# MOVEMENT
+	if can_move and target_object != "":
+		target_coordinates = get_parent().get_node("Furniture/TestBeacon").position
+		move_to(_delta, target_coordinates)
+	
+	
+	# UPDATING STATS
+	hunger += 0.00001
+	thirst += 0.00001
+	intoxication -= 0.00001
+	tiredness += 0.000001
+
+
+func set_path(target_object):
+	pass
+
+
+func move_to(delta, target_coordinates):
+	""" Pathfinding + Movement for the PartyGuests """
+	
+	# not finished yet :0
+	path = get_parent().get_parent().get_node("Navigation2D").get_simple_path(self.position, target_coordinates)
+	LinePath.points = path
+	
+
+	var distance_to_walk = max_speed * delta
+	# Move the player along the path until he has run out of movement or the path ends.
+	
+	while distance_to_walk > 0 and path.size() > 0:
+		var distance_to_next_point = position.distance_to(path[0])
+		if distance_to_walk <= distance_to_next_point:
+			# The player does not have enough movement left to get to the next point.
+			position += position.direction_to(path[0]) * distance_to_walk
+		else:
+			# The player get to the next point
+			position = path[0]
+			path.remove(0)
+		# Update the distance to walk
+		distance_to_walk -= distance_to_next_point
+		
+
+	
+	#velocity = target_coordinates - self.position
+	#move_and_slide(velocity * delta * max_speed)
+
+
+
 
 
 func do_somethin():
@@ -78,15 +149,11 @@ func init_bot():
 	aggression = rng.randf_range(0,1)
 	like_other_agent # {} #TODO
 
-func _physics_process(_delta):
-	hunger += 0.00001
-	thirst += 0.00001
-	intoxication -= 0.00001
-	tiredness += 0.000001
 
 
 func start_conversation():
 	get_node("PartyGuestArea/CanvasLayer").add_child(chatBox)
+	get_node("PartyGuestArea/CanvasLayer/ChatBox/VBoxContainer/HBoxContainer/LineEdit").grab_focus() # makes it possible to start typing immediately
 
 	
 func end_conversation():
