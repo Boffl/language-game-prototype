@@ -22,11 +22,16 @@ var can_move = true
 
 var velocity
 var reaction_time = 100
-var max_speed = 20
+var max_speed = rand_range(20, 30)
 
 var path =  []
 var target_coordinates = ''
-var target_object = "box"
+var target_object = "TestBeacon"
+var timer_activity
+var timer_doing_activity
+var activity_message = ""
+
+var possible_targets = ["Toilet", "WaterTable", "TestBeacon", "TestBeacon2", "WaterTable2"]
 
 onready var LinePath = Line2D.new()
 
@@ -63,13 +68,29 @@ func _ready():
 	LinePath.set_default_color(Color(1, 0.5, 0.5, 0.7))
 	LinePath.set_width(5)
 	
+	timer_activity = Timer.new()
+	timer_activity.set_wait_time(rand_range(5, 10))
+	timer_activity.set_one_shot(false)
+	timer_activity.connect("timeout", self, "_on_timer_repetition")
+	self.add_child(timer_activity)
+	timer_activity.start()
+	
+	get_node("PartyGuestStats").set_text("")
+	
+	
 
 func _physics_process(_delta):
 	
+	# PICKS NEW TARGET EVERY 5-10 seconds
 	# MOVEMENT
 	if can_move and target_object != "":
-		target_coordinates = get_parent().get_node("Furniture/TestBeacon").position
+		target_coordinates = get_parent().get_node("Furniture/" + target_object).position
 		move_to(_delta, target_coordinates)
+	
+	if get_node("PartyGuestArea").get_overlapping_areas().size() == 0:
+		get_node("PartyGuestStats").set_text("")
+	
+
 	
 	
 	# UPDATING STATS
@@ -77,6 +98,29 @@ func _physics_process(_delta):
 	thirst += 0.00001
 	intoxication -= 0.00001
 	tiredness += 0.000001
+
+""" Everything for Interacting with Objects """
+
+func _on_PartyGuestArea_area_entered(area):
+	var interaction_object = area.get_parent()
+	if interaction_object.is_in_group('toilets'):
+		start_activity("going to the toilet.")
+	elif interaction_object.is_in_group('watertables'):
+		start_activity("having a drink.")
+
+
+func _on_timer_repetition():
+	target_object = possible_targets[randi() % len(possible_targets)]
+
+
+
+func start_activity(message):
+	get_node("PartyGuestStats").set_text(guest_name + " is " + message)
+	print("Done")
+
+	
+	
+	
 
 
 func set_path(target_object):
@@ -86,6 +130,7 @@ func set_path(target_object):
 func move_to(delta, target_coordinates):
 	""" Pathfinding + Movement for the PartyGuests """
 	
+
 	# not finished yet :0
 	path = get_parent().get_parent().get_node("Navigation2D").get_simple_path(self.position, target_coordinates)
 	LinePath.points = path
@@ -106,10 +151,11 @@ func move_to(delta, target_coordinates):
 		# Update the distance to walk
 		distance_to_walk -= distance_to_next_point
 		
-
 	
 	#velocity = target_coordinates - self.position
 	#move_and_slide(velocity * delta * max_speed)
+
+
 
 
 
@@ -162,5 +208,6 @@ func end_conversation():
 	# calculate sentiment of conversation or something
 	
 	get_node("PartyGuestArea/CanvasLayer").remove_child(chatBox)
+
 
 
