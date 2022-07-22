@@ -3,7 +3,7 @@
 [ext_resource path="res://Assets/Furniture/WaterTable.png" type="Texture" id=1]
 
 [sub_resource type="CapsuleShape2D" id=1]
-radius = 16.0
+radius = 11.6666
 
 [node name="WaterTable" type="StaticBody2D" groups=["watertables"]]
 
