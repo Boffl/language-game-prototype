@@ -111,6 +111,7 @@ script = ExtResource( 11 )
 [node name="Rooms" type="StaticBody2D" parent="."]
 
 [node name="CollisionPolygon2D" type="CollisionPolygon2D" parent="Rooms"]
+visible = false
 polygon = PoolVector2Array( 0, 384, 392, 384, 640, 384, 608, 272, 512, 320, 448, 288, 352, 336, 224, 272, 160, 304, 32, 240, 128, 192, 32, 144, 0, 128, 160, 48, 96, 16, 256, -64, 448, 32, 512, 0, 704, 96, 480, 208, 608, 272, 640, 384, 832, 384, 832, 72, 832, -128, 0, -128 )
 
 [node name="Floor" type="TileMap" parent="Rooms"]
@@ -229,6 +230,7 @@ position = Vector2( 192, 112 )
 rotation = -0.482513
 
 [node name="Navigation2D" type="Navigation2D" parent="."]
+visible = false
 
 [node name="PartyGuestMovement" type="NavigationPolygonInstance" parent="Navigation2D"]
 position = Vector2( -8, 0 )
@@ -237,11 +239,18 @@ navpoly = SubResource( 7 )
 [node name="Camera" type="Camera2D" parent="."]
 position = Vector2( 416, 128 )
 current = true
+limit_left = 0
+limit_top = -110
+limit_right = 710
+limit_bottom = 350
 
-[node name="StatsLabel" type="Label" parent="Camera"]
-margin_left = -304.0
-margin_top = -168.0
-margin_right = -178.0
-margin_bottom = -133.0
+[node name="UI" type="CanvasLayer" parent="."]
+
+[node name="StatsLabel" type="Label" parent="UI"]
+margin_left = 9.0
+margin_top = 2.0
+margin_right = 135.0
+margin_bottom = 29.0
+custom_colors/font_color = Color( 0, 0, 0, 1 )
 custom_fonts/font = SubResource( 5 )
 text = "stats"

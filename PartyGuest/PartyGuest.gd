@@ -8,7 +8,12 @@ var partyguest_sprites = [preload("res://Assets/PartyGuest/PartyGuest1.png"),
 							preload("res://Assets/PartyGuest/PartyGuest3.png")]
 							
 
+var all_actions = load("res://PartyGuest/Actions/all_actions.gd").new()
 
+# best action gets stored until either executed or abandoned
+var best_action
+
+var bot_name = "default"
 
 # Values are filled individually in in the initialization
 onready var chatBox = get_node("PartyGuestArea/CanvasLayer/ChatBox")
@@ -129,11 +134,13 @@ func start_activity(interaction_object):
 	# WaterTable
 	if interaction_object.is_in_group("watertables"):
 		message = "having a drink."
+		best_action.effect(self)
 		
 	
 	# Toilet
 	if interaction_object.is_in_group("toilets"):
 		message = "going to the toilet."
+		best_action.effect(self)
 		
 	
 	get_node("PartyGuestStats").set_text(guest_name + " is " + message)
@@ -142,7 +149,20 @@ func start_activity(interaction_object):
 
 
 func _on_timer_repetition():
-	target_object = possible_target_groups[randi() % len(possible_target_groups)]
+	
+	best_action = all_actions.best_action(self)
+	
+	if best_action.action_name == "drink water" or "drink alcohol":
+		target_object = 'watertables'
+	elif best_action.action_name == "vomit":
+		target_object = 'toilets'
+	else:
+		target_object = "none"
+	
+	
+	#target_object = possible_target_groups[randi() % len(possible_target_groups)]
+	
+	
 
 
 func coordinates_of_target(group_name):

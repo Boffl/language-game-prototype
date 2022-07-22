@@ -7,6 +7,8 @@ onready var inputField = get_node("VBoxContainer/HBoxContainer/LineEdit")
 # onready var bot = get_node("../../../partyGuest")
 
 
+var bot_name = "default"
+
 var partyGuest
 var username
 var color
@@ -90,7 +92,7 @@ func _ready():
 func request_answer(prompt):
 	
 	parameters = {
-		"model": "text-davinci-002",
+		"model": "text-ada-001",
 		"prompt": prompt,
 		"temperature": 0.5,
 		"max_tokens": 40,
