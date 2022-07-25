@@ -13,8 +13,8 @@ func heuristic(guest):
 	
 
 func effect(guest):
-	print(guest.thirst)
+	#print(guest.thirst)
 	guest.thirst -= 0.5
 	guest.intoxication -= 0.5
 	guest.have_water -= 1
-	print(guest.thirst)
+	#print(guest.thirst)

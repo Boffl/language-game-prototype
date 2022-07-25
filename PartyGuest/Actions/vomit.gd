@@ -10,5 +10,5 @@ func heuristic(guest):
 	return 10
 	
 func effect(guest):
-	print("%s left because they vomited" %guest.bot_name)
+	print("%s left because they vomited" %guest.guest_name)
 	guest.present = false

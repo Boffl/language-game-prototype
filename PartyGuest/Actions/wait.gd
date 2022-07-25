@@ -2,13 +2,17 @@ class_name wait
  
 extends Node2D
 
+var action_name = "wait"
+
 func prerequisite(guest):
-	print("thirst %s" %guest.thirst)
+	return true
 	
 	
-func heuristic():
-	pass
+func heuristic(guest):
+	return 0
 	
 
-func effect():
-	pass
+func effect(guest):
+	#print("agent is waiting")
+	guest.bored += 0.1
+	
