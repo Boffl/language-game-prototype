@@ -7,6 +7,7 @@ radius = 16.0
 height = 16.0
 
 [sub_resource type="CapsuleShape2D" id=2]
+radius = 5.33333
 height = 6.66667
 
 [node name="Toilet" type="StaticBody2D" groups=["toilets"]]

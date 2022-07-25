@@ -30,7 +30,13 @@ func _ready():
 	bots[0].do_somethin()
 	
 	# set nr of guests
-	get_node("Camera/StatsLabel").set_text("NR OF GUESTS: " + str(5))
+	get_node("UI/StatsLabel").set_text("NR OF GUESTS: " + str(get_tree().get_nodes_in_group("bots").size()))
+	
+	
+func _physics_process(delta):
+	
+	# UPDATE STATS
+	get_node("UI/StatsLabel").set_text("NR OF GUESTS: " + str(get_tree().get_nodes_in_group("bots").size()))
 	
 
 func best_action(bot):
