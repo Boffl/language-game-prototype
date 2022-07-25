@@ -3,6 +3,7 @@ class_name eat
 extends Node2D
 
 var action_name = "eat"
+var wait_time = 3
 
 func prerequisite(guest):
 	return guest.have_food > 0

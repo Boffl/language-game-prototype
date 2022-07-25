@@ -3,6 +3,7 @@ class_name dance
 extends Node2D
 
 var action_name = "dance"
+var wait_time = 10
 
 func prerequisite(partyGuest):
 	#print("thirst %s" %partyGuest.thirst)
@@ -15,3 +16,4 @@ func heuristic(partyGuest):
 func effect(partyGuest):
 	partyGuest.bored -= 0.1
 	partyGuest.tiredness += 0.02
+	return wait_time

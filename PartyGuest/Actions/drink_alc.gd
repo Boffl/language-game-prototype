@@ -3,6 +3,7 @@ class_name drink_alc
 extends Node2D
 
 var action_name = "drink alcohol"
+var wait_time = 4
 
 func prerequisite(guest):
 	return guest.have_alcohol > 0
@@ -19,3 +20,4 @@ func effect(guest):
 	guest.tiredness -= 0.01
 	guest.thirst += 0.01
 	#print("intoxication after eating %s" %guest.intoxication)
+	return wait_time

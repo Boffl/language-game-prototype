@@ -2,14 +2,20 @@ extends Node2D
 
 var party_guest = preload("res://PartyGuest/PartyGuest.tscn")
 var bots
+var prompt_init = load("res://PartyGuest/prompt_design.gd").new()
+var best_a
+var time_out
 
 func inivte_guests(num):
-	
+
 	for n in num:
 		var bot = party_guest.instance()
 		
 		bot.init_bot()
 		best_action(bot)
+		prompt_init.prompt_init(bot)
+		print(bot.prompt)
+		
 		# print(bot.bot_name)
 		# choose a random location on path2D
 		var bot_spawn_location = get_node("YSort/BotPath/BotSpawnLocation")
@@ -41,10 +47,11 @@ func _physics_process(delta):
 
 func best_action(bot):
 	var actions = load("res://PartyGuest/Actions/all_actions.gd").new()
-	# print(actions.best_action(bot))
+	best_a = actions.best_action(bot)
 		# Create a timer node
+	time_out = best_a.effect(bot)
 	var t = Timer.new()
-	t.set_wait_time(5.0)
+	t.set_wait_time(time_out)
 	t.set_one_shot(true)
 	self.add_child(t)
 	t.start()
