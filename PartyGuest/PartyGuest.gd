@@ -56,9 +56,12 @@ var age # random.randint(18, 40)
 var like_to_play # random.uniform(0, 1)
 var like_to_drink # random.uniform(0, 1.2)
 var aggression # random.uniform(0, 1)
-var like_other_agent # {} #TODO
+var like_other_guest # {} #TODO
 # _init with arguments is not allowed here, see:
 # https://github.com/godotengine/godot/issues/15866
+var past_actions
+var like_to_dance
+var prompt
 
 
 func _ready():
@@ -229,10 +232,11 @@ func do_somethin():
 	# print('player is talking to %s thirst: %s hunger: %s' % [bot_name, thirst, hunger])
 
 func init_bot():
+	"""intialize the guests attributes"""
 	var rng = RandomNumberGenerator.new()
 	rng.randomize()
 
-	#name
+	#name randomly chosen from a name list
 	var file = File.new()
 	file.open("res://data/names.res", File.READ)
 	var names = str2var(file.get_as_text())
@@ -240,6 +244,8 @@ func init_bot():
 	var index = rng.randi_range(0, len(names) - 1)
 	guest_name = names[index]
 	
+	
+	#initialize variables that are same for all the guests
 	present = true
 	thirst = 0
 	hunger = 0
@@ -249,14 +255,24 @@ func init_bot():
 	have_alcohol = 100
 	have_water = 100
 	have_food = 100
-	location = 0
-			# this is changed after the apartment is initialized
+	location = 0# this is changed after the apartment is initialized
+	past_actions = []
+	
+	#initialize variables that are different for all characters
 	sociability = rng.randf_range(0,1)
 	age = rng.randi_range(18, 40)
 	like_to_play = rng.randf_range(0,1)
 	like_to_drink = rng.randf_range(0,1.2)
 	aggression = rng.randf_range(0,1)
-	like_other_agent # {} #TODO
+	like_other_guest # {} #TODO
+	like_to_dance = rng.randf_range(0,1)
+	
+func like_other_bots(bots):
+	var rng = RandomNumberGenerator.new()
+	rng.randomize()
+	for other_bot in bots:
+		like_other_guest[other_bot] = rng.randf_range(0,1)
+
 
 
 
