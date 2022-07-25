@@ -155,7 +155,7 @@ func _on_timer_repetition():
 	
 	best_action = all_actions.best_action(self)
 	
-	if best_action.action_name == "drink water" or "drink alcohol":
+	if best_action.action_name == "drink water" or best_action.action_name == "drink alcohol":
 		target_object = 'watertables'
 	elif best_action.action_name == "vomit":
 		target_object = 'toilets'
@@ -273,6 +273,26 @@ func like_other_bots(bots):
 	for other_bot in bots:
 		like_other_guest[other_bot] = rng.randf_range(0,1)
 
-
-
+func transfer_attributes(other_guest):
+	present = true
+	thirst = other_guest.thirst
+	hunger = other_guest.hunger
+	intoxication = other_guest.intoxication
+	tiredness = other_guest.tiredness
+	bored = other_guest.bored
+	have_alcohol = other_guest.have_alcohol
+	have_water = other_guest.have_water
+	have_food = other_guest.have_food
+	location = other_guest.location
+	past_actions = other_guest.past_actions
+	
+	#initialize variables that are different for all characters
+	sociability = other_guest.sociability
+	age = other_guest.age
+	like_to_play = other_guest.like_to_play
+	like_to_drink = other_guest.like_to_drink
+	aggression = other_guest.aggression
+	like_other_guest = other_guest.like_other_guest
+	like_to_dance = other_guest.like_to_dance
+	
 
