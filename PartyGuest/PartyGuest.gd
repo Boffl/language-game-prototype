@@ -274,6 +274,8 @@ func like_other_bots(bots):
 		like_other_guest[other_bot] = rng.randf_range(0,1)
 
 func transfer_attributes(other_guest):
+	"""Transfer all the attributes from a guest to another guest.
+	this is usefull for simulation"""
 	present = true
 	thirst = other_guest.thirst
 	hunger = other_guest.hunger

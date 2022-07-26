@@ -14,7 +14,7 @@ func inivte_guests(num):
 		bot.init_bot()
 		best_action(bot)
 		prompt_init.prompt_init(bot)
-		print(bot.prompt)
+		#print(bot.prompt)
 		
 		# print(bot.bot_name)
 		# choose a random location on path2D
