@@ -40,11 +40,6 @@ _global_script_classes=[ {
 "path": "res://PartyGuest/Actions/leave.gd"
 }, {
 "base": "Node2D",
-"class": "move",
-"language": "GDScript",
-"path": "res://PartyGuest/Actions/move.gd"
-}, {
-"base": "Node2D",
 "class": "pee",
 "language": "GDScript",
 "path": "res://PartyGuest/Actions/pee.gd"
@@ -76,7 +71,6 @@ _global_script_class_icons={
 "eat": "",
 "fight": "",
 "leave": "",
-"move": "",
 "pee": "",
 "play_game": "",
 "talk": "",

@@ -7,6 +7,7 @@ onready var inputField = get_node("VBoxContainer/HBoxContainer/LineEdit")
 # onready var bot = get_node("../../../partyGuest")
 
 
+
 var bot_name = "default"
 
 var partyGuest
@@ -14,6 +15,7 @@ var username
 var color
 var answer
 var prompt
+var player_name = "Nikolaj"
 
 
 signal request_finished
@@ -23,10 +25,10 @@ var gpt3_key = OS.get_environment("API_KEY")
 var api_key_request = "Authorization: Bearer " + gpt3_key
 var parameters 
 var gpt3_prompt
-var background_info = "You are at a party. All your friends are there. The party is in your apartment and you're the host. \n"
+#var background_info = "You are at a party. All your friends are there. The party is in your apartment and you're the host. \n"
 
  # some general settings for the player and the bots
-var players = {'player':{'name': 'you', 'color': '#34c5f1'},
+var players = {'player':{'name': player_name, 'color': '#34c5f1'},
 				'bot':{'name': 'bot', 'color': '#840000'},
 				}
 
@@ -48,10 +50,11 @@ func add_message(username, text, color):
 	# change the color, so the bot and the player get their own color
 	# the bbcode field is some sort of rich text format where [color=xyz]text, bla bla[/color] changes the color
 	# as of now all bots have the same text color, in the future we could change this
-	chatLog.append_bbcode('[color=' + color + ']'  + username + ': ' + text + '[/color]' )
+	chatLog.append_bbcode('[color=' + color + ']'  + username + ': \"' + text + '\"' + '[/color]' )
 
 
 func text_entered(text):
+	var background_info = prompt_init(partyGuest)
 	# don't let the user send the empty string
 	if text != '':
 		username = players['player']['name']
@@ -59,22 +62,26 @@ func text_entered(text):
 		add_message(username, text, color) # add message to the chatlog
 		inputField.text = ''  # clear input field
 		
-		# from her on the username and color correspond to the partyGuest
+		# from here on the username and color correspond to the partyGuest
 		username = partyGuest.guest_name
 		color = players['bot']['color']
 		
 		# TODO: implement prompt design for party guests > maybe in new function that can be called here?
 		# personality of the bot = partyGuest.personality_prompt
 		prompt = background_info + "\n"
-		prompt += "You are talking to " + username 
-		# prompt += personality + "\n"
-		prompt += chatLog.text + "\n" 
-		prompt += username + ": "
+		prompt += "The host went over to %s. \n" %partyGuest.guest_name
+		prompt += chatLog.text + "\"\n" 
+		prompt += username + ": \""
+
+
+		print(prompt)
+		
 		# print(prompt)
 		
 		# send prompt to api and wait for answer signal
 		request_answer(prompt)
 		yield(self, "request_finished")
+		print("answer: ", answer)
 		
 		# add answer to the chat
 		add_message(username, answer, color)
@@ -92,13 +99,13 @@ func _ready():
 func request_answer(prompt):
 	
 	parameters = {
-		"model": "text-ada-001",
+		"model": "text-davinci-002",
 		"prompt": prompt,
 		"temperature": 0.5,
 		"max_tokens": 40,
-		"frequency_penalty": 0.5,
+		"frequency_penalty": 1,
 		"presence_penalty": 0.0,
-		"stop": ["you:"]
+		"stop": ["\""]
 		}
 		
 	$HTTPRequest.request(url, ["Content-Type: application/json", api_key_request], true, HTTPClient.METHOD_POST, JSON.print(parameters))
@@ -121,5 +128,22 @@ func _on_HTTPRequest_request_completed(result, response_code, headers, body):
 	# signal that result has been yielded
 	emit_signal("request_finished")
 	
+func prompt_init(PartyGuest):
+	var file = File.new()
+	file.open("res://data/adjectives.res", File.READ)
+	var adjectives = str2var(file.get_as_text())
+	file.close()
+	#print("sociability", adjectives["sociability"])
+	prompt = "%s was at a party with some friends. The party was hosted by %s. "  %[PartyGuest.guest_name, player_name] 
+	prompt += "%s was a %s person. " %[PartyGuest.guest_name, map_to_index(adjectives["sociability"], partyGuest.sociability)]
+	prompt += "Most people said that %s was %s, and usually %s." % [PartyGuest.guest_name, map_to_index(adjectives["character"], partyGuest.character), map_to_index(adjectives["aggression"], partyGuest.aggression)]
+	PartyGuest.prompt = prompt
+	return prompt
 	
+func update_prompt():
+	pass
+	
+func map_to_index(list, _float):
+	return list[int(len(list) * _float)]
 
+	

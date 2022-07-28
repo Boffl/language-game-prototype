@@ -3,6 +3,7 @@ class_name talk
 extends Node2D
 
 var action_name = "talk"
+var wait_time = 11
 
 func prerequisite(guest):
 	return guest.have_food > 0
@@ -17,3 +18,4 @@ func effect(guest):
 	guest.bored -= 0.5
 
 	#print("%s boredom after talking:  %s" %[guest.bot_name, guest.bored])
+	return wait_time

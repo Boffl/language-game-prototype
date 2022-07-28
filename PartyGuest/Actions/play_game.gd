@@ -1,6 +1,7 @@
 class_name play_game
  
 extends Node2D
+var wait_time = 15
 
 func prerequisite(guest):
 	print("thirst %s" %guest.thirst)
@@ -12,3 +13,4 @@ func heuristic():
 
 func effect():
 	pass
+	return wait_time

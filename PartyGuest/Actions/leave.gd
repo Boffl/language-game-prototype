@@ -3,7 +3,7 @@ class_name leave
 extends Node2D
 
 var action_name = "leave"
-var wait_time = 3
+var wait_time = 1
 
 func prerequisite(guest):
 	return true

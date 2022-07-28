@@ -57,11 +57,13 @@ var like_to_play # random.uniform(0, 1)
 var like_to_drink # random.uniform(0, 1.2)
 var aggression # random.uniform(0, 1)
 var like_other_guest # {} #TODO
+var character
 # _init with arguments is not allowed here, see:
 # https://github.com/godotengine/godot/issues/15866
 var past_actions
 var like_to_dance
 var prompt
+var need_to_pee
 
 
 func _ready():
@@ -109,6 +111,7 @@ func _physics_process(_delta):
 	thirst += 0.00001
 	intoxication -= 0.00001
 	tiredness += 0.000001
+	need_to_pee += 0.00001
 
 
 
@@ -249,6 +252,7 @@ func init_bot():
 	present = true
 	thirst = 0
 	hunger = 0
+	need_to_pee = 0
 	intoxication = 0
 	tiredness = 0
 	bored = 0
@@ -266,6 +270,7 @@ func init_bot():
 	aggression = rng.randf_range(0,1)
 	like_other_guest # {} #TODO
 	like_to_dance = rng.randf_range(0,1)
+	character = rng.randf_range(0,1)
 	
 func like_other_bots(bots):
 	var rng = RandomNumberGenerator.new()
