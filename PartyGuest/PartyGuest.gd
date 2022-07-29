@@ -137,12 +137,15 @@ func start_activity(interaction_object):
 	
 	var message = ""
 	
+	# Exit: Leave the Party
+	if interaction_object.is_in_group("exits"):
+		self.queue_free()
+	
 	# WaterTable
 	if interaction_object.is_in_group("watertables"):
 		message = "having a drink."
 		best_action.effect(self)
 		
-	
 	# Toilet
 	if interaction_object.is_in_group("toilets"):
 		message = "going to the toilet."

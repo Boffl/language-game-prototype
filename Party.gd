@@ -31,7 +31,7 @@ func inivte_guests(num):
 
 func _ready():
 	randomize()
-	inivte_guests(5)
+	inivte_guests(GlobalSettings.nr_of_guests)
 	bots = get_tree().get_nodes_in_group("bots")
 	bots[0].do_somethin()
 	
