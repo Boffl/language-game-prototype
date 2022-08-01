@@ -6,11 +6,11 @@ var action_name = "talk"
 var wait_time = 11
 
 func prerequisite(guest):
-	return guest.have_food > 0
+	return true
 	
 	
 func heuristic(guest, other_guest):
-	return guest.sociability + guest.like_other_agent[other_guest]
+	return (guest.sociability + guest.like_other_guest[other_guest]) * 0.5
 	
 
 func effect(guest):

@@ -45,6 +45,7 @@ func best_act(guest, depth=1):#iterative deepening must be implemented
 		if guest_dict[key][0] > best_r:
 			best_a = key.split(",")[0]
 			best_r = guest_dict[key][0]
+	print(str_action_dict[best_a])
 	return str_action_dict[best_a]
 		#add rewards
 		#copy guest
@@ -53,10 +54,12 @@ func best_act(guest, depth=1):#iterative deepening must be implemented
 	
 	
 func talk_to_all(guest):
-	for other_guest in guest.like_other_agent:
+	#print(guest.like_other_guest)
+	for other_guest in guest.like_other_guest:
 		if talk.heuristic(guest, other_guest) > best_r:
 			best_r = talk.heuristic(guest, other_guest)
 			best_a = talk
+			#print("hi")
 			
 
 
@@ -72,13 +75,10 @@ func best_action(guest):
 			if reward > best_r:
 				best_r = reward
 				best_a = action 
-	new_guest = guest.duplicate()
-	#best_a.effect(guest_1)
-	#print(new_guest.guest_name, guest.guest_name)
+	talk_to_all(guest)
 	guest.past_actions.append(best_a)
-	#print(best_a.action_name)
-	var copy_guest = guest
-	#copy_guest.guest_name = "bla"
-	#print(copy_guest.guest_name, guest.guest_name)
-	#print(guest.guest_name, "\t", best_a.action_name)
+
+	best_a.effect(guest)
+	print(guest.guest_name, "\t", best_a.action_name)
+
 	return best_a

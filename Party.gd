@@ -33,6 +33,9 @@ func inivte_guests(num):
 		bot.add_to_group('bots')
 		
 		get_node("YSort").add_child(bot)
+		
+	for g in get_tree().get_nodes_in_group("bots"):
+		g.like_other_bots(get_tree().get_nodes_in_group("bots"))
 
 
 func _ready():
@@ -50,7 +53,7 @@ func _physics_process(delta):
 	# update time
 	second += int(floor(delta * time_speed))
 	minute = second / 60 % 60
-	hour = second / 360 % 24
+	hour = second / 3600
 	
 	# show time
 	get_node("UI/StatsLabel").set_text(str(hour) + ":" + str(minute))
