@@ -7,16 +7,16 @@ var dance = load("res://PartyGuest/Actions/dance.gd").new()
 var leave = load("res://PartyGuest/Actions/leave.gd").new()
 var vomit = load("res://PartyGuest/Actions/vomit.gd").new()
 var talk = load("res://PartyGuest/Actions/talk.gd").new()
+var pee = load("res://PartyGuest/Actions/pee.gd").new()
 
-
-var actions = [drink_water, drink_alc, eat, dance, leave, vomit]#, drink_alc, eat, dance, leave]
+var actions = [drink_water, drink_alc, eat, dance, leave, vomit, pee]#, drink_alc, eat, dance, leave]
 var best_r 
 var best_a 
 var reward
 var new_guest 
 var guest_dict
 var action_dict
-	
+var dim_return
 var str_action_dict
 
 
@@ -56,10 +56,11 @@ func best_act(guest, depth=1):#iterative deepening must be implemented
 func talk_to_all(guest):
 	#print(guest.like_other_guest)
 	for other_guest in guest.like_other_guest:
-		if talk.heuristic(guest, other_guest) > best_r:
-			best_r = talk.heuristic(guest, other_guest)
+		reward = talk.heuristic(guest, other_guest) * ((20 - guest.past_actions.slice(0,20).count(talk)) / 20) #diminishing return, the more a guest performs an action the less fun it is
+		if reward > best_r:
+			best_r = reward
 			best_a = talk
-			#print("hi")
+
 			
 
 
@@ -70,15 +71,17 @@ func best_action(guest):
 	for action in actions:
 		#print("%s %s" %[action.action_name, action.heuristic(guest)])
 		if action.prerequisite(guest):
-			reward = action.heuristic(guest) * ((10 - guest.past_actions.slice(0,10).count(best_a)) / 10) #diminishing return, the more a guest performs an action the less fun it is
+			dim_return = (20 - guest.past_actions.slice(0,20).count(action.action_name))/float(20)
+			print(dim_return)
+			reward = action.heuristic(guest) * dim_return #diminishing return, the more a guest performs an action the less fun it is
 			#print(stepify(action_heuristic,0.01),"\t", action.action_name)
 			if reward > best_r:
 				best_r = reward
 				best_a = action 
-	talk_to_all(guest)
-	guest.past_actions.append(best_a)
+	#talk_to_all(guest)
+	guest.past_actions.append(best_a.action_name)
 
 	best_a.effect(guest)
-	print(guest.guest_name, "\t", best_a.action_name)
+	print(guest.guest_name, "\t", guest.past_actions.slice(0,20))
 
 	return best_a

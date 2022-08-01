@@ -10,7 +10,7 @@ func prerequisite(guest):
 	
 	
 func heuristic(guest):
-	return guest.like_to_drink - guest.intoxication
+	return guest.like_to_drink - guest.intoxication 
 	
 
 func effect(guest):
@@ -19,5 +19,6 @@ func effect(guest):
 	guest.intoxication += 0.1
 	guest.tiredness -= 0.01
 	guest.thirst += 0.01
+	guest.need_to_pee += 0.001
 	#print("intoxication after eating %s" %guest.intoxication)
 	return wait_time
