@@ -1,8 +1,14 @@
 extends Node2D
 
+# Time Variables
+export (int) var second = 16 * 360
+export (int) var minute = 0
+export (int) var hour = 0
+var time_speed = 70
+
+
 var party_guest = preload("res://PartyGuest/PartyGuest.tscn")
 var bots
-var prompt_init = load("res://PartyGuest/prompt_design.gd").new()
 var best_a
 var time_out
 
@@ -13,7 +19,7 @@ func inivte_guests(num):
 		
 		bot.init_bot()
 		best_action(bot)
-		prompt_init.prompt_init(bot)
+		#prompt_init.prompt_init(bot)
 		#print(bot.prompt)
 		
 		# print(bot.bot_name)
@@ -27,7 +33,7 @@ func inivte_guests(num):
 		bot.add_to_group('bots')
 		
 		get_node("YSort").add_child(bot)
-	
+
 
 func _ready():
 	randomize()
@@ -41,9 +47,19 @@ func _ready():
 	
 func _physics_process(delta):
 	
-	# UPDATE STATS
-	get_node("UI/StatsLabel").set_text("NR OF GUESTS: " + str(get_tree().get_nodes_in_group("bots").size()))
+	# update time
+	second += int(floor(delta * time_speed))
+	minute = second / 60 % 60
+	hour = second / 360 % 24
 	
+	# show time
+	get_node("UI/StatsLabel").set_text(str(hour) + ":" + str(minute))
+	
+
+
+func time_system():
+	pass
+
 
 func best_action(bot):
 	var actions = load("res://PartyGuest/Actions/all_actions.gd").new()
