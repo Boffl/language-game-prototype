@@ -38,6 +38,7 @@ var path =  [] # path that PartyGuest follows is stored here
 var possible_target_groups = ["watertables", "toilets", "false_group"] # group names of the furniture items
 
 onready var LinePath = Line2D.new() # used for pathfinding
+var host_name = "Nikolaj"
 
 var guest_name # using just 'name' is not good, since it already an attribute in the namespace of the parent class
 var present # True
@@ -62,8 +63,9 @@ var character
 # https://github.com/godotengine/godot/issues/15866
 var past_actions
 var like_to_dance
-var prompt
+var prompt = ""
 var need_to_pee
+var general_discomfort
 
 
 func _ready():
@@ -84,7 +86,7 @@ func _ready():
 	
 	# timer for switching targets
 	timer_activity = Timer.new()
-	timer_activity.set_wait_time(rand_range(5, 10))
+	timer_activity.set_wait_time(rand_range(10, 20))
 	timer_activity.set_one_shot(false)
 	timer_activity.connect("timeout", self, "_on_timer_repetition")
 	self.add_child(timer_activity)
@@ -92,6 +94,9 @@ func _ready():
 	
 	# empty the stats display text
 	get_node("PartyGuestStats").set_text("")
+	
+	#initialize prompt
+	prompt_init()
 	
 	
 
@@ -107,8 +112,8 @@ func _physics_process(_delta):
 	
 
 	# UPDATING STATS
-	hunger += 0.00001
-	thirst += 0.00001
+	hunger += 0.000001
+	thirst += 0.000001
 	intoxication -= 0.00001
 	tiredness += 0.000001
 	need_to_pee += 0.00001
@@ -271,7 +276,7 @@ func init_bot():
 	like_to_play = rng.randf_range(0,1)
 	like_to_drink = rng.randf_range(0,1.2)
 	aggression = rng.randf_range(0,1)
-	like_other_guest # {} #TODO
+	like_other_guest = {} 
 	like_to_dance = rng.randf_range(0,1)
 	character = rng.randf_range(0,1)
 	
@@ -305,4 +310,43 @@ func transfer_attributes(other_guest):
 	like_other_guest = other_guest.like_other_guest
 	like_to_dance = other_guest.like_to_dance
 	
+	
+func prompt_init():
+	var file = File.new()
+	file.open("res://data/adjectives.res", File.READ)
+	var adjectives = str2var(file.get_as_text())
+	file.close()
+	#print("sociability", adjectives["sociability"])
+	prompt = "%s was at a party with some friends. The party was hosted by %s. "  %[guest_name, host_name] 
+	prompt += "%s was a %s person. " %[guest_name, map_to_index(adjectives["sociability"], sociability)]
+	prompt += "Most people said that %s was %s, and usually %s." % [guest_name, map_to_index(adjectives["character"], character), map_to_index(adjectives["aggression"], aggression)]
+	#print(get_node("Party").hour)
+	return prompt
+
+func map_to_index(list, _float):
+	return list[int(len(list) * _float)]
+	
+func prompt_update():
+	"""update prompt to add current state of mind and biggest need"""
+	var file = File.new()
+	file.open("res://data/adjectives.res", File.READ)
+	var adjectives = str2var(file.get_as_text())
+	file.close()
+	var need_adj = need(adjectives)
+	prompt += " %s was %s and %s." %[guest_name, map_to_index(adjectives["intoxication"], intoxication), need_adj]
+
+
+func need(adjectives):
+	"""calculate biggest need. This information is used when updating the prompt"""
+	var biggest_need = 0
+	var attributes = [thirst, hunger, need_to_pee, bored]
+	var attribute_names = ["thirst", "hunger", "need_to_pee", "bored"]
+	for attribute in attributes:
+		if attribute > biggest_need:
+			biggest_need = attribute
+	var index = attribute_names[attributes.find(biggest_need,0)]
+	return map_to_index(adjectives[index], biggest_need)
+	
+			
+		
 

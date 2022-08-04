@@ -10,6 +10,7 @@ var talk = load("res://PartyGuest/Actions/talk.gd").new()
 var pee = load("res://PartyGuest/Actions/pee.gd").new()
 
 var actions = [drink_water, drink_alc, eat, dance, leave, vomit, pee]#, drink_alc, eat, dance, leave]
+#var actions = [drink_alc]#, eat, dance, leave, vomit, pee]#, drink_alc, eat, dance, leave]
 var best_r 
 var best_a 
 var reward
@@ -72,16 +73,19 @@ func best_action(guest):
 		#print("%s %s" %[action.action_name, action.heuristic(guest)])
 		if action.prerequisite(guest):
 			dim_return = (20 - guest.past_actions.slice(0,20).count(action.action_name))/float(20)
-			print(dim_return)
 			reward = action.heuristic(guest) * dim_return #diminishing return, the more a guest performs an action the less fun it is
 			#print(stepify(action_heuristic,0.01),"\t", action.action_name)
 			if reward > best_r:
 				best_r = reward
 				best_a = action 
 	#talk_to_all(guest)
+	
 	guest.past_actions.append(best_a.action_name)
 
-	best_a.effect(guest)
-	print(guest.guest_name, "\t", guest.past_actions.slice(0,20))
-
+	#best_a.effect(guest)
+	#print(guest.guest_name, "\t", guest.past_actions.slice(0,20))
+	#print(guest.prompt)
+	best_a.prompt_add(guest)
+	guest.prompt_update()
+	print(guest.prompt)
 	return best_a

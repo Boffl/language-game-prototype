@@ -19,3 +19,5 @@ func effect(guest):
 	guest.have_food -= 1
 	return wait_time
 
+func prompt_add(guest):
+	guest.prompt += " %s ate something." %[guest.guest_name]

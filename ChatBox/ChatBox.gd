@@ -54,7 +54,7 @@ func add_message(username, text, color):
 
 
 func text_entered(text):
-	var background_info = prompt_init(partyGuest)
+	var background_info = partyGuest.prompt
 	# don't let the user send the empty string
 	if text != '':
 		username = players['player']['name']
@@ -74,14 +74,13 @@ func text_entered(text):
 		prompt += username + ": \""
 
 
-		print(prompt)
+		#print(prompt)
 		
-		# print(prompt)
 		
 		# send prompt to api and wait for answer signal
 		request_answer(prompt)
 		yield(self, "request_finished")
-		print("answer: ", answer)
+		#print("answer: ", answer)
 		
 		# add answer to the chat
 		add_message(username, answer, color)
@@ -138,6 +137,7 @@ func prompt_init(PartyGuest):
 	prompt += "%s was a %s person. " %[PartyGuest.guest_name, map_to_index(adjectives["sociability"], partyGuest.sociability)]
 	prompt += "Most people said that %s was %s, and usually %s." % [PartyGuest.guest_name, map_to_index(adjectives["character"], partyGuest.character), map_to_index(adjectives["aggression"], partyGuest.aggression)]
 	PartyGuest.prompt = prompt
+	#print(get_node("Party").hour)
 	return prompt
 	
 func update_prompt():

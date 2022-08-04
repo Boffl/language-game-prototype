@@ -20,3 +20,6 @@ func effect(guest):
 	guest.need_to_pee += 0.001
 	#print(guest.thirst)
 	return wait_time
+
+func prompt_add(guest):
+	guest.prompt += " %s drank some water." %[guest.guest_name]

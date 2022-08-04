@@ -16,3 +16,6 @@ func heuristic(guest):
 func effect(guest):
 	
 	return wait_time
+
+func prompt_add(guest):
+	guest.prompt += " %s went to the toilet to pee." %[guest.guest_name]

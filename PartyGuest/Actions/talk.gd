@@ -19,3 +19,6 @@ func effect(guest):
 
 	#print("%s boredom after talking:  %s" %[guest.bot_name, guest.bored])
 	return wait_time
+
+func prompt_add(guest):
+	guest.prompt += " %s talked to %s for a while." %[guest.guest_name, "another guest"] #other guest

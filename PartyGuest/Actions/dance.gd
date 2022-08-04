@@ -17,3 +17,6 @@ func effect(partyGuest):
 	partyGuest.bored -= 0.1
 	partyGuest.tiredness += 0.02
 	return wait_time
+
+func prompt_add(guest):
+	guest.prompt += " %s danced for a while." %[guest.guest_name]

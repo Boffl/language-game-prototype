@@ -22,3 +22,6 @@ func effect(guest):
 	guest.need_to_pee += 0.001
 	#print("intoxication after eating %s" %guest.intoxication)
 	return wait_time
+	
+func prompt_add(guest):
+	guest.prompt += " %s drank some beer." %[guest.guest_name]
