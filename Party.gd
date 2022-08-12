@@ -12,6 +12,12 @@ var bots
 var best_a
 var time_out
 
+
+""" Pathfinding """
+onready var walkable_tiles = get_node("Rooms/Navigation")
+onready var pathfinding = get_node("Pathfinding")
+
+
 func inivte_guests(num):
 
 	for n in num:
@@ -47,7 +53,11 @@ func _ready():
 	# set nr of guests
 	get_node("UI/StatsLabel").set_text("NR OF GUESTS: " + str(get_tree().get_nodes_in_group("bots").size()))
 	
-	
+	# pathfinding
+	pathfinding.create_navigation_map(walkable_tiles)
+
+
+
 func _physics_process(delta):
 	
 	# update time

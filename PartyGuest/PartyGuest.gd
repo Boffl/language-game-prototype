@@ -8,6 +8,8 @@ var partyguest_sprites = [preload("res://Assets/PartyGuest/PartyGuest1.png"),
 							preload("res://Assets/PartyGuest/PartyGuest3.png")]
 							
 
+
+
 var all_actions = load("res://PartyGuest/Actions/all_actions.gd").new()
 
 # best action gets stored until either executed or abandoned
@@ -26,7 +28,7 @@ var past_conversations = []
 var can_move = true 
 
 var velocity
-var max_speed = rand_range(20, 30)
+var max_speed = rand_range(700, 1000)
 
 var possible_targets = ["Toilet", "WaterTable", "TestBeacon", "TestBeacon2", "WaterTable2"] # names of all the furniture items PartyGuest can target
 
@@ -68,6 +70,11 @@ var need_to_pee
 var general_discomfort
 
 
+""" Steering"""
+
+var ray_directions = []
+
+
 func _ready():
 	"""
 	Called when PartyGuest enters the scene for the first time
@@ -97,6 +104,7 @@ func _ready():
 	
 	#initialize prompt
 	prompt_init()
+
 	
 	
 
@@ -203,21 +211,43 @@ func move_to(delta, target_coordinates):
 	""" Pathfinding + Movement for the PartyGuests """
 	
 	# calculate path to target coordinates
-	path = get_parent().get_parent().get_node("Navigation2D").get_simple_path(self.position, target_coordinates)
+	var path = get_parent().get_parent().get_node("Navigation2D").get_simple_path(self.position, target_coordinates)
 	LinePath.points = path
+
 	
 	var distance_to_walk = max_speed * delta
 	# following the path
-	while distance_to_walk > 0 and path.size() > 0:
-		var distance_to_next_point = position.distance_to(path[0]) 
+	
+	
+	
+	
+	if path.size() > 1:
+		var direction = self.position.direction_to(path[1])
+		var overlapping_bodies = get_node("PartyGuestArea").get_overlapping_bodies()
+		
+		# repells all bodies except the one in the target group
+		if overlapping_bodies:
+			if not overlapping_bodies[0].is_in_group(target_object):
+				direction += - self.position.direction_to(overlapping_bodies[0].position)
+		
+		velocity = direction * max_speed
+		move_and_slide( velocity * delta)
+	
+	
+	
+	"""
+	while distance_to_walk > 0 and path.size() > 1:
+		var distance_to_next_point = position.distance_to(path[1]) 
 		if distance_to_walk <= distance_to_next_point:
 		# moves PartyGuest incrimentally to the next point
-			position += position.direction_to(path[0]) * distance_to_walk
+			position += position.direction_to(path[1]) * distance_to_walk
 		# next point along the path is reached, the point is removed
 		else:
-			position = path[0]
-			path.remove(0)
+			position = path[1]
+			path.remove(1)
 		distance_to_walk -= distance_to_next_point
+		
+	"""
 		
 
 

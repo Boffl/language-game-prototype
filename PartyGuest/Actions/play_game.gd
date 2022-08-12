@@ -4,7 +4,8 @@ extends Node2D
 var wait_time = 15
 
 func prerequisite(guest):
-	print("thirst %s" %guest.thirst)
+	pass
+	#print("thirst %s" %guest.thirst)
 	
 	
 func heuristic():

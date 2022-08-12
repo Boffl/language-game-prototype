@@ -46,7 +46,7 @@ func best_act(guest, depth=1):#iterative deepening must be implemented
 		if guest_dict[key][0] > best_r:
 			best_a = key.split(",")[0]
 			best_r = guest_dict[key][0]
-	print(str_action_dict[best_a])
+	#print(str_action_dict[best_a])
 	return str_action_dict[best_a]
 		#add rewards
 		#copy guest
@@ -87,5 +87,5 @@ func best_action(guest):
 	#print(guest.prompt)
 	best_a.prompt_add(guest)
 	guest.prompt_update()
-	print(guest.prompt)
+	#print(guest.prompt)
 	return best_a
