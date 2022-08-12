@@ -27,8 +27,8 @@ var past_conversations = []
 # movement is not yet implemented, but just to be consistent with the Player script
 var can_move = true 
 
-var velocity
-var max_speed = rand_range(700, 1000)
+var velocity = Vector2.ZERO
+var max_speed = rand_range(1200, 1300)
 
 var possible_targets = ["Toilet", "WaterTable", "TestBeacon", "TestBeacon2", "WaterTable2"] # names of all the furniture items PartyGuest can target
 
@@ -228,10 +228,11 @@ func move_to(delta, target_coordinates):
 		# repells all bodies except the one in the target group
 		if overlapping_bodies:
 			if not overlapping_bodies[0].is_in_group(target_object):
-				direction += - self.position.direction_to(overlapping_bodies[0].position)
+				direction = direction.move_toward(direction - self.position.direction_to(overlapping_bodies[0].position), 50 * delta)
 		
-		velocity = direction * max_speed
-		move_and_slide( velocity * delta)
+		velocity = direction * max_speed * delta
+
+		move_and_slide(velocity)
 	
 	
 	
