@@ -70,9 +70,6 @@ func _physics_process(delta):
 	
 
 
-func time_system():
-	pass
-
 
 func best_action(bot):
 	var actions = load("res://PartyGuest/Actions/all_actions.gd").new()
@@ -86,8 +83,8 @@ func best_action(bot):
 	t.start()
 	yield(t, "timeout")
 	
-	if bot.present:
-		best_action(bot)
-	else:
-		t.queue_free()
+#	if bot.present:
+#		best_action(bot)
+#	else:
+#		t.queue_free()
 	

@@ -91,19 +91,21 @@ func _ready():
 	LinePath.set_default_color(Color(1, 0.5, 0.5, 0.7))
 	LinePath.set_width(5)
 	
-	# timer for switching targets
-	timer_activity = Timer.new()
-	timer_activity.set_wait_time(rand_range(10, 20))
-	timer_activity.set_one_shot(false)
-	timer_activity.connect("timeout", self, "_on_timer_repetition")
-	self.add_child(timer_activity)
-	timer_activity.start()
+#	# timer for switching targets
+#	timer_activity = Timer.new()
+#	timer_activity.set_wait_time(rand_range(10, 20))
+#	timer_activity.set_one_shot(false)
+#	timer_activity.connect("timeout", self, "_on_timer_repetition")
+#	self.add_child(timer_activity)
+#	timer_activity.start()
 	
 	# empty the stats display text
 	get_node("PartyGuestStats").set_text("")
 	
 	#initialize prompt
 	prompt_init()
+	
+	new_action(all_actions.best_action(self))
 
 	
 	
@@ -117,7 +119,8 @@ func _physics_process(_delta):
 	if can_move and target_object != "":
 		#target_coordinates = get_parent().get_node("Furniture/" + target_object).position
 		move_to(_delta, coordinates_of_target(target_object))
-	
+	elif can_move and target_object == "":
+		wander()
 
 	# UPDATING STATS
 	hunger += 0.000001
@@ -149,44 +152,75 @@ func start_activity(interaction_object):
 	""" For interacting with Furniture """
 	
 	var message = ""
+	var wait_time = 0
 	
 	# Exit: Leave the Party
 	if interaction_object.is_in_group("exits"):
+		print("Leaving")
 		self.queue_free()
 	
 	# WaterTable
 	if interaction_object.is_in_group("watertables"):
-		message = "having a drink."
-		best_action.effect(self)
-		
+		message = guest_name + " is having a drink."
+		wait_time = best_action.effect(self)
+
 	# Toilet
 	if interaction_object.is_in_group("toilets"):
-		message = "going to the toilet."
-		best_action.effect(self)
-		
+		message = guest_name + " is going to the toilet."
+		wait_time = best_action.effect(self)
 	
-	get_node("PartyGuestStats").set_text(guest_name + " is " + message)
 	
+	if interaction_object.is_in_group("foodtables"):
+		message = guest_name + " is eating something."
+		wait_time = best_action.effect(self)
+	
+	
+	if interaction_object.is_in_group("player"):
+		wait_time = best_action.effect(self)
+		message = guest_name + " wants to " + best_action.action_name + "."
+	
+	
+	if wait_time != 0:
+		can_move = false
+		get_node("ActivityTimer").wait_time = wait_time
+		get_node("ActivityTimer").start()
+	
+	
+	get_node("PartyGuestStats").set_text(message)
 	
 
 
-func _on_timer_repetition():
+
+
+
+func _on_ActivityTimer_timeout():
+	can_move = true
+	new_action(all_actions.best_action(self))
+
 	
+
+
+
+func new_action(action_name):
 	best_action = all_actions.best_action(self)
-	
 	if best_action.action_name == "drink water" or best_action.action_name == "drink alcohol":
 		target_object = 'watertables'
 	elif best_action.action_name == "vomit":
 		target_object = 'toilets'
+	elif best_action.action_name == "leave":
+		target_object = 'exits'
 	else:
-		target_object = "none"
-	
+		target_object = 'player'
 	
 	#target_object = possible_target_groups[randi() % len(possible_target_groups)]
 	
 	
-
-
+func wander():
+	""" Makes Party Guest wander around """
+	pass
+	
+	
+	
 func coordinates_of_target(group_name):
 	""" Given a furniture group name, picks an object from that category and returns coordinates """
 	
@@ -217,8 +251,6 @@ func move_to(delta, target_coordinates):
 	
 	var distance_to_walk = max_speed * delta
 	# following the path
-	
-	
 	
 	
 	if path.size() > 1:
@@ -380,4 +412,3 @@ func need(adjectives):
 	
 			
 		
-

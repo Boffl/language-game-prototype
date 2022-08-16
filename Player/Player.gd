@@ -14,6 +14,9 @@ var response = ""
 var can_move = true  # simple boolean, to stop movement, when talking
 var is_talking = false
 
+var partyGuest
+
+
 
 # Called when the node enters the scene tree for the first time.
 func _ready():
@@ -51,10 +54,11 @@ func interacting(delta):
 	if bodies.size() > 0 and bodies[0].get_parent().is_in_group('bots'):
 		
 		get_node("InteractionLabel").show()
-		var partyGuest = bodies[0].get_parent()
+		
 		# talking to the person
 		if Input.is_action_just_pressed("ui_accept"):
 			if not is_talking: # change the state only if not in state
+				partyGuest = bodies[0].get_parent()
 				is_talking = true
 				can_move = false
 				partyGuest.can_move = false

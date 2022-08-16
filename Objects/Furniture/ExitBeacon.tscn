@@ -1,0 +1,31 @@
+[gd_scene load_steps=4 format=2]
+
+[ext_resource path="res://Assets/beacon.png" type="Texture" id=1]
+
+[sub_resource type="CapsuleShape2D" id=1]
+radius = 20.0
+height = 16.0
+
+[sub_resource type="CapsuleShape2D" id=2]
+radius = 10.6666
+height = 6.66667
+
+[node name="Toilet" type="StaticBody2D" groups=["exits"]]
+
+[node name="Sprite" type="Sprite" parent="."]
+position = Vector2( 0, 2.75 )
+scale = Vector2( 1.5, 1.375 )
+texture = ExtResource( 1 )
+offset = Vector2( 0, -2 )
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+rotation = 1.5708
+scale = Vector2( 0.2, 0.2 )
+shape = SubResource( 1 )
+
+[node name="InteractionArea" type="Area2D" parent="."]
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="InteractionArea"]
+rotation = 1.5708
+scale = Vector2( 1.5, 1.5 )
+shape = SubResource( 2 )

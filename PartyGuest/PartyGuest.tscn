@@ -52,5 +52,9 @@ custom_colors/font_color = Color( 0, 0, 0, 1 )
 custom_fonts/font = SubResource( 2 )
 text = "stats"
 
+[node name="ActivityTimer" type="Timer" parent="."]
+one_shot = true
+
 [connection signal="area_entered" from="PartyGuestArea" to="." method="_on_PartyGuestArea_area_entered"]
 [connection signal="area_exited" from="PartyGuestArea" to="." method="_on_PartyGuestArea_area_exited"]
+[connection signal="timeout" from="ActivityTimer" to="." method="_on_ActivityTimer_timeout"]

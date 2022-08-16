@@ -15,6 +15,7 @@
 [ext_resource path="res://Objects/Furniture/WaterTable.tscn" type="PackedScene" id=13]
 [ext_resource path="res://Objects/Furniture/FoodTable.tscn" type="PackedScene" id=14]
 [ext_resource path="res://Pathfinding/Pathfinding.gd" type="Script" id=15]
+[ext_resource path="res://Objects/Furniture/ExitBeacon.tscn" type="PackedScene" id=16]
 
 [sub_resource type="TileSet" id=2]
 0/name = "Basic_Floor_Tile.png 0"
@@ -107,9 +108,6 @@
 0/z_index = 0
 
 [sub_resource type="CircleShape2D" id=6]
-radius = 8.0
-
-[sub_resource type="CircleShape2D" id=8]
 radius = 8.0
 
 [sub_resource type="Curve2D" id=4]
@@ -254,24 +252,14 @@ position = Vector2( 96, 120 )
 [node name="Toilet2" parent="YSort/Furniture" instance=ExtResource( 12 )]
 position = Vector2( 256, -48 )
 
-[node name="ExitBeacon" type="Area2D" parent="YSort/Furniture" groups=["exits"]]
-position = Vector2( 544, 288 )
-__meta__ = {
-"_edit_group_": true
-}
-
-[node name="Sprite" type="Sprite" parent="YSort/Furniture/ExitBeacon"]
-texture = ExtResource( 10 )
-
-[node name="CollisionShape2D" type="CollisionShape2D" parent="YSort/Furniture/ExitBeacon"]
-scale = Vector2( 0.6, 0.6 )
-shape = SubResource( 8 )
-
 [node name="FoodTable" parent="YSort/Furniture" instance=ExtResource( 14 )]
 position = Vector2( 324, 106 )
 
-[node name="FoodTable" parent="YSort/Furniture/FoodTable" instance=ExtResource( 14 )]
-position = Vector2( -164, -114 )
+[node name="FoodTable2" parent="YSort/Furniture" instance=ExtResource( 14 )]
+position = Vector2( 160, -8 )
+
+[node name="Toilet3" parent="YSort/Furniture" instance=ExtResource( 16 )]
+position = Vector2( 528, 280 )
 
 [node name="BotPath" type="Path2D" parent="YSort"]
 curve = SubResource( 4 )

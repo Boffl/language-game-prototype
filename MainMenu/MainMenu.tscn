@@ -39,9 +39,9 @@ margin_bottom = 360.0
 
 [node name="VBoxContainer" type="VBoxContainer" parent="CenterContainer"]
 margin_left = 246.0
-margin_top = 131.0
+margin_top = 117.0
 margin_right = 393.0
-margin_bottom = 229.0
+margin_bottom = 243.0
 
 [node name="StartButton" type="Button" parent="CenterContainer/VBoxContainer"]
 margin_right = 147.0
@@ -72,6 +72,11 @@ min_value = 1.0
 max_value = 20.0
 value = 1.0
 ticks_on_borders = true
+
+[node name="Name" type="LineEdit" parent="CenterContainer/VBoxContainer"]
+margin_top = 102.0
+margin_right = 147.0
+margin_bottom = 126.0
 
 [connection signal="pressed" from="CenterContainer/VBoxContainer/StartButton" to="." method="_on_StartButton_pressed"]
 [connection signal="value_changed" from="CenterContainer/VBoxContainer/CenterContainer/VBoxContainer/GuestSlider" to="." method="_on_GuestSlider_value_changed"]
