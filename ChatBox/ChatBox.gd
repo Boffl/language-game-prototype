@@ -102,8 +102,8 @@ func request_answer(prompt):
 		"prompt": prompt,
 		"temperature": 0.5,
 		"max_tokens": 40,
-		"frequency_penalty": 1,
-		"presence_penalty": 0.0,
+		"frequency_penalty": 2,
+		"presence_penalty": 0.2,
 		"stop": ["\""]
 		}
 		
