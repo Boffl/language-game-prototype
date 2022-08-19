@@ -113,12 +113,15 @@ func request_answer(prompt):
 func _on_HTTPRequest_request_completed(result, response_code, headers, body):
 	# parse and extract answer
 	var json = parse_json(body.get_string_from_utf8())
+	
 	# print(body.get_string_from_utf8())
 	
 	# catch errors in the response:
 	if json.has("error"):
 		# TODO: this should appear on the screen maybe. At least if it is a problem with the 
 		# API key, such that we can inform the users if their API key has expired
+		answer = "[color=#000000] There was an error with OpenAI: "
+		answer += json["error"]["message"] + "[/color]"
 		print("There was an error with parsing the request:")
 		print(json["error"]["message"])
 	else:
