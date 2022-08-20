@@ -69,6 +69,19 @@ var prompt = ""
 var need_to_pee
 var general_discomfort
 
+# for the classification
+var num = 4  # number of sentences to use (e.g. num=4 for using the last 4)
+var text = ""
+var parameters = {
+	"model": "text-davinci-002",
+	"prompt": text,
+	"temperature": 0.5,
+	"max_tokens": 40,
+	"frequency_penalty": 2,
+	"presence_penalty": 0.2,
+	"stop": ["\""]
+}
+
 
 """ Steering"""
 
@@ -295,7 +308,33 @@ func start_conversation():
 func end_conversation():
 	# past_conversations.append(get_node("PartyGuestArea/CanvasLayer/ChatBox").chat_log)
 	# calculate sentiment of conversation or something
+	var all_sentences = chatBox.chatLog.text.split("\n")  
+	var sentences = []
+	# note this might give a problem if the model returns a \n
+	# 	-> I tried this out and it does not seem to be a problem :)
+	
+	# choosing the last sentences, that are important for the classification
+	var count
+	if len(all_sentences)<num:
+		count = len(all_sentences)
+	else:
+		count = num
+	for i in count:
+		sentences.append(all_sentences[-i])
+	text = "" # empty variable
+	for i in count:
+		text += sentences[count-i-1] + "\n"
+	
+	text += "After the conversation " + guest_name + "went to "
+	
+	# TODO: replace the names with Host and Guest or something
+	# Idea: Append the text with "after the conversation [guest_name] did [MASK]"
+	print(text)
+
+	
 	get_node("PartyGuestArea/CanvasLayer").remove_child(chatBox)
+	
+	
 
 
 

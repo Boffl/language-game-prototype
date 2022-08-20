@@ -55,6 +55,8 @@ text = "stats"
 [node name="ActivityTimer" type="Timer" parent="."]
 one_shot = true
 
+[node name="HTTPRequest" type="HTTPRequest" parent="."]
+
 [connection signal="area_entered" from="PartyGuestArea" to="." method="_on_PartyGuestArea_area_entered"]
 [connection signal="area_exited" from="PartyGuestArea" to="." method="_on_PartyGuestArea_area_exited"]
 [connection signal="timeout" from="ActivityTimer" to="." method="_on_ActivityTimer_timeout"]
