@@ -18,11 +18,10 @@ var new_guest
 var guest_dict
 var action_dict
 var dim_return
-var str_action_dict
+var str_action_dict = {"drink water": drink_water, "drink alcohol": drink_alc, "eat": eat, "dance": dance, "leave": leave, "vomit": vomit}
 
 
 func best_act(guest, depth=1):#iterative deepening must be implemented
-	str_action_dict = {"drink water": drink_water, "drink alcohol": drink_alc, "eat": eat, "dance": dance, "leave": leave, "vomit": vomit}
 	
 	best_r = -50
 	best_a = false
