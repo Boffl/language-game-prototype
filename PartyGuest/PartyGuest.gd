@@ -70,16 +70,13 @@ var need_to_pee
 var general_discomfort
 
 # for the classification
+signal request_finished
+var label
+var url = "https://api.openai.com/v1/completions"
+var gpt3_key = OS.get_environment("API_KEY")
+var api_key_request = "Authorization: Bearer " + gpt3_key
 var text = ""
-var parameters = {
-	"model": "text-davinci-002",
-	"prompt": text,
-	"temperature": 0.5,
-	"max_tokens": 40,
-	"frequency_penalty": 2,
-	"presence_penalty": 0.2,
-	"stop": ["\""]
-}
+var parameters = {}
 
 
 """ Steering"""
@@ -313,7 +310,7 @@ func end_conversation():
 	get_node("PartyGuestArea/CanvasLayer").remove_child(chatBox)
 	
 	
-func classify_conversation( num):
+func classify_conversation(var num):
 	# :param num: number of sentences to use (e.g. num=4 for using the last 4)
 	var all_sentences = chatBox.chatLog.text.split("\n")  
 	var sentences = []
@@ -330,12 +327,46 @@ func classify_conversation( num):
 		sentences.append(all_sentences[-i])
 	text = "" # empty variable
 	for i in count:
+		# turning it around (before in the array the sentences are in backwards order
 		text += sentences[count-i-1] + "\n"
 	
 	text += "After the conversation " + guest_name + "went to "
-	print(text)
 	
-
+	parameters = {
+	"model": "text-davinci-002",
+	"prompt": text,
+	"temperature": 0.5,
+	"max_tokens": 40,
+	"frequency_penalty": 2,
+	"presence_penalty": 0.2,
+	"stop": ["\""]
+}
+	
+	$HTTPRequest.request(url, ["Content-Type: application/json", api_key_request], true, HTTPClient.METHOD_POST, JSON.print(parameters))
+	yield(self, "request_finished")
+	
+	print(label)
+	
+func _on_HTTPRequest_request_completed(result, response_code, headers, body):
+		# parse and extract answer
+	var json = parse_json(body.get_string_from_utf8())
+	
+	# print(body.get_string_from_utf8())
+	
+	# catch errors in the response:
+	if json.has("error"):
+		# TODO: this should appear on the screen maybe. At least if it is a problem with the 
+		# API key, such that we can inform the users if their API key has expired
+		label = "[color=#000000] There was an error with OpenAI: "
+		label += json["error"]["message"] + "[/color]"
+		print("There was an error with parsing the request:")
+		print(json["error"]["message"])
+	else:
+		label = json['choices'][0]['text'].strip_edges(true, true)
+		
+		# signal that result has been yielded
+	emit_signal("request_finished")
+	
 
 
 
