@@ -72,12 +72,15 @@ var general_discomfort
 # for the classification
 signal request_finished
 var label
+
+# for classification with GPT-3
 var url = "https://api.openai.com/v1/completions"
 var gpt3_key = OS.get_environment("API_KEY")
 var api_key_request = "Authorization: Bearer " + gpt3_key
 var text = ""
 var parameters = {}
-
+# dictionary of tokens that are allowed as the answer
+var logit_bias = {'4098': 100, '4483': 100, '270': 100, '1561': 100, '676': 100, '39463': 100, '296': 100, '5548': 100, '4144': 100, '47408': 100, '9280': 100, '67': 100, '7109': 100, '198': 100, '590': 100, '85': 100, '2666': 100, '16620': 100, '32638': 100, '1660': 100, '44542': 100}
 
 """ Steering"""
 
@@ -336,9 +339,10 @@ func classify_conversation(var num):
 	"model": "text-davinci-002",
 	"prompt": text,
 	"temperature": 0.5,
-	"max_tokens": 40,
+	"max_tokens": 4,
 	"frequency_penalty": 2,
 	"presence_penalty": 0.2,
+	"logit_bias": logit_bias,
 	"stop": ["\""]
 }
 	
