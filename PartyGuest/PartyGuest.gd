@@ -13,7 +13,7 @@ var partyguest_sprites = [preload("res://Assets/PartyGuest/PartyGuest1.png"),
 var all_actions = load("res://PartyGuest/Actions/all_actions.gd").new()
 
 # best action gets stored until either executed or abandoned
-var best_action
+var next_action
 
 var bot_name = "default"
 
@@ -117,7 +117,7 @@ func _ready():
 	#initialize prompt
 	prompt_init()
 	
-	new_action(all_actions.best_action(self))
+	new_action(all_actions.best_action(self).action_name)
 
 	
 	
@@ -162,7 +162,7 @@ func _on_PartyGuestArea_area_exited(area):
 
 func start_activity(interaction_object):
 	""" For interacting with Furniture """
-	
+	var current_action = all_actions.str_action_dict[next_action]
 	var message = ""
 	var wait_time = 0
 	
@@ -174,22 +174,22 @@ func start_activity(interaction_object):
 	# WaterTable
 	if interaction_object.is_in_group("watertables"):
 		message = guest_name + " is having a drink."
-		wait_time = best_action.effect(self)
+		wait_time = current_action.effect(self)
 
 	# Toilet
 	if interaction_object.is_in_group("toilets"):
 		message = guest_name + " is going to the toilet."
-		wait_time = best_action.effect(self)
+		wait_time = current_action.effect(self)
 	
 	
 	if interaction_object.is_in_group("foodtables"):
 		message = guest_name + " is eating something."
-		wait_time = best_action.effect(self)
+		wait_time = current_action.effect(self)
 	
 	
 	if interaction_object.is_in_group("player"):
-		wait_time = best_action.effect(self)
-		message = guest_name + " wants to " + best_action.action_name + "."
+		wait_time = current_action.effect(self)
+		message = guest_name + " wants to " + current_action.action_name + "."
 	
 	
 	if wait_time != 0:
@@ -207,19 +207,19 @@ func start_activity(interaction_object):
 
 func _on_ActivityTimer_timeout():
 	can_move = true
-	new_action(all_actions.best_action(self))
+	new_action(all_actions.best_action(self).action_name)
 
 	
 
 
 
 func new_action(action_name):
-	best_action = all_actions.best_action(self)
-	if best_action.action_name == "drink water" or best_action.action_name == "drink alcohol":
+	next_action = action_name
+	if action_name == "drink water" or action_name == "drink alcohol":
 		target_object = 'watertables'
-	elif best_action.action_name == "vomit":
+	elif action_name == "vomit":
 		target_object = 'toilets'
-	elif best_action.action_name == "leave":
+	elif action_name == "leave":
 		target_object = 'exits'
 	else:
 		target_object = 'player'
@@ -338,7 +338,7 @@ func classify_conversation(var num):
 	parameters = {
 	"model": "text-davinci-002",
 	"prompt": text,
-	"temperature": 0.5,
+	"temperature": 0.9,
 	"max_tokens": 4,
 	"frequency_penalty": 2,
 	"presence_penalty": 0.2,
@@ -349,7 +349,12 @@ func classify_conversation(var num):
 	$HTTPRequest.request(url, ["Content-Type: application/json", api_key_request], true, HTTPClient.METHOD_POST, JSON.print(parameters))
 	yield(self, "request_finished")
 	
-	print(label)
+	
+	print("Action from the conversation: ", label)
+	
+	if all_actions.str_action_dict.has(label):
+		print("in the dict")
+		new_action(label)
 	
 func _on_HTTPRequest_request_completed(result, response_code, headers, body):
 		# parse and extract answer
