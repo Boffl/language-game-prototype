@@ -1,4 +1,4 @@
-extends KinematicBody2D
+extends Node
 
 var drink_water = load("res://PartyGuest/Actions/drink_water.gd").new()
 var drink_alc = load("res://PartyGuest/Actions/drink_alc.gd").new()
@@ -10,7 +10,7 @@ var talk = load("res://PartyGuest/Actions/talk.gd").new()
 var pee = load("res://PartyGuest/Actions/pee.gd").new()
 
 var actions = [drink_water, drink_alc, eat, dance, leave, vomit, pee]#, drink_alc, eat, dance, leave]
-#var actions = [drink_alc]#, eat, dance, leave, vomit, pee]#, drink_alc, eat, dance, leave]
+#var actions = [leave]#, eat, dance, leave, vomit, pee]#, drink_alc, eat, dance, leave]
 var best_r 
 var best_a 
 var reward
@@ -19,51 +19,6 @@ var guest_dict
 var action_dict
 var dim_return
 var str_action_dict
-
-
-func best_act(guest, depth=1):#iterative deepening must be implemented
-	str_action_dict = {"drink water": drink_water, "drink alcohol": drink_alc, "eat": eat, "dance": dance, "leave": leave, "vomit": vomit}
-	
-	best_r = -50
-	best_a = false
-	guest_dict = {"":[0, guest]}
-	
-	for i in depth:
-		action_dict = {}
-		for key in guest_dict:
-			for action in actions:
-				guest = guest_dict[key][1]
-				if action.prerequisite(guest):
-					reward = action.heuristic(guest) * ((10 - guest.past_actions.slice(0,10).count(best_a)) / 10) #diminishing return, the more a guest performs an action the less fun it is
-					new_guest = guest.duplicate()
-					new_guest.transfer_attributes(guest)
-					#print(guest.thirst, "\t", new_guest.thirst)
-					action.effect(new_guest)
-					#print(guest.thirst, "\t", new_guest.thirst)
-					action_dict[key + action.action_name + ","] = [reward, new_guest]
-		guest_dict = action_dict
-	for key in guest_dict:
-		if guest_dict[key][0] > best_r:
-			best_a = key.split(",")[0]
-			best_r = guest_dict[key][0]
-	#print(str_action_dict[best_a])
-	return str_action_dict[best_a]
-		#add rewards
-		#copy guest
-		#effect
-
-	
-	
-func talk_to_all(guest):
-	#print(guest.like_other_guest)
-	for other_guest in guest.like_other_guest:
-		reward = talk.heuristic(guest, other_guest) * ((20 - guest.past_actions.slice(0,20).count(talk)) / 20) #diminishing return, the more a guest performs an action the less fun it is
-		if reward > best_r:
-			best_r = reward
-			best_a = talk
-
-			
-
 
 func best_action(guest):
 	best_r = -50
@@ -78,8 +33,7 @@ func best_action(guest):
 			if reward > best_r:
 				best_r = reward
 				best_a = action 
-	#talk_to_all(guest)
-	
+	talk_to_all(guest)
 	guest.past_actions.append(best_a.action_name)
 
 	#best_a.effect(guest)
@@ -89,3 +43,38 @@ func best_action(guest):
 	guest.prompt_update()
 	#print(guest.prompt)
 	return best_a
+
+
+func talk_to_all(guest):
+	for other_guest in guest.like_other_guests():
+		var guest_sim = cosine_sim(guest.attr_vec, other_guest.attr_vec)
+		reward =  (guest_sim + talk.heuristic(guest, other_guest)) * ((20 - guest.past_actions.slice(0,20).count(talk)) / 20) #diminishing return, the more a guest performs an action the less fun it is
+		if reward > best_r:
+			best_r = reward
+			best_a = talk
+			
+func vec_len(vec):
+	"""Calculate vector length. Vector should be in format: [x, y, z,...]"""
+	var res = 0
+	for dim in vec:
+		res += dim
+	return sqrt(res)
+	
+func dot_prod(vec1, vec2):
+	"""Calculate the Dot Product ot two vectors. Vectors should be in format: [x, y, z,...]"""
+	var res = 0
+	var index = 0
+	for dim in vec1:
+		res += vec1[index] * vec2[index]
+		index += 1
+	return res
+			
+func cosine_sim(vec1, vec2):
+	var base = vec_len(vec1) * vec_len(vec2)
+	if base == 0:
+		base += 0.001
+	return dot_prod(vec1, vec2)/base
+	
+	
+
+

@@ -10,7 +10,7 @@ func prerequisite(guest):
 	
 	
 func heuristic(guest, other_guest):
-	return (guest.sociability + guest.like_other_guest[other_guest]) * 0.5
+	return (guest.sociability) * 0.5
 	
 
 func effect(guest):

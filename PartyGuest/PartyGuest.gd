@@ -61,13 +61,18 @@ var like_to_drink # random.uniform(0, 1.2)
 var aggression # random.uniform(0, 1)
 var like_other_guest # {} #TODO
 var character
-# _init with arguments is not allowed here, see:
-# https://github.com/godotengine/godot/issues/15866
 var past_actions
 var like_to_dance
 var prompt = ""
 var need_to_pee
 var general_discomfort
+var attr_vec
+# _init with arguments is not allowed here, see:
+# https://github.com/godotengine/godot/issues/15866
+
+
+#for cosine similarity
+
 
 
 """ Steering"""
@@ -104,7 +109,7 @@ func _ready():
 	
 	#initialize prompt
 	prompt_init()
-	
+
 	new_action(all_actions.best_action(self))
 
 	
@@ -318,7 +323,7 @@ func init_bot():
 	var index = rng.randi_range(0, len(names) - 1)
 	guest_name = names[index]
 	
-	
+
 	#initialize variables that are same for all the guests
 	present = true
 	thirst = 0
@@ -342,12 +347,11 @@ func init_bot():
 	like_other_guest = {} 
 	like_to_dance = rng.randf_range(0,1)
 	character = rng.randf_range(0,1)
+	attr_vec = [like_to_dance, like_to_drink, like_to_play, age, sociability, intoxication]
 	
-func like_other_bots(bots):
-	var rng = RandomNumberGenerator.new()
-	rng.randomize()
-	for other_bot in bots:
-		like_other_guest[other_bot] = rng.randf_range(0,1)
+func like_other_guests():
+	return get_tree().get_nodes_in_group("bots")
+
 
 func transfer_attributes(other_guest):
 	"""Transfer all the attributes from a guest to another guest.

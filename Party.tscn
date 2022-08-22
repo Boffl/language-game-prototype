@@ -331,6 +331,7 @@ position = Vector2( 192, 112 )
 rotation = -0.482513
 
 [node name="Navigation2D" type="Navigation2D" parent="."]
+visible = false
 
 [node name="PartyGuestMovement" type="NavigationPolygonInstance" parent="Navigation2D"]
 navpoly = SubResource( 10 )

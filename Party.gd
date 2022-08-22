@@ -24,7 +24,7 @@ func inivte_guests(num):
 		var bot = party_guest.instance()
 		
 		bot.init_bot()
-		best_action(bot)
+		#best_action(bot)
 		#prompt_init.prompt_init(bot)
 		#print(bot.prompt)
 		
@@ -40,8 +40,8 @@ func inivte_guests(num):
 		
 		get_node("YSort").add_child(bot)
 		
-	for g in get_tree().get_nodes_in_group("bots"):
-		g.like_other_bots(get_tree().get_nodes_in_group("bots"))
+	#for g in get_tree().get_nodes_in_group("bots"):
+	# 	g.like_other_bots(get_tree().get_nodes_in_group("bots"))
 
 
 func _ready():
