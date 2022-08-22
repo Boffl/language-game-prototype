@@ -181,11 +181,15 @@ func start_activity(interaction_object):
 		message = guest_name + " is going to the toilet."
 		wait_time = current_action.effect(self)
 	
-	
+	#FoodTable
 	if interaction_object.is_in_group("foodtables"):
 		message = guest_name + " is eating something."
 		wait_time = current_action.effect(self)
 	
+	#DanceFloor
+	if interaction_object.is_in_group("dancefloors"):
+		message = guest_name + "is dancing."
+		wait_time = current_action.effect(self)
 	
 	if interaction_object.is_in_group("player"):
 		wait_time = current_action.effect(self)
@@ -219,6 +223,8 @@ func new_action(action_name):
 		target_object = 'watertables'
 	elif action_name == "vomit":
 		target_object = 'toilets'
+	elif action_name == "dance":
+		target_object = "dancefloors"
 	elif action_name == "leave":
 		target_object = 'exits'
 	else:

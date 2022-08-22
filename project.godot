@@ -10,11 +10,6 @@ config_version=4
 
 _global_script_classes=[ {
 "base": "Node2D",
-"class": "Pathfinding",
-"language": "GDScript",
-"path": "res://Pathfinding/Pathfinding.gd"
-}, {
-"base": "Node2D",
 "class": "dance",
 "language": "GDScript",
 "path": "res://PartyGuest/Actions/dance.gd"
@@ -75,7 +70,6 @@ _global_script_classes=[ {
 "path": "res://PartyGuest/Actions/wait.gd"
 } ]
 _global_script_class_icons={
-"Pathfinding": "",
 "dance": "",
 "drink_alc": "",
 "drink_water": "",

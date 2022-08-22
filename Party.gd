@@ -53,9 +53,6 @@ func _ready():
 	# set nr of guests
 	get_node("UI/StatsLabel").set_text("NR OF GUESTS: " + str(get_tree().get_nodes_in_group("bots").size()))
 	
-	# pathfinding
-	pathfinding.create_navigation_map(walkable_tiles)
-
 
 
 func _physics_process(delta):
