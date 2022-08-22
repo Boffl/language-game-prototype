@@ -75,13 +75,14 @@ func text_entered(text):
 		prompt += username + ": \""
 
 
-		#print(prompt)
-		
-		
-		# send prompt to api and wait for answer signal
-		request_answer(prompt)
-		yield(self, "request_finished")
-		#print("answer: ", answer)
+		#check if in testing mode
+		if GlobalSettings.testing_mode:
+			answer = "[color=#000000] you are in testing mode. To use GPT3 start from the main menu.[/color]"
+		else:
+			# send prompt to api and wait for answer signal
+			request_answer(prompt)
+			yield(self, "request_finished")
+			#print("answer: ", answer)
 		
 		# add answer to the chat
 		add_message(username, answer, color)
@@ -97,6 +98,7 @@ func _ready():
 	
 	
 func request_answer(prompt):
+	print(prompt)
 	
 	parameters = {
 		"model": "text-davinci-002",

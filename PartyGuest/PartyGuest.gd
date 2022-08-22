@@ -81,7 +81,8 @@ var text = ""
 var parameters = {}
 # dictionary of tokens that are allowed as the answer
 var logit_bias = {'4098': 100, '4483': 100, '270': 100, '1561': 100, '676': 100, '39463': 100, '296': 100, '5548': 100, '4144': 100, '47408': 100, '9280': 100, '67': 100, '7109': 100, '198': 100, '590': 100, '85': 100, '2666': 100, '16620': 100, '32638': 100, '1660': 100, '44542': 100}
-
+# for testing_mode:
+var labels = ["drink water", "drink alcohol", "eat", "dance", "leave", "pee"]
 """ Steering"""
 
 var ray_directions = []
@@ -315,52 +316,61 @@ func end_conversation():
 	# calculate sentiment of conversation or something
 	classify_conversation(4)
 
+
 	
 	get_node("PartyGuestArea/CanvasLayer").remove_child(chatBox)
 	
 	
 func classify_conversation(var num):
+	#  classify the conversation and choose an action
 	# :param num: number of sentences to use (e.g. num=4 for using the last 4)
-	var all_sentences = chatBox.chatLog.text.split("\n")  
-	var sentences = []
-	# note this might give a problem if the model returns a \n
-	# 	-> I tried this out and it does not seem to be a problem :)
 	
-	# choosing the last sentences, that are important for the classification
-	var count
-	if len(all_sentences)<num:
-		count = len(all_sentences)
+	if GlobalSettings.testing_mode:
+		print("you are in testing mode, will chose action randomly")
+		label = labels[randi() % labels.size()]
+	
 	else:
-		count = num
-	for i in count:
-		sentences.append(all_sentences[-i])
-	text = "" # empty variable
-	for i in count:
-		# turning it around (before in the array the sentences are in backwards order
-		text += sentences[count-i-1] + "\n"
-	
-	text += "After the conversation " + guest_name + "went to "
-	
-	parameters = {
-	"model": "text-davinci-002",
-	"prompt": text,
-	"temperature": 0.9,
-	"max_tokens": 4,
-	"frequency_penalty": 2,
-	"presence_penalty": 0.2,
-	"logit_bias": logit_bias,
-	"stop": ["\""]
-}
-	
-	$HTTPRequest.request(url, ["Content-Type: application/json", api_key_request], true, HTTPClient.METHOD_POST, JSON.print(parameters))
-	yield(self, "request_finished")
+		var all_sentences = chatBox.chatLog.text.split("\n")  
+		var sentences = []
+		# note this might give a problem if the model returns a \n
+		# 	-> I tried this out and it does not seem to be a problem :)
+		
+		# choosing the last sentences, that are important for the classification
+		var count
+		if len(all_sentences)<num:
+			count = len(all_sentences)
+		else:
+			count = num
+		for i in count:
+			sentences.append(all_sentences[-i])
+		text = "" # empty variable
+		for i in count:
+			# turning it around (before in the array the sentences are in backwards order
+			text += sentences[count-i-1] + "\n"
+		
+		text += "After the conversation " + guest_name + "went to "
+		
+		parameters = {
+		"model": "text-davinci-002",
+		"prompt": text,
+		"temperature": 0.9,
+		"max_tokens": 4,
+		"frequency_penalty": 2,
+		"presence_penalty": 0.2,
+		"logit_bias": logit_bias,
+		"stop": ["\""]
+	}
+		
+		$HTTPRequest.request(url, ["Content-Type: application/json", api_key_request], true, HTTPClient.METHOD_POST, JSON.print(parameters))
+		yield(self, "request_finished")
 	
 	
 	print("Action from the conversation: ", label)
-	
 	if all_actions.str_action_dict.has(label):
 		print("in the dict")
 		new_action(label)
+
+
 	
 func _on_HTTPRequest_request_completed(result, response_code, headers, body):
 		# parse and extract answer

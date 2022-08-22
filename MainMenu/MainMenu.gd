@@ -10,6 +10,7 @@ func _ready():
 	get_node("CenterContainer/VBoxContainer/CenterContainer/VBoxContainer/GuestSlider").set_value(nr_of_guests)
 	get_node("CenterContainer/VBoxContainer/CenterContainer/VBoxContainer/GuestLabel").set_text("Number of Guests: " + str(nr_of_guests))
 	get_node("CenterContainer/VBoxContainer/StartButton").rect_min_size = Vector2(200, 50)
+	GlobalSettings.testing_mode = false
 	
 	
 	# export the values to the GlobalSettings
