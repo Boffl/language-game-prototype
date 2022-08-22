@@ -98,7 +98,6 @@ func _ready():
 	
 	
 func request_answer(prompt):
-	print(prompt)
 	
 	parameters = {
 		"model": "text-davinci-002",

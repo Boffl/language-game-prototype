@@ -68,6 +68,13 @@ var like_to_dance
 var prompt = ""
 var need_to_pee
 var general_discomfort
+var attr_vec
+# _init with arguments is not allowed here, see:
+# https://github.com/godotengine/godot/issues/15866
+
+
+#for cosine similarity
+
 
 # for the classification
 signal request_finished
@@ -191,7 +198,7 @@ func start_activity(interaction_object):
 	if interaction_object.is_in_group("dancefloors"):
 		message = guest_name + "is dancing."
 		wait_time = current_action.effect(self)
-	
+
 	if interaction_object.is_in_group("player"):
 		wait_time = current_action.effect(self)
 		message = guest_name + " wants to " + current_action.action_name + "."
@@ -316,11 +323,9 @@ func end_conversation():
 	# calculate sentiment of conversation or something
 	classify_conversation(4)
 
-
-	
 	get_node("PartyGuestArea/CanvasLayer").remove_child(chatBox)
-	
-	
+
+
 func classify_conversation(var num):
 	#  classify the conversation and choose an action
 	# :param num: number of sentences to use (e.g. num=4 for using the last 4)
@@ -366,21 +371,21 @@ func classify_conversation(var num):
 	
 	
 	print("Action from the conversation: ", label)
+
 	if all_actions.str_action_dict.has(label):
 		print("in the dict")
 		new_action(label)
 
 
-	
 func _on_HTTPRequest_request_completed(result, response_code, headers, body):
 		# parse and extract answer
 	var json = parse_json(body.get_string_from_utf8())
-	
+
 	# print(body.get_string_from_utf8())
-	
+
 	# catch errors in the response:
 	if json.has("error"):
-		# TODO: this should appear on the screen maybe. At least if it is a problem with the 
+		# TODO: this should appear on the screen maybe. At least if it is a problem with the
 		# API key, such that we can inform the users if their API key has expired
 		label = "[color=#000000] There was an error with OpenAI: "
 		label += json["error"]["message"] + "[/color]"
@@ -388,10 +393,10 @@ func _on_HTTPRequest_request_completed(result, response_code, headers, body):
 		print(json["error"]["message"])
 	else:
 		label = json['choices'][0]['text'].strip_edges(true, true)
-		
+
 		# signal that result has been yielded
 	emit_signal("request_finished")
-	
+
 
 
 
@@ -412,7 +417,7 @@ func init_bot():
 	var index = rng.randi_range(0, len(names) - 1)
 	guest_name = names[index]
 	
-	
+
 	#initialize variables that are same for all the guests
 	present = true
 	thirst = 0
@@ -436,12 +441,11 @@ func init_bot():
 	like_other_guest = {} 
 	like_to_dance = rng.randf_range(0,1)
 	character = rng.randf_range(0,1)
-	
-func like_other_bots(bots):
-	var rng = RandomNumberGenerator.new()
-	rng.randomize()
-	for other_bot in bots:
-		like_other_guest[other_bot] = rng.randf_range(0,1)
+	attr_vec = [like_to_dance, like_to_drink, like_to_play, age, sociability, intoxication]
+
+func like_other_guests():
+	return get_tree().get_nodes_in_group("bots")
+
 
 func transfer_attributes(other_guest):
 	"""Transfer all the attributes from a guest to another guest.
