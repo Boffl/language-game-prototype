@@ -15,13 +15,14 @@ var username
 var color
 var answer
 var prompt
-var player_name = "Nikolaj"
+var player_name = GlobalSettings.player_name
 
 
 signal request_finished
 
 var url = "https://api.openai.com/v1/completions"
-var gpt3_key = OS.get_environment("API_KEY")
+#var gpt3_key = OS.get_environment("API_KEY")
+var gpt3_key = GlobalSettings.api_key
 var api_key_request = "Authorization: Bearer " + gpt3_key
 var parameters 
 var gpt3_prompt
