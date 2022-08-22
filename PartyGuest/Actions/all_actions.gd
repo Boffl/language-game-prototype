@@ -1,4 +1,4 @@
-extends Node
+extends KinematicBody2D
 
 var drink_water = load("res://PartyGuest/Actions/drink_water.gd").new()
 var drink_alc = load("res://PartyGuest/Actions/drink_alc.gd").new()
@@ -18,7 +18,8 @@ var new_guest
 var guest_dict
 var action_dict
 var dim_return
-var str_action_dict
+var str_action_dict = {"drink water": drink_water, "drink alcohol": drink_alc,
+							"eat": eat, "dance": dance, "leave": leave, "vomit": vomit}
 
 func best_action(guest):
 	best_r = -50
@@ -52,14 +53,14 @@ func talk_to_all(guest):
 		if reward > best_r:
 			best_r = reward
 			best_a = talk
-			
+
 func vec_len(vec):
 	"""Calculate vector length. Vector should be in format: [x, y, z,...]"""
 	var res = 0
 	for dim in vec:
 		res += dim
 	return sqrt(res)
-	
+
 func dot_prod(vec1, vec2):
 	"""Calculate the Dot Product ot two vectors. Vectors should be in format: [x, y, z,...]"""
 	var res = 0
@@ -68,13 +69,13 @@ func dot_prod(vec1, vec2):
 		res += vec1[index] * vec2[index]
 		index += 1
 	return res
-			
+
 func cosine_sim(vec1, vec2):
 	var base = vec_len(vec1) * vec_len(vec2)
 	if base == 0:
 		base += 0.001
 	return dot_prod(vec1, vec2)/base
-	
-	
+
+
 
 

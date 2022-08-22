@@ -28,4 +28,14 @@ func _on_GuestSlider_value_changed(value):
 
 func _on_StartButton_pressed():
 	# starts Party scene
+	print("Start Party")
 	get_tree().change_scene("res://Party.tscn")
+
+
+func _on_Name_text_changed(new_text):
+	GlobalSettings.player_name = new_text
+	
+
+
+func _on_APIKey_text_changed(new_text):
+	GlobalSettings.api_key = new_text

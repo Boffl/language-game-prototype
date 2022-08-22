@@ -13,7 +13,7 @@ var partyguest_sprites = [preload("res://Assets/PartyGuest/PartyGuest1.png"),
 var all_actions = load("res://PartyGuest/Actions/all_actions.gd").new()
 
 # best action gets stored until either executed or abandoned
-var best_action
+var next_action
 
 var bot_name = "default"
 
@@ -61,6 +61,8 @@ var like_to_drink # random.uniform(0, 1.2)
 var aggression # random.uniform(0, 1)
 var like_other_guest # {} #TODO
 var character
+# _init with arguments is not allowed here, see:
+# https://github.com/godotengine/godot/issues/15866
 var past_actions
 var like_to_dance
 var prompt = ""
@@ -74,6 +76,18 @@ var attr_vec
 #for cosine similarity
 
 
+# for the classification
+signal request_finished
+var label
+
+# for classification with GPT-3
+var url = "https://api.openai.com/v1/completions"
+var gpt3_key = OS.get_environment("API_KEY")
+var api_key_request = "Authorization: Bearer " + gpt3_key
+var text = ""
+var parameters = {}
+# dictionary of tokens that are allowed as the answer
+var logit_bias = {'4098': 100, '4483': 100, '270': 100, '1561': 100, '676': 100, '39463': 100, '296': 100, '5548': 100, '4144': 100, '47408': 100, '9280': 100, '67': 100, '7109': 100, '198': 100, '590': 100, '85': 100, '2666': 100, '16620': 100, '32638': 100, '1660': 100, '44542': 100}
 
 """ Steering"""
 
@@ -109,8 +123,8 @@ func _ready():
 	
 	#initialize prompt
 	prompt_init()
-
-	new_action(all_actions.best_action(self))
+	
+	new_action(all_actions.best_action(self).action_name)
 
 	
 	
@@ -155,7 +169,7 @@ func _on_PartyGuestArea_area_exited(area):
 
 func start_activity(interaction_object):
 	""" For interacting with Furniture """
-	
+	var current_action = all_actions.str_action_dict[next_action]
 	var message = ""
 	var wait_time = 0
 	
@@ -167,22 +181,26 @@ func start_activity(interaction_object):
 	# WaterTable
 	if interaction_object.is_in_group("watertables"):
 		message = guest_name + " is having a drink."
-		wait_time = best_action.effect(self)
+		wait_time = current_action.effect(self)
 
 	# Toilet
 	if interaction_object.is_in_group("toilets"):
 		message = guest_name + " is going to the toilet."
-		wait_time = best_action.effect(self)
+		wait_time = current_action.effect(self)
 	
-	
+	#FoodTable
 	if interaction_object.is_in_group("foodtables"):
 		message = guest_name + " is eating something."
-		wait_time = best_action.effect(self)
+		wait_time = current_action.effect(self)
 	
-	
+	#DanceFloor
+	if interaction_object.is_in_group("dancefloors"):
+		message = guest_name + "is dancing."
+		wait_time = current_action.effect(self)
+
 	if interaction_object.is_in_group("player"):
-		wait_time = best_action.effect(self)
-		message = guest_name + " wants to " + best_action.action_name + "."
+		wait_time = current_action.effect(self)
+		message = guest_name + " wants to " + current_action.action_name + "."
 	
 	
 	if wait_time != 0:
@@ -200,19 +218,21 @@ func start_activity(interaction_object):
 
 func _on_ActivityTimer_timeout():
 	can_move = true
-	new_action(all_actions.best_action(self))
+	new_action(all_actions.best_action(self).action_name)
 
 	
 
 
 
 func new_action(action_name):
-	best_action = all_actions.best_action(self)
-	if best_action.action_name == "drink water" or best_action.action_name == "drink alcohol":
+	next_action = action_name
+	if action_name == "drink water" or action_name == "drink alcohol":
 		target_object = 'watertables'
-	elif best_action.action_name == "vomit":
+	elif action_name == "vomit":
 		target_object = 'toilets'
-	elif best_action.action_name == "leave":
+	elif action_name == "dance":
+		target_object = "dancefloors"
+	elif action_name == "leave":
 		target_object = 'exits'
 	else:
 		target_object = 'player'
@@ -300,8 +320,74 @@ func start_conversation():
 func end_conversation():
 	# past_conversations.append(get_node("PartyGuestArea/CanvasLayer/ChatBox").chat_log)
 	# calculate sentiment of conversation or something
+	classify_conversation(4)
+
+
 	get_node("PartyGuestArea/CanvasLayer").remove_child(chatBox)
 
+
+func classify_conversation(var num):
+	# :param num: number of sentences to use (e.g. num=4 for using the last 4)
+	var all_sentences = chatBox.chatLog.text.split("\n")
+	var sentences = []
+	# note this might give a problem if the model returns a \n
+	# 	-> I tried this out and it does not seem to be a problem :)
+
+	# choosing the last sentences, that are important for the classification
+	var count
+	if len(all_sentences)<num:
+		count = len(all_sentences)
+	else:
+		count = num
+	for i in count:
+		sentences.append(all_sentences[-i])
+	text = "" # empty variable
+	for i in count:
+		# turning it around (before in the array the sentences are in backwards order
+		text += sentences[count-i-1] + "\n"
+
+	text += "After the conversation " + guest_name + "went to "
+
+	parameters = {
+	"model": "text-davinci-002",
+	"prompt": text,
+	"temperature": 0.9,
+	"max_tokens": 4,
+	"frequency_penalty": 2,
+	"presence_penalty": 0.2,
+	"logit_bias": logit_bias,
+	"stop": ["\""]
+}
+
+	$HTTPRequest.request(url, ["Content-Type: application/json", api_key_request], true, HTTPClient.METHOD_POST, JSON.print(parameters))
+	yield(self, "request_finished")
+
+
+	print("Action from the conversation: ", label)
+
+	if all_actions.str_action_dict.has(label):
+		print("in the dict")
+		new_action(label)
+
+func _on_HTTPRequest_request_completed(result, response_code, headers, body):
+		# parse and extract answer
+	var json = parse_json(body.get_string_from_utf8())
+
+	# print(body.get_string_from_utf8())
+
+	# catch errors in the response:
+	if json.has("error"):
+		# TODO: this should appear on the screen maybe. At least if it is a problem with the
+		# API key, such that we can inform the users if their API key has expired
+		label = "[color=#000000] There was an error with OpenAI: "
+		label += json["error"]["message"] + "[/color]"
+		print("There was an error with parsing the request:")
+		print(json["error"]["message"])
+	else:
+		label = json['choices'][0]['text'].strip_edges(true, true)
+
+		# signal that result has been yielded
+	emit_signal("request_finished")
 
 
 
@@ -348,7 +434,7 @@ func init_bot():
 	like_to_dance = rng.randf_range(0,1)
 	character = rng.randf_range(0,1)
 	attr_vec = [like_to_dance, like_to_drink, like_to_play, age, sociability, intoxication]
-	
+
 func like_other_guests():
 	return get_tree().get_nodes_in_group("bots")
 

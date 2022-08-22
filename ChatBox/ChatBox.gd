@@ -15,13 +15,14 @@ var username
 var color
 var answer
 var prompt
-var player_name = "Nikolaj"
+var player_name = GlobalSettings.player_name
 
 
 signal request_finished
 
 var url = "https://api.openai.com/v1/completions"
-var gpt3_key = OS.get_environment("API_KEY")
+#var gpt3_key = OS.get_environment("API_KEY")
+var gpt3_key = GlobalSettings.api_key
 var api_key_request = "Authorization: Bearer " + gpt3_key
 var parameters 
 var gpt3_prompt
@@ -113,12 +114,15 @@ func request_answer(prompt):
 func _on_HTTPRequest_request_completed(result, response_code, headers, body):
 	# parse and extract answer
 	var json = parse_json(body.get_string_from_utf8())
+	
 	# print(body.get_string_from_utf8())
 	
 	# catch errors in the response:
 	if json.has("error"):
 		# TODO: this should appear on the screen maybe. At least if it is a problem with the 
 		# API key, such that we can inform the users if their API key has expired
+		answer = "[color=#000000] There was an error with OpenAI: "
+		answer += json["error"]["message"] + "[/color]"
 		print("There was an error with parsing the request:")
 		print(json["error"]["message"])
 	else:
