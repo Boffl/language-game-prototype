@@ -10,7 +10,7 @@ func prerequisite(guest):
 	
 	
 func heuristic(guest):
-	return guest.hunger
+	return guest.hunger + guest.intoxication/10
 	
 
 func effect(guest):

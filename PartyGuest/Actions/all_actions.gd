@@ -30,7 +30,7 @@ func best_action(guest):
 	for action in actions:
 		#print("%s %s" %[action.action_name, action.heuristic(guest)])
 		if action.prerequisite(guest):
-			dim_return = (20 - guest.past_actions.slice(0,20).count(action.action_name))/float(20)
+			dim_return = ((20 - guest.past_actions.slice(0,20).count(talk)) / 20)
 			reward = action.heuristic(guest) * dim_return #diminishing return, the more a guest performs an action the less fun it is
 			#print(stepify(action_heuristic,0.01),"\t", action.action_name)
 			if reward > best_r:
@@ -45,13 +45,14 @@ func best_action(guest):
 	best_a.prompt_add(guest)
 	guest.prompt_update()
 	#print(guest.prompt)
+	print(guest.guest_name, ":\t",guest.past_actions)
 	return best_a
 
 
 func talk_to_all(guest):
 	for other_guest in guest.like_other_guests():
 		var guest_sim = cosine_sim(guest.attr_vec, other_guest.attr_vec)
-		reward =  (guest_sim + talk.heuristic(guest, other_guest)) * ((20 - guest.past_actions.slice(0,20).count(talk)) / 20) #diminishing return, the more a guest performs an action the less fun it is
+		reward = 0.2 * (guest.intoxication/10 + guest_sim*0.1 + talk.heuristic(guest, other_guest)) * ((20 - guest.past_actions.slice(0,20).count(talk)) / 20) #diminishing return, the more a guest performs an action the less fun it is
 		if reward > best_r:
 			best_r = reward
 			best_a = talk

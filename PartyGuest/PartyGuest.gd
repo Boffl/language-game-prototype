@@ -89,7 +89,7 @@ var parameters = {}
 # dictionary of tokens that are allowed as the answer
 var logit_bias = {'4098': 100, '4483': 100, '270': 100, '1561': 100, '676': 100, '39463': 100, '296': 100, '5548': 100, '4144': 100, '47408': 100, '9280': 100, '67': 100, '7109': 100, '198': 100, '590': 100, '85': 100, '2666': 100, '16620': 100, '32638': 100, '1660': 100, '44542': 100}
 # for testing_mode:
-var labels = ["drink water", "drink alcohol", "eat", "dance", "leave", "pee"]
+var labels = ["drink water", "drink alcohol", "eat", "dance", "leave", "pee", ""]
 """ Steering"""
 
 var ray_directions = []

@@ -14,7 +14,7 @@
 [ext_resource path="res://Objects/Furniture/Toilet.tscn" type="PackedScene" id=12]
 [ext_resource path="res://Objects/Furniture/WaterTable.tscn" type="PackedScene" id=13]
 [ext_resource path="res://Objects/Furniture/FoodTable.tscn" type="PackedScene" id=14]
-[ext_resource path="res://Objects/Furniture/DanceFloor.tscn" type="PackedScene" id=15]
+[ext_resource path="res://Pathfinding/Pathfinding.gd" type="Script" id=15]
 [ext_resource path="res://Objects/Furniture/ExitBeacon.tscn" type="PackedScene" id=16]
 
 [sub_resource type="TileSet" id=2]
@@ -128,6 +128,7 @@ font_data = ExtResource( 9 )
 script = ExtResource( 11 )
 
 [node name="Pathfinding" type="Node2D" parent="."]
+script = ExtResource( 15 )
 
 [node name="Rooms" type="StaticBody2D" parent="."]
 
@@ -321,18 +322,6 @@ position = Vector2( 160, -8 )
 
 [node name="Toilet3" parent="YSort/Furniture" instance=ExtResource( 16 )]
 position = Vector2( 528, 280 )
-
-[node name="DanceFloor" parent="YSort/Furniture" instance=ExtResource( 15 )]
-position = Vector2( 480, 96 )
-
-[node name="DanceFloor2" parent="YSort/Furniture" instance=ExtResource( 15 )]
-position = Vector2( 512, 112 )
-
-[node name="DanceFloor3" parent="YSort/Furniture" instance=ExtResource( 15 )]
-position = Vector2( 448, 112 )
-
-[node name="DanceFloor4" parent="YSort/Furniture" instance=ExtResource( 15 )]
-position = Vector2( 480, 128 )
 
 [node name="BotPath" type="Path2D" parent="YSort"]
 curve = SubResource( 4 )

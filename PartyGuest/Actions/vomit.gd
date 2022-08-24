@@ -5,10 +5,10 @@ var action_name = "vomit"
 var wait_time = 6
 
 func prerequisite(guest):
-	return guest.intoxication > 0.9
+	return guest.intoxication > 0.7
 	
 func heuristic(guest):
-	return 10
+	return guest.intoxication + (1 - guest.hunger)
 	
 func effect(guest):
 	print("%s left because they vomited" %guest.guest_name)

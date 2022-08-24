@@ -5,17 +5,17 @@ extends Node2D
 var action_name = "dance"
 var wait_time = 10
 
-func prerequisite(partyGuest):
+func prerequisite(guest):
 	#print("thirst %s" %partyGuest.thirst)
 	return true
 	
-func heuristic(partyGuest):
-	return partyGuest.like_to_dance  #TODO: like music thats playing
+func heuristic(guest):
+	return guest.like_to_dance + guest.intoxication/10 #TODO: like music thats playing
 	
 
-func effect(partyGuest):
-	partyGuest.bored -= 0.1
-	partyGuest.tiredness += 0.02
+func effect(guest):
+	guest.bored -= 0.1
+	guest.tiredness += 0.02
 	return wait_time
 
 func prompt_add(guest):
