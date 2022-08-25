@@ -306,7 +306,7 @@ position = Vector2( 288, 256 )
 position = Vector2( 544, 52 )
 
 [node name="WaterTable2" parent="YSort/Furniture" instance=ExtResource( 13 )]
-position = Vector2( 298, 123 )
+position = Vector2( 283, 131 )
 
 [node name="WaterTable3" parent="YSort/Furniture" instance=ExtResource( 13 )]
 position = Vector2( 96, 120 )

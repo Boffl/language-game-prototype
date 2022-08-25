@@ -8,7 +8,9 @@ var partyguest_sprites = [preload("res://Assets/PartyGuest/PartyGuest1.png"),
 							preload("res://Assets/PartyGuest/PartyGuest3.png")]
 							
 
+onready var party_guest_area = get_node("PartyGuestArea")
 
+var leaving = false
 
 var all_actions = load("res://PartyGuest/Actions/all_actions.gd").new()
 
@@ -94,6 +96,8 @@ var labels = ["drink water", "drink alcohol", "eat", "dance", "leave", "pee", ""
 
 var ray_directions = []
 
+var debug_variable
+
 
 func _ready():
 	"""
@@ -135,12 +139,24 @@ func _physics_process(_delta):
 	Updating Stats, Movement and Interaction Functions
 	"""
 	
-	# MOVEMENT
-	if can_move and target_object != "":
-		#target_coordinates = get_parent().get_node("Furniture/" + target_object).position
-		move_to(_delta, coordinates_of_target(target_object))
-	elif can_move and target_object == "":
-		wander()
+	if can_move: # maybe have to put a different variable for doing an activity?
+		if party_guest_area.get_overlapping_areas().size()>0:
+			# this is a list of the overlapping areas. If there are multiple, the first will be
+			# The area with the player, the second the one with the Interaction object and the third, fourth, etc
+			# the one with other bots
+			var areas = party_guest_area.get_overlapping_areas()
+			
+			if areas[0].get_parent().is_in_group(target_object):
+				can_move = false 
+				start_activity(areas[0].get_parent())
+		
+		# MOVEMENT
+		if target_object != "":
+			#target_coordinates = get_parent().get_node("Furniture/" + target_object).position
+			move_to(_delta, coordinates_of_target(target_object))
+		elif target_object == "":
+			pass
+			# wander()
 
 	# UPDATING STATS
 	hunger += 0.000001
@@ -154,7 +170,7 @@ func _physics_process(_delta):
 """ Everything for Interacting with Objects """
 
 func _on_PartyGuestArea_area_entered(area):
-	""" Used for performing an action """
+	# Used for performing an action 
 
 	var interaction_object = area.get_parent()
 	
@@ -176,19 +192,27 @@ func start_activity(interaction_object):
 	
 	# Exit: Leave the Party
 	if interaction_object.is_in_group("exits"):
-		print("Leaving")
 		self.queue_free()
 	
 	# WaterTable
 	if interaction_object.is_in_group("watertables"):
-		message = guest_name + " is having a drink."
-		wait_time = current_action.effect(self)
+		if current_action.action_name == "drink water":
+			message = guest_name + " is drinkin water" # alc or water?
+			wait_time = current_action.effect(self)
+		elif current_action.action_name == "drink alcohol":
+			message = guest_name + " is having a drink" # alc or water?
+			wait_time = current_action.effect(self)
 
 	# Toilet
 	if interaction_object.is_in_group("toilets"):
-		message = guest_name + " is going to the toilet."
-		wait_time = current_action.effect(self)
-	
+		if current_action.action_name == "pee":
+			
+			message = guest_name + " is going to the toilet."
+			wait_time = current_action.effect(self)
+		elif current_action.action_name == "vomit":
+			message = guest_name + " is vomiting"
+			wait_time = current_action.effect(self)
+			
 	#FoodTable
 	if interaction_object.is_in_group("foodtables"):
 		message = guest_name + " is eating something."
@@ -204,10 +228,9 @@ func start_activity(interaction_object):
 		message = guest_name + " wants to " + current_action.action_name + "."
 	
 	
-	if wait_time != 0:
-		can_move = false
-		get_node("ActivityTimer").wait_time = wait_time
-		get_node("ActivityTimer").start()
+
+	get_node("ActivityTimer").wait_time = wait_time
+	get_node("ActivityTimer").start()
 	
 	
 	get_node("PartyGuestStats").set_text(message)
@@ -219,13 +242,18 @@ func start_activity(interaction_object):
 
 func _on_ActivityTimer_timeout():
 	can_move = true
-	new_action(all_actions.best_action(self).action_name)
+	get_node("PartyGuestStats").set_text("")
+	# calculate new best action, call the new action function
+	
+	if not leaving: 
+		new_action(all_actions.best_action(self).action_name)
 
 	
 
 
 
 func new_action(action_name):
+	# setting a target object for the new action
 	next_action = action_name
 	if action_name == "drink water" or action_name == "drink alcohol":
 		target_object = 'watertables'
@@ -237,6 +265,7 @@ func new_action(action_name):
 		target_object = 'exits'
 	else:
 		target_object = 'player'
+	
 	
 	#target_object = possible_target_groups[randi() % len(possible_target_groups)]
 	
@@ -373,7 +402,6 @@ func classify_conversation(var num):
 	print("Action from the conversation: ", label)
 
 	if all_actions.str_action_dict.has(label):
-		print("in the dict")
 		new_action(label)
 
 
@@ -481,7 +509,7 @@ func prompt_init():
 	prompt = "%s was at a party with some friends. The party was hosted by %s. "  %[guest_name, host_name] 
 	prompt += "%s was a %s person. " %[guest_name, map_to_index(adjectives["sociability"], sociability)]
 	prompt += "Most people said that %s was %s, and usually %s." % [guest_name, map_to_index(adjectives["character"], character), map_to_index(adjectives["aggression"], aggression)]
-	#print(get_node("Party").hour)
+
 	return prompt
 
 func map_to_index(list, _float):

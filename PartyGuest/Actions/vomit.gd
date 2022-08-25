@@ -2,7 +2,7 @@ class_name vomit
  
 extends Node2D
 var action_name = "vomit"
-var wait_time = 6
+var wait_time = 5
 
 func prerequisite(guest):
 	return guest.intoxication > 0.7
@@ -12,7 +12,8 @@ func heuristic(guest):
 	
 func effect(guest):
 	print("%s left because they vomited" %guest.guest_name)
-	guest.present = false
+	guest.leaving = true
+	guest.new_action("leave")
 	return wait_time
 
 func prompt_add(guest):

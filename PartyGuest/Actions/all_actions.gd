@@ -37,6 +37,8 @@ func best_action(guest):
 				best_r = reward
 				best_a = action 
 	talk_to_all(guest)
+	# print("Best action: ", best_a.action_name)
+	return best_a
 	guest.past_actions.append(best_a.action_name)
 
 	#best_a.effect(guest)

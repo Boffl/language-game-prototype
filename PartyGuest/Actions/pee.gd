@@ -3,7 +3,7 @@ class_name pee
 extends Node2D
 var wait_time = 10
 
-var action_name = "Pee"
+var action_name = "pee"
 
 func prerequisite(guest):
 	return true

@@ -51,7 +51,8 @@ func walking(delta):
 
 func interacting(delta):
 	var bodies = get_node("TalkingArea").get_overlapping_areas()
-	if bodies.size() > 0 and bodies[0].get_parent().is_in_group('bots'):
+	if bodies.size() > 0 and bodies[0].get_parent().is_in_group('bots') \
+	and not bodies[0].get_parent().leaving:
 		
 		get_node("InteractionLabel").show()
 		

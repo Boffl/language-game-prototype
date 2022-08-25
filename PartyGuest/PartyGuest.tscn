@@ -57,7 +57,5 @@ one_shot = true
 
 [node name="HTTPRequest" type="HTTPRequest" parent="."]
 
-[connection signal="area_entered" from="PartyGuestArea" to="." method="_on_PartyGuestArea_area_entered"]
-[connection signal="area_exited" from="PartyGuestArea" to="." method="_on_PartyGuestArea_area_exited"]
 [connection signal="timeout" from="ActivityTimer" to="." method="_on_ActivityTimer_timeout"]
 [connection signal="request_completed" from="HTTPRequest" to="." method="_on_HTTPRequest_request_completed"]

@@ -16,6 +16,7 @@ size = 11
 font_data = ExtResource( 3 )
 
 [node name="Player" type="KinematicBody2D" groups=["Player", "player"]]
+position = Vector2( -1, 0 )
 script = ExtResource( 2 )
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
