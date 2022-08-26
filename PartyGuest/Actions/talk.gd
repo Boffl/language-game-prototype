@@ -4,13 +4,14 @@ extends Node2D
 
 var action_name = "talk"
 var wait_time = 11
+var balance_factor = 0.3
 
 func prerequisite(guest):
 	return true
 	
 	
 func heuristic(guest, other_guest):
-	return (guest.sociability + guest.intoxication * 0.1) * 0.5 
+	return (guest.sociability + guest.intoxication * 0.1) * balance_factor 
 	
 
 func effect(guest):

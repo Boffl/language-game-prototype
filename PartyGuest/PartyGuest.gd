@@ -162,7 +162,8 @@ func _physics_process(_delta):
 	hunger += 0.000001
 	thirst += 0.000001
 	intoxication -= 0.00001
-	tiredness += 0.000001
+	tiredness += 0.00001
+	bored += 0.00001
 	need_to_pee += 0.00001
 
 

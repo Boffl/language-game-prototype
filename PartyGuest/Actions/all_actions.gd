@@ -18,27 +18,32 @@ var new_guest
 var guest_dict
 var action_dict
 var dim_return
+var rewards_actions
 
 var str_action_dict = {"drink water": drink_water, "drink alcohol": drink_alc,
 							"eat": eat, "dance": dance, "leave": leave, "vomit": vomit, "talk":talk, "pee":pee}
 
 
 func best_action(guest):
+	#next line for debug
+	rewards_actions = []
+	
 	best_r = -50
 	best_a = false
 	var best_talk
 	for action in actions:
 		#print("%s %s" %[action.action_name, action.heuristic(guest)])
 		if action.prerequisite(guest):
-			dim_return = ((20 - guest.past_actions.slice(0,20).count(talk)) / 20)
+			dim_return = ((10 - guest.past_actions.slice(0,10).count(talk)) / 10)
 			reward = action.heuristic(guest) * dim_return #diminishing return, the more a guest performs an action the less fun it is
 			#print(stepify(action_heuristic,0.01),"\t", action.action_name)
+			rewards_actions.append("%s: %s" %[action.action_name, reward])
 			if reward > best_r:
 				best_r = reward
 				best_a = action 
 	talk_to_all(guest)
-	# print("Best action: ", best_a.action_name)
-	return best_a
+	#print("Best action: ", best_a.past_actions)
+	#return best_a
 	guest.past_actions.append(best_a.action_name)
 
 	#best_a.effect(guest)
@@ -46,15 +51,18 @@ func best_action(guest):
 	#print(guest.prompt)
 	best_a.prompt_add(guest)
 	guest.prompt_update()
-	#print(guest.prompt)
-	print(guest.guest_name, ":\t",guest.past_actions)
+
+	#Debug stuff
+	#print(rewards_actions)
+	#print(guest.guest_name, ":\t",guest.past_actions)
 	return best_a
 
 
 func talk_to_all(guest):
 	for other_guest in guest.like_other_guests():
 		var guest_sim = cosine_sim(guest.attr_vec, other_guest.attr_vec)
-		reward = 0.2 * (guest.intoxication/10 + guest_sim*0.1 + talk.heuristic(guest, other_guest)) * ((20 - guest.past_actions.slice(0,20).count(talk)) / 20) #diminishing return, the more a guest performs an action the less fun it is
+		reward = 0#(guest_sim*0.1 + talk.heuristic(guest, other_guest)) * ((10 - guest.past_actions.slice(0,10).count(talk)) / 10) #diminishing return, the more a guest performs an action the less fun it is
+		rewards_actions.append("%s: %s" %[talk.action_name, reward])
 		if reward > best_r:
 			best_r = reward
 			best_a = talk
