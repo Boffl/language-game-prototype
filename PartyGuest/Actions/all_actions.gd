@@ -34,7 +34,7 @@ func best_action(guest):
 	for action in actions:
 		#print("%s %s" %[action.action_name, action.heuristic(guest)])
 		if action.prerequisite(guest):
-			dim_return = ((10 - guest.past_actions.slice(0,10).count(talk)) / 10)
+			dim_return = ((5 - guest.past_actions.slice(0,5).count(action.action_name)) / 5)
 			reward = action.heuristic(guest) * dim_return #diminishing return, the more a guest performs an action the less fun it is
 			#print(stepify(action_heuristic,0.01),"\t", action.action_name)
 			rewards_actions.append("%s: %s" %[action.action_name, reward])
@@ -42,36 +42,32 @@ func best_action(guest):
 				best_r = reward
 				best_a = action 
 	talk_to_all(guest)
-	#print("Best action: ", best_a.past_actions)
-	#return best_a
 	guest.past_actions.append(best_a.action_name)
-
-	#best_a.effect(guest)
-	#print(guest.guest_name, "\t", guest.past_actions.slice(0,20))
-	#print(guest.prompt)
 	best_a.prompt_add(guest)
 	guest.prompt_update()
 
 	#Debug stuff
-	#print(rewards_actions)
-	#print(guest.guest_name, ":\t",guest.past_actions)
+	print(rewards_actions)
+	print(guest.guest_name, ":\t",guest.past_actions)
 	return best_a
 
 
 func talk_to_all(guest):
 	for other_guest in guest.like_other_guests():
-		var guest_sim = cosine_sim(guest.attr_vec, other_guest.attr_vec)
-		reward = 0#(guest_sim*0.1 + talk.heuristic(guest, other_guest)) * ((10 - guest.past_actions.slice(0,10).count(talk)) / 10) #diminishing return, the more a guest performs an action the less fun it is
-		rewards_actions.append("%s: %s" %[talk.action_name, reward])
-		if reward > best_r:
-			best_r = reward
-			best_a = talk
+		if guest != other_guest:
+			var guest_sim = cosine_sim(guest.attr_vec, other_guest.attr_vec)
+			#print("guest_sim:", guest_sim)
+			reward = (guest_sim*0.1 + talk.heuristic(guest, other_guest)) * ((5 - guest.past_actions.slice(0,5).count(talk.action_name)) / 5) #diminishing return, the more a guest performs an action the less fun it is
+			rewards_actions.append("%s: %s" %[talk.action_name, reward])
+			if reward > best_r:
+				best_r = reward
+				best_a = talk
 
 func vec_len(vec):
 	"""Calculate vector length. Vector should be in format: [x, y, z,...]"""
 	var res = 0
 	for dim in vec:
-		res += dim
+		res += pow(dim,2)
 	return sqrt(res)
 
 func dot_prod(vec1, vec2):
@@ -79,7 +75,7 @@ func dot_prod(vec1, vec2):
 	var res = 0
 	var index = 0
 	for dim in vec1:
-		res += vec1[index] * vec2[index]
+		res += vec1[index] * vec2[index] 
 		index += 1
 	return res
 
