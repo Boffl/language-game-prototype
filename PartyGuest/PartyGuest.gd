@@ -260,7 +260,7 @@ func new_action(action_name):
 	next_action = action_name
 	if action_name == "drink water" or action_name == "drink alcohol":
 		target_object = 'watertables'
-	elif action_name == "vomit":
+	elif action_name == "vomit" or action_name == "pee":
 		target_object = 'toilets'
 	elif action_name == "dance":
 		target_object = "dancefloors"
