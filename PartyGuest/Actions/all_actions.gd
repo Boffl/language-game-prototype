@@ -20,7 +20,7 @@ var action_dict
 var dim_return
 
 var str_action_dict = {"drink water": drink_water, "drink alcohol": drink_alc,
-							"eat": eat, "dance": dance, "leave": leave, "vomit": vomit, "talk":talk}
+							"eat": eat, "dance": dance, "leave": leave, "vomit": vomit, "talk":talk, "pee":pee}
 
 
 func best_action(guest):

@@ -264,6 +264,7 @@ func new_action(action_name):
 	elif action_name == "dance":
 		target_object = "dancefloors"
 	elif action_name == "leave":
+		#get_node("PartyGuestStats").set_text(guest_name + " is leaving")
 		leaving = true
 		target_object = 'exits'
 	else:
