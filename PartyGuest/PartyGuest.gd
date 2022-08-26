@@ -159,10 +159,10 @@ func _physics_process(_delta):
 			# wander()
 
 	# UPDATING STATS
-	hunger += 0.000001
-	thirst += 0.000001
+	hunger += 0.00001
+	thirst += 0.00001
 	intoxication -= 0.00001
-	tiredness += 0.00001
+	tiredness += 0.0001
 	bored += 0.00001
 	need_to_pee += 0.00001
 
@@ -470,7 +470,7 @@ func init_bot():
 	like_other_guest = {} 
 	like_to_dance = rng.randf_range(0,1)
 	character = rng.randf_range(0,1)
-	attr_vec = [like_to_dance, like_to_drink, like_to_play, age, sociability, intoxication]
+	attr_vec = [like_to_dance, like_to_drink, like_to_play, age, sociability, rng.randf_range(-10,10)]
 
 func like_other_guests():
 	return get_tree().get_nodes_in_group("bots")
@@ -506,7 +506,6 @@ func prompt_init():
 	file.open("res://data/adjectives.res", File.READ)
 	var adjectives = str2var(file.get_as_text())
 	file.close()
-	#print("sociability", adjectives["sociability"])
 	prompt = "%s was at a party with some friends. The party was hosted by %s. "  %[guest_name, host_name] 
 	prompt += "%s was a %s person. " %[guest_name, map_to_index(adjectives["sociability"], sociability)]
 	prompt += "Most people said that %s was %s, and usually %s." % [guest_name, map_to_index(adjectives["character"], character), map_to_index(adjectives["aggression"], aggression)]
