@@ -10,7 +10,7 @@ func prerequisite(guest):
 	
 	
 func heuristic(guest):
-	return (guest.bored + guest.tiredness)*2
+	return discomfort(guest)
 	
 
 func effect(guest):
@@ -19,7 +19,7 @@ func effect(guest):
 	return wait_time
 
 func discomfort(guest):
-	return guest.tiredness + guest.hunger + guest.thirst + guest.boredom
+	return guest.tiredness + guest.hunger + guest.thirst + guest.bored
 	
 func prompt_add(guest):
 	guest.prompt += " %s left." %[guest.guest_name]

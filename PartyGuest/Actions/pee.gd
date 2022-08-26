@@ -14,7 +14,7 @@ func heuristic(guest):
 	
 
 func effect(guest):
-	
+	guest.need_to_pee -= 0.5
 	return wait_time
 
 func prompt_add(guest):
