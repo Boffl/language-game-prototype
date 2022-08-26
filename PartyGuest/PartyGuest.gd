@@ -73,7 +73,7 @@ var general_discomfort
 var attr_vec
 # _init with arguments is not allowed here, see:
 # https://github.com/godotengine/godot/issues/15866
-
+var new_action
 
 #for cosine similarity
 
@@ -228,7 +228,7 @@ func start_activity(interaction_object):
 		message = guest_name + " wants to " + current_action.action_name + "."
 	
 	
-
+	new_action = false 
 	get_node("ActivityTimer").wait_time = wait_time
 	get_node("ActivityTimer").start()
 	
@@ -245,7 +245,7 @@ func _on_ActivityTimer_timeout():
 	get_node("PartyGuestStats").set_text("")
 	# calculate new best action, call the new action function
 	
-	if not leaving: 
+	if not leaving and not new_action: 
 		new_action(all_actions.best_action(self).action_name)
 
 	
@@ -254,6 +254,8 @@ func _on_ActivityTimer_timeout():
 
 func new_action(action_name):
 	# setting a target object for the new action
+	new_action = true  # boolean to prevent calculating new best action before this
+	# action is performed
 	next_action = action_name
 	if action_name == "drink water" or action_name == "drink alcohol":
 		target_object = 'watertables'
@@ -262,6 +264,7 @@ func new_action(action_name):
 	elif action_name == "dance":
 		target_object = "dancefloors"
 	elif action_name == "leave":
+		leaving = true
 		target_object = 'exits'
 	else:
 		target_object = 'player'
