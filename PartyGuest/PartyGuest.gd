@@ -161,7 +161,9 @@ func _physics_process(_delta):
 	# UPDATING STATS
 	hunger += 0.00001
 	thirst += 0.00001
-	intoxication -= 0.00001
+	if intoxication > 0.00001:
+		# to not have negative intoxication
+		intoxication -= 0.00001
 	tiredness += 0.0001
 	bored += 0.00001
 	need_to_pee += 0.00001
@@ -501,10 +503,16 @@ func prompt_init():
 
 	return prompt
 
+
 func map_to_index(list, _float):
+	print("----------------------------")
+	print(list)
+	print(_float)
+	print(list[int(len(list)*_float)])
+	
 	return list[int(len(list) * _float)]
 
-var adjectives
+
 func prompt_update():
 	"""update prompt to add current state of mind and biggest need"""
 	var file = File.new()

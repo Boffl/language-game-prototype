@@ -14,7 +14,11 @@ func heuristic(guest):
 	
 
 func effect(guest):
-	guest.bored -= 0.1
+	if guest.bored > 0.1:
+		guest.bored -= 0.1
+	else:
+		guest.bored = 0
+	
 	guest.tiredness += 0.02
 	return wait_time
 

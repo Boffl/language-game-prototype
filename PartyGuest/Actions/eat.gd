@@ -14,8 +14,14 @@ func heuristic(guest):
 	
 
 func effect(guest):
-	guest.hunger -= 0.5
-	guest.intoxication -= 0.05
+	if guest.hunger > 0.5:
+		guest.hunger -= 0.5
+	else:
+		guest.hunger = 0
+	if guest.intoxication > 0.05:
+		guest.intoxication -= 0.05
+	else:
+		guest.intoxication = 0.5
 	guest.have_food -= 1
 	return wait_time
 

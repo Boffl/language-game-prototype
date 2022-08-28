@@ -14,8 +14,14 @@ func heuristic(guest):
 	
 
 func effect(guest):
-	guest.thirst -= 0.5
-	guest.intoxication -= 0.5
+	if guest.thirst > 0.5:
+		guest.thirst -= 0.5
+	else:
+		guest.thirst = 0
+	if guest.intoxication > 0.5:
+		guest.intoxication -= 0.5
+	else:
+		guest.intoxication = 0
 	guest.have_water -= 1
 	guest.need_to_pee += 0.002
 	#print(guest.thirst)
