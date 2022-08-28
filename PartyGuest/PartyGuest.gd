@@ -12,6 +12,8 @@ onready var party_guest_area = get_node("PartyGuestArea")
 
 var leaving = false
 
+var is_talking = false
+
 var all_actions = load("res://PartyGuest/Actions/all_actions.gd").new()
 
 # best action gets stored until either executed or abandoned
@@ -229,12 +231,15 @@ func start_activity(interaction_object):
 
 
 func _on_ActivityTimer_timeout():
-	can_move = true
-	get_node("PartyGuestStats").set_text("")
-	# calculate new best action, call the new action function
-	
-	if not leaving and not new_action: 
-		new_action(all_actions.best_action(self).action_name)
+
+	if not is_talking:
+		can_move = true
+			
+		get_node("PartyGuestStats").set_text("")
+		# calculate new best action, call the new action function
+		
+		if not leaving and not new_action: 
+			new_action(all_actions.best_action(self).action_name)
 
 	
 
@@ -335,6 +340,8 @@ func move_to(delta, target_coordinates):
 """ ChatBox and ChatLog """
 
 func start_conversation():
+	is_talking = true
+	can_move = false
 	get_node("PartyGuestArea/CanvasLayer").add_child(chatBox)
 	get_node("PartyGuestArea/CanvasLayer/ChatBox/VBoxContainer/HBoxContainer/LineEdit").grab_focus() # makes it possible to start typing immediately
 
@@ -343,7 +350,8 @@ func end_conversation():
 	# past_conversations.append(get_node("PartyGuestArea/CanvasLayer/ChatBox").chat_log)
 	# calculate sentiment of conversation or something
 	classify_conversation(4)
-
+	is_talking = false
+	can_move = true
 	get_node("PartyGuestArea/CanvasLayer").remove_child(chatBox)
 
 
