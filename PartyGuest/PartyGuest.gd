@@ -168,29 +168,14 @@ func _physics_process(_delta):
 
 
 
-""" Everything for Interacting with Objects """
 
-func _on_PartyGuestArea_area_entered(area):
-	# Used for performing an action 
-
-	var interaction_object = area.get_parent()
-	
-	# checks if the object is of the target type, then starts activity
-	if interaction_object.is_in_group(target_object):
-		start_activity(interaction_object)
-
-
-func _on_PartyGuestArea_area_exited(area):
-	if not area.get_parent().is_in_group("bots") or area.get_parent().is_in_group("Player"):
-		get_node("PartyGuestStats").set_text("")	
 
 
 func start_activity(interaction_object):
 	""" For interacting with Furniture """
 	var current_action = all_actions.str_action_dict[next_action]
 	var message = ""
-	var wait_time = 0
-	
+	var wait_time = 0	
 	# Exit: Leave the Party
 	if interaction_object.is_in_group("exits"):
 		self.queue_free()
@@ -230,8 +215,9 @@ func start_activity(interaction_object):
 	
 	
 	new_action = false 
-	get_node("ActivityTimer").wait_time = wait_time
-	get_node("ActivityTimer").start()
+	if wait_time != 0:
+		get_node("ActivityTimer").wait_time = wait_time
+		get_node("ActivityTimer").start()
 	
 	
 	get_node("PartyGuestStats").set_text(message)
