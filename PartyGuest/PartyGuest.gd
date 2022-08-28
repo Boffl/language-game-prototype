@@ -505,11 +505,6 @@ func prompt_init():
 
 
 func map_to_index(list, _float):
-	print("----------------------------")
-	print(list)
-	print(_float)
-	print(list[int(len(list)*_float)])
-	
 	return list[int(len(list) * _float)]
 
 
