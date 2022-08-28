@@ -167,10 +167,6 @@ func _physics_process(_delta):
 	need_to_pee += 0.00001
 
 
-
-
-
-
 func start_activity(interaction_object):
 	""" For interacting with Furniture """
 	var current_action = all_actions.str_action_dict[next_action]
@@ -216,6 +212,9 @@ func start_activity(interaction_object):
 	
 	new_action = false 
 	if wait_time != 0:
+		# wait time is only zero when guest is leaving
+		# TODO: fix the logic of the leave action? 
+			# In a way that it can be used as the others
 		get_node("ActivityTimer").wait_time = wait_time
 		get_node("ActivityTimer").start()
 	
@@ -504,7 +503,8 @@ func prompt_init():
 
 func map_to_index(list, _float):
 	return list[int(len(list) * _float)]
-	
+
+var adjectives
 func prompt_update():
 	"""update prompt to add current state of mind and biggest need"""
 	var file = File.new()
