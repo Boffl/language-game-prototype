@@ -47,8 +47,8 @@ func best_action(guest):
 	guest.prompt_update()
 
 	#Debug stuff
-	print(rewards_actions)
-	print(guest.guest_name, ":\t",guest.past_actions)
+	# print(rewards_actions)
+	# print(guest.guest_name, ":\t",guest.past_actions)
 	return best_a
 
 
