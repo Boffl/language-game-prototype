@@ -9,6 +9,7 @@ var partyguest_sprites = [preload("res://Assets/PartyGuest/PartyGuest1.png"),
 							
 
 onready var party_guest_area = get_node("PartyGuestArea")
+onready var popup_node = get_node("DataCollection/Popup")
 
 var leaving = false
 
@@ -23,6 +24,7 @@ var bot_name = "default"
 
 # Values are filled individually in in the initialization
 onready var chatBox = get_node("PartyGuestArea/CanvasLayer/ChatBox")
+
 
 # list of lists of all past conversations
 var past_conversations = []
@@ -349,13 +351,46 @@ func start_conversation():
 func end_conversation():
 	# past_conversations.append(get_node("PartyGuestArea/CanvasLayer/ChatBox").chat_log)
 	# calculate sentiment of conversation or something
-	classify_conversation(4)
+	var text = last_sentences() # take last sentences from the chabox
+	data_collection(text)
+	classify_conversation(text)
 	is_talking = false
 	can_move = true
 	get_node("PartyGuestArea/CanvasLayer").remove_child(chatBox)
+	
+	
+func last_sentences(var num=4):
+	# takes the last sentences from the chatbox
+	var text = ""
+	var all_sentences = chatBox.chatLog.text.split("\n")  
+	var sentences = []
+	# note this might give a problem if the model returns a \n
+	# 	-> I tried this out and it does not seem to be a problem :)
+	
+	# choosing the last sentences, that are important for the classification
+	var count
+	if len(all_sentences)<num:
+		count = len(all_sentences)
+	else:
+		count = num
+	for i in count:
+		sentences.append(all_sentences[-(i+1)])
+	for i in count:
+		# turning it around (before in the array the sentences are in backwards order
+		text += sentences[count-i-1] + "\n"
+	
+	return text
 
 
-func classify_conversation(var num):
+func data_collection(var text):
+	
+	# put the text into the popup node
+	popup_node.text = text
+	# open the popup node
+	popup_node.popup_centered_ratio(0.5)
+	
+	
+func classify_conversation(var text):
 	#  classify the conversation and choose an action
 	# :param num: number of sentences to use (e.g. num=4 for using the last 4)
 	
@@ -364,25 +399,8 @@ func classify_conversation(var num):
 		label = labels[randi() % labels.size()]
 	
 	else:
-		var all_sentences = chatBox.chatLog.text.split("\n")  
-		var sentences = []
-		# note this might give a problem if the model returns a \n
-		# 	-> I tried this out and it does not seem to be a problem :)
 		
-		# choosing the last sentences, that are important for the classification
-		var count
-		if len(all_sentences)<num:
-			count = len(all_sentences)
-		else:
-			count = num
-		for i in count:
-			sentences.append(all_sentences[-i])
-		text = "" # empty variable
-		for i in count:
-			# turning it around (before in the array the sentences are in backwards order
-			text += sentences[count-i-1] + "\n"
-		
-		text += "After the conversation " + guest_name + "went to "
+		text += "\nAfter the conversation " + guest_name + "went to "
 		
 		parameters = {
 		"model": "text-davinci-002",

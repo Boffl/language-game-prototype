@@ -1,7 +1,8 @@
-[gd_scene load_steps=7 format=2]
+[gd_scene load_steps=8 format=2]
 
 [ext_resource path="res://PartyGuest/PartyGuest.gd" type="Script" id=1]
 [ext_resource path="res://Assets/PartyGuest/PartyGuest2.png" type="Texture" id=2]
+[ext_resource path="res://DataCollection/DataCollection.tscn" type="PackedScene" id=3]
 [ext_resource path="res://ChatBox/ChatBox.tscn" type="PackedScene" id=4]
 [ext_resource path="res://Assets/Fonts/orange-kid.regular.otf" type="DynamicFontData" id=5]
 
@@ -56,6 +57,8 @@ text = "stats"
 one_shot = true
 
 [node name="HTTPRequest" type="HTTPRequest" parent="."]
+
+[node name="DataCollection" parent="." instance=ExtResource( 3 )]
 
 [connection signal="timeout" from="ActivityTimer" to="." method="_on_ActivityTimer_timeout"]
 [connection signal="request_completed" from="HTTPRequest" to="." method="_on_HTTPRequest_request_completed"]
