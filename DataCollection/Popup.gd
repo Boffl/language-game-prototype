@@ -24,11 +24,21 @@ func _on_Popup_about_to_show():
 
 func _on_Popup_confirmed():
 	chosen_index = drop_down.selected
-	# var data_row = labels[chosen_index] + "," + text_label.text
-	# var file = File.new()
-	# file.open("data.csv", file.WRITE)
-	# file.store_line(data_row)
-	# file.close()
-	print(text_label.text, ", ", labels[chosen_index])
+	# preparing for the file, with escape characters and enclosed in quotes
+	var conversation = "\"" + text_label.text.c_escape() + "\""
+	
+	# here are the labels, note that text_label refers to the RichTextLabel
+	# element from Godot... 
+	var label = labels[chosen_index]
+	var file = File.new()
+	
+	# writing into a txt file, because Godot gets all weird when there is a
+	# .csv in the folder...
+	file.open("data.txt", file.READ_WRITE)  # READ_WRITE is method to append
+	file.seek_end()  # go to end of file
+	file.store_line(label + "," + conversation)
+	file.close()
+	print("Datapoint saved to data.txt")
+
 
 
