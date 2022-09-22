@@ -1,4 +1,4 @@
-[gd_scene load_steps=25 format=2]
+[gd_scene load_steps=24 format=2]
 
 [ext_resource path="res://Assets/Walls_Floors/Basic_Floor_Tile.png" type="Texture" id=1]
 [ext_resource path="res://Assets/Walls_Floors/Basic_Wall_left.png" type="Texture" id=2]
@@ -15,7 +15,6 @@
 [ext_resource path="res://Objects/Furniture/WaterTable.tscn" type="PackedScene" id=13]
 [ext_resource path="res://Objects/Furniture/FoodTable.tscn" type="PackedScene" id=14]
 [ext_resource path="res://Pathfinding/Pathfinding.gd" type="Script" id=15]
-[ext_resource path="res://Objects/Furniture/ExitBeacon.tscn" type="PackedScene" id=16]
 [ext_resource path="res://Objects/Furniture/DanceFloor.tscn" type="PackedScene" id=17]
 
 [sub_resource type="TileSet" id=2]
@@ -113,7 +112,7 @@ radius = 8.0
 
 [sub_resource type="Curve2D" id=4]
 _data = {
-"points": PoolVector2Array( 0, 0, 0, 0, 192, 112, 0, 0, 0, 0, 360, 24, 0, 0, 0, 0, 384, 96, 0, 0, 0, 0, 440, 72, 0, 0, 0, 0, 504, 120, 0, 0, 0, 0, 432, 184, 0, 0, 0, 0, 488, 248, 0, 0, 0, 0, 392, 208, 0, 0, 0, 0, 352, 312, 0, 0, 0, 0, 280, 272, 0, 0, 0, 0, 360, 248, 0, 0, 0, 0, 376, 168, 0, 0, 0, 0, 312, 152, 0, 0, 0, 0, 224, 192, 0, 0, 0, 0, 152, 144, 0, 0, 0, 0, 192, 112 )
+"points": PoolVector2Array( 0, 0, 0, 0, 94, 70, 0, 0, 0, 0, 131, 8, 0, 0, 0, 0, 165, 17, 0, 0, 0, 0, 186, 6, 0, 0, 0, 0, 185, -17, 0, 0, 0, 0, 256, -53, 0, 0, 0, 0, 382, 15, 0, 0, 0, 0, 439, 43, 0, 0, 0, 0, 507, 77, 0, 0, 0, 0, 560, 71, 0, 0, 0, 0, 575, 47, 0, 0, 0, 0, 745, 129, 0, 0, 0, 0, 475, 266, 0, 0, 0, 0, 392, 208, 0, 0, 0, 0, 378, 257, 0, 0, 0, 0, 361, 308, 0, 0, 0, 0, 286, 270, 0, 0, 0, 0, 360, 248, 0, 0, 0, 0, 376, 168, 0, 0, 0, 0, 312, 152, 0, 0, 0, 0, 224, 192, 0, 0, 0, 0, 152, 144, 0, 0, 0, 0, 95, 70 )
 }
 
 [sub_resource type="NavigationPolygon" id=10]
@@ -126,6 +125,7 @@ size = 22
 font_data = ExtResource( 9 )
 
 [node name="Party" type="Node2D"]
+position = Vector2( 63, 70 )
 script = ExtResource( 11 )
 
 [node name="Pathfinding" type="Node2D" parent="."]
@@ -134,8 +134,7 @@ script = ExtResource( 15 )
 [node name="Rooms" type="StaticBody2D" parent="."]
 
 [node name="CollisionPolygon2D" type="CollisionPolygon2D" parent="Rooms"]
-visible = false
-polygon = PoolVector2Array( 0, 384, 392, 384, 640, 384, 608, 272, 512, 320, 448, 288, 352, 336, 224, 272, 160, 304, 32, 240, 128, 192, 32, 144, 0, 128, 160, 48, 96, 16, 256, -64, 448, 32, 512, 0, 704, 96, 480, 208, 608, 272, 640, 384, 832, 384, 832, 72, 832, -128, 0, -128 )
+polygon = PoolVector2Array( 0, 384, 392, 384, 831, 385, 533, 243, 484, 270, 448, 288, 382, 320, 128, 192, 32, 144, 0, 128, -61, 99, 96, 16, 256, -64, 448, 32, 512, 63, 574, 34, 762, 129, 547, 236, 533, 243, 832, 384, 832, 72, 832, -128, 0, -128, -63, 98 )
 
 [node name="Floor" type="TileMap" parent="Rooms"]
 mode = 1
@@ -143,7 +142,7 @@ tile_set = SubResource( 2 )
 cell_size = Vector2( 64, 32 )
 cell_quadrant_size = 32
 format = 1
-tile_data = PoolIntArray( -524280, 0, 0, -524279, 0, 0, -524278, 0, 0, -524277, 0, 0, -524276, 0, 0, -524275, 0, 0, -458744, 0, 0, -458743, 0, 0, -458742, 0, 0, -458741, 0, 0, -458740, 0, 0, -458739, 0, 0, -393214, 0, 0, -393213, 0, 0, -393212, 0, 0, -393211, 0, 0, -393210, 0, 0, -393209, 0, 0, -393208, 0, 0, -393207, 0, 0, -393206, 0, 0, -393205, 0, 0, -393204, 0, 0, -393203, 0, 0, -327678, 0, 0, -327677, 0, 0, -327676, 0, 0, -327675, 0, 0, -327674, 0, 0, -327673, 0, 0, -327672, 0, 0, -327671, 0, 0, -327670, 0, 0, -327669, 0, 0, -327668, 0, 0, -327667, 0, 0, -262142, 0, 0, -262141, 0, 0, -262140, 0, 0, -262139, 0, 0, -262138, 0, 0, -262137, 0, 0, -262136, 0, 0, -262135, 0, 0, -262134, 0, 0, -262133, 0, 0, -262132, 0, 0, -262131, 0, 0, -196606, 0, 0, -196605, 0, 0, -196604, 0, 0, -196603, 0, 0, -196602, 0, 0, -196601, 0, 0, -196600, 0, 0, -196599, 0, 0, -196598, 0, 0, -196597, 0, 0, -196596, 0, 0, -196595, 0, 0, -131070, 0, 0, -131069, 0, 0, -131068, 0, 0, -131067, 0, 0, -131066, 0, 0, -131065, 0, 0, -131064, 0, 0, -131063, 0, 0, -131062, 0, 0, -131061, 0, 0, -131060, 0, 0, -131059, 0, 0, -65532, 0, 0, -65531, 0, 0, -65530, 0, 0, -65529, 0, 0, -65528, 0, 0, -65527, 0, 0, -65526, 0, 0, -65525, 0, 0, -65524, 0, 0, -65523, 0, 0, -65522, 0, 0, -65521, 0, 0, -65520, 0, 0, -65519, 0, 0, 4, 0, 0, 5, 0, 0, 6, 0, 0, 7, 0, 0, 8, 0, 0, 9, 0, 0, 10, 0, 0, 11, 0, 0, 12, 0, 0, 13, 0, 0, 14, 0, 0, 15, 0, 0, 16, 0, 0, 17, 0, 0, 65540, 0, 0, 65541, 0, 0, 65542, 0, 0, 65543, 0, 0, 65544, 0, 0, 65545, 0, 0, 65546, 0, 0, 65547, 0, 0, 65548, 0, 0, 65549, 0, 0, 65550, 0, 0, 65551, 0, 0, 65552, 0, 0, 65553, 0, 0, 131076, 0, 0, 131077, 0, 0, 131078, 0, 0, 131079, 0, 0, 131080, 0, 0, 131081, 0, 0, 131082, 0, 0, 131083, 0, 0, 131084, 0, 0, 131085, 0, 0, 131086, 0, 0, 131087, 0, 0, 196612, 0, 0, 196613, 0, 0, 196614, 0, 0, 196615, 0, 0, 196616, 0, 0, 196617, 0, 0, 196618, 0, 0, 196619, 0, 0, 196620, 0, 0, 196621, 0, 0, 196622, 0, 0, 196623, 0, 0, 262152, 0, 0, 262153, 0, 0, 262154, 0, 0, 262155, 0, 0, 262156, 0, 0, 262157, 0, 0, 262158, 0, 0, 262159, 0, 0, 327688, 0, 0, 327689, 0, 0, 327690, 0, 0, 327691, 0, 0, 393224, 0, 0, 393225, 0, 0, 393226, 0, 0, 393227, 0, 0 )
+tile_data = PoolIntArray( -524278, 0, 0, -524277, 0, 0, -524276, 0, 0, -524275, 0, 0, -524274, 0, 0, -524273, 0, 0, -458742, 0, 0, -458741, 0, 0, -458740, 0, 0, -458739, 0, 0, -458738, 0, 0, -458737, 0, 0, -393214, 0, 0, -393213, 0, 0, -393212, 0, 0, -393211, 0, 0, -393210, 0, 0, -393209, 0, 0, -393208, 0, 0, -393207, 0, 0, -393206, 0, 0, -393205, 0, 0, -393204, 0, 0, -393203, 0, 0, -393202, 0, 0, -393201, 0, 0, -327678, 0, 0, -327677, 0, 0, -327676, 0, 0, -327675, 0, 0, -327674, 0, 0, -327673, 0, 0, -327672, 0, 0, -327671, 0, 0, -327670, 0, 0, -327669, 0, 0, -327668, 0, 0, -327667, 0, 0, -327666, 0, 0, -327665, 0, 0, -262142, 0, 0, -262141, 0, 0, -262140, 0, 0, -262139, 0, 0, -262138, 0, 0, -262137, 0, 0, -262136, 0, 0, -262135, 0, 0, -262134, 0, 0, -262133, 0, 0, -262132, 0, 0, -262131, 0, 0, -262130, 0, 0, -262129, 0, 0, -196606, 0, 0, -196605, 0, 0, -196604, 0, 0, -196603, 0, 0, -196602, 0, 0, -196601, 0, 0, -196600, 0, 0, -196599, 0, 0, -196598, 0, 0, -196597, 0, 0, -196596, 0, 0, -196595, 0, 0, -196594, 0, 0, -196593, 0, 0, -131070, 0, 0, -131069, 0, 0, -131068, 0, 0, -131067, 0, 0, -131066, 0, 0, -131065, 0, 0, -131064, 0, 0, -131063, 0, 0, -131062, 0, 0, -131061, 0, 0, -131060, 0, 0, -131059, 0, 0, -131058, 0, 0, -131057, 0, 0, -65534, 0, 0, -65533, 0, 0, -65532, 0, 0, -65531, 0, 0, -65530, 0, 0, -65529, 0, 0, -65528, 0, 0, -65527, 0, 0, -65526, 0, 0, -65525, 0, 0, -65524, 0, 0, -65523, 0, 0, -65522, 0, 0, -65521, 0, 0, 2, 0, 0, 3, 0, 0, 4, 0, 0, 5, 0, 0, 6, 0, 0, 7, 0, 0, 8, 0, 0, 9, 0, 0, 10, 0, 0, 11, 0, 0, 12, 0, 0, 13, 0, 0, 14, 0, 0, 15, 0, 0, 65538, 0, 0, 65539, 0, 0, 65540, 0, 0, 65541, 0, 0, 65542, 0, 0, 65543, 0, 0, 65544, 0, 0, 65545, 0, 0, 65546, 0, 0, 65547, 0, 0, 65548, 0, 0, 65549, 0, 0, 65550, 0, 0, 65551, 0, 0, 131074, 0, 0, 131075, 0, 0, 131076, 0, 0, 131077, 0, 0, 131078, 0, 0, 131079, 0, 0, 131080, 0, 0, 131081, 0, 0, 131082, 0, 0, 131083, 0, 0, 131084, 0, 0, 131085, 0, 0, 131086, 0, 0, 131087, 0, 0, 196610, 0, 0, 196611, 0, 0, 196612, 0, 0, 196613, 0, 0, 196614, 0, 0, 196615, 0, 0, 196616, 0, 0, 196617, 0, 0, 196618, 0, 0, 196619, 0, 0, 196620, 0, 0, 196621, 0, 0, 196622, 0, 0, 196623, 0, 0 )
 
 [node name="Walls" type="TileMap" parent="Rooms"]
 mode = 1
@@ -174,26 +173,74 @@ remote_path = NodePath("../../../Camera")
 [node name="Wall" parent="YSort/InternalWalls" instance=ExtResource( 7 )]
 position = Vector2( 264, 248 )
 
-[node name="Wall2" parent="YSort/InternalWalls" instance=ExtResource( 7 )]
-position = Vector2( 232, 264 )
-
-[node name="Wall3" parent="YSort/InternalWalls" instance=ExtResource( 7 )]
-position = Vector2( 248, 256 )
-
 [node name="Wall4" parent="YSort/InternalWalls" instance=ExtResource( 8 )]
 position = Vector2( 328, 224 )
 
 [node name="Wall5" parent="YSort/InternalWalls" instance=ExtResource( 8 )]
 position = Vector2( 344, 232 )
 
+[node name="Wall7" parent="YSort/InternalWalls" instance=ExtResource( 8 )]
+position = Vector2( 264, -63 )
+
+[node name="Wall8" parent="YSort/InternalWalls" instance=ExtResource( 8 )]
+position = Vector2( 280, -55 )
+
+[node name="Wall11" parent="YSort/InternalWalls" instance=ExtResource( 8 )]
+position = Vector2( 296, -47 )
+
+[node name="Wall12" parent="YSort/InternalWalls" instance=ExtResource( 8 )]
+position = Vector2( 312, -39 )
+
+[node name="Wall13" parent="YSort/InternalWalls" instance=ExtResource( 8 )]
+position = Vector2( 328, -31 )
+
+[node name="Wall14" parent="YSort/InternalWalls" instance=ExtResource( 8 )]
+position = Vector2( 344, -23 )
+
+[node name="Wall15" parent="YSort/InternalWalls" instance=ExtResource( 8 )]
+position = Vector2( 360, -15 )
+
+[node name="Wall16" parent="YSort/InternalWalls" instance=ExtResource( 8 )]
+position = Vector2( 376, -7 )
+
+[node name="Wall17" parent="YSort/InternalWalls" instance=ExtResource( 8 )]
+position = Vector2( 392, 1 )
+
+[node name="Wall18" parent="YSort/InternalWalls" instance=ExtResource( 8 )]
+position = Vector2( 408, 9 )
+
+[node name="Wall43" parent="YSort/InternalWalls" instance=ExtResource( 8 )]
+position = Vector2( 424, 17 )
+
+[node name="Wall44" parent="YSort/InternalWalls" instance=ExtResource( 8 )]
+position = Vector2( 439, 25 )
+
+[node name="Wall45" parent="YSort/InternalWalls" instance=ExtResource( 8 )]
+position = Vector2( 455, 33 )
+
+[node name="Wall46" parent="YSort/InternalWalls" instance=ExtResource( 8 )]
+position = Vector2( 471, 41 )
+
+[node name="Wall47" parent="YSort/InternalWalls" instance=ExtResource( 8 )]
+position = Vector2( 487, 49 )
+
+[node name="Wall48" parent="YSort/InternalWalls" instance=ExtResource( 8 )]
+position = Vector2( 584, 32 )
+
+[node name="Wall49" parent="YSort/InternalWalls" instance=ExtResource( 8 )]
+position = Vector2( 599, 40 )
+
+[node name="Wall50" parent="YSort/InternalWalls" instance=ExtResource( 8 )]
+position = Vector2( 615, 48 )
+
+[node name="Wall51" parent="YSort/InternalWalls" instance=ExtResource( 8 )]
+position = Vector2( 631, 56 )
+
+[node name="Wall52" parent="YSort/InternalWalls" instance=ExtResource( 8 )]
+position = Vector2( 647, 64 )
+
 [node name="Wall6" parent="YSort/InternalWalls" instance=ExtResource( 8 )]
 position = Vector2( 392, 256 )
-
-[node name="Wall7" parent="YSort/InternalWalls" instance=ExtResource( 7 )]
-position = Vector2( 296, 104 )
-
-[node name="Wall8" parent="YSort/InternalWalls" instance=ExtResource( 7 )]
-position = Vector2( 280, 112 )
 
 [node name="Wall9" parent="YSort/InternalWalls" instance=ExtResource( 7 )]
 position = Vector2( 296, 232 )
@@ -205,55 +252,64 @@ position = Vector2( 280, 240 )
 position = Vector2( 312, 224 )
 
 [node name="Wall20" parent="YSort/InternalWalls" instance=ExtResource( 7 )]
-position = Vector2( 8, 120 )
+position = Vector2( 248, -63 )
 
 [node name="Wall21" parent="YSort/InternalWalls" instance=ExtResource( 7 )]
-position = Vector2( 40, 104 )
+position = Vector2( 232, -55 )
 
 [node name="Wall22" parent="YSort/InternalWalls" instance=ExtResource( 7 )]
-position = Vector2( 56, 96 )
+position = Vector2( 216, -47 )
 
 [node name="Wall23" parent="YSort/InternalWalls" instance=ExtResource( 7 )]
-position = Vector2( 72, 88 )
+position = Vector2( 200, -39 )
 
 [node name="Wall24" parent="YSort/InternalWalls" instance=ExtResource( 7 )]
-position = Vector2( 88, 80 )
+position = Vector2( 184, -31 )
 
 [node name="Wall25" parent="YSort/InternalWalls" instance=ExtResource( 7 )]
-position = Vector2( 104, 72 )
+position = Vector2( 168, -23 )
 
-[node name="Wall26" parent="YSort/InternalWalls" instance=ExtResource( 8 )]
-position = Vector2( 8, 129 )
+[node name="Wall26" parent="YSort/InternalWalls" instance=ExtResource( 7 )]
+position = Vector2( 152, -15 )
 
-[node name="Wall27" parent="YSort/InternalWalls" instance=ExtResource( 8 )]
-position = Vector2( 40, 145 )
+[node name="Wall27" parent="YSort/InternalWalls" instance=ExtResource( 7 )]
+position = Vector2( 136, -7 )
 
-[node name="Wall28" parent="YSort/InternalWalls" instance=ExtResource( 8 )]
-position = Vector2( 24, 137 )
+[node name="Wall28" parent="YSort/InternalWalls" instance=ExtResource( 7 )]
+position = Vector2( 120, 1 )
 
-[node name="Wall15" parent="YSort/InternalWalls" instance=ExtResource( 7 )]
-position = Vector2( 24, 112 )
+[node name="Wall32" parent="YSort/InternalWalls" instance=ExtResource( 7 )]
+position = Vector2( 104, 9 )
 
-[node name="Wall11" parent="YSort/InternalWalls" instance=ExtResource( 7 )]
-position = Vector2( 248, 128 )
+[node name="Wall33" parent="YSort/InternalWalls" instance=ExtResource( 7 )]
+position = Vector2( 88, 17 )
 
-[node name="Wall12" parent="YSort/InternalWalls" instance=ExtResource( 7 )]
-position = Vector2( 232, 136 )
+[node name="Wall34" parent="YSort/InternalWalls" instance=ExtResource( 7 )]
+position = Vector2( 72, 25 )
 
-[node name="Wall13" parent="YSort/InternalWalls" instance=ExtResource( 7 )]
-position = Vector2( 264, 120 )
+[node name="Wall35" parent="YSort/InternalWalls" instance=ExtResource( 7 )]
+position = Vector2( 56, 33 )
 
-[node name="Wall17" parent="YSort/InternalWalls" instance=ExtResource( 7 )]
-position = Vector2( 344, 80 )
+[node name="Wall36" parent="YSort/InternalWalls" instance=ExtResource( 7 )]
+position = Vector2( 40, 41 )
 
-[node name="Wall16" parent="YSort/InternalWalls" instance=ExtResource( 7 )]
-position = Vector2( 360, 72 )
+[node name="Wall37" parent="YSort/InternalWalls" instance=ExtResource( 7 )]
+position = Vector2( 24, 49 )
 
-[node name="Wall14" parent="YSort/InternalWalls" instance=ExtResource( 7 )]
-position = Vector2( 328, 88 )
+[node name="Wall38" parent="YSort/InternalWalls" instance=ExtResource( 7 )]
+position = Vector2( 8, 57 )
 
-[node name="Wall18" parent="YSort/InternalWalls" instance=ExtResource( 7 )]
-position = Vector2( 312, 96 )
+[node name="Wall39" parent="YSort/InternalWalls" instance=ExtResource( 7 )]
+position = Vector2( -8, 65 )
+
+[node name="Wall40" parent="YSort/InternalWalls" instance=ExtResource( 7 )]
+position = Vector2( -24, 73 )
+
+[node name="Wall41" parent="YSort/InternalWalls" instance=ExtResource( 7 )]
+position = Vector2( -40, 81 )
+
+[node name="Wall42" parent="YSort/InternalWalls" instance=ExtResource( 7 )]
+position = Vector2( -56, 89 )
 
 [node name="Wall29" parent="YSort/InternalWalls" instance=ExtResource( 8 )]
 position = Vector2( 408, 264 )
@@ -263,27 +319,6 @@ position = Vector2( 424, 272 )
 
 [node name="Wall31" parent="YSort/InternalWalls" instance=ExtResource( 8 )]
 position = Vector2( 440, 280 )
-
-[node name="Wall32" parent="YSort/InternalWalls" instance=ExtResource( 7 )]
-position = Vector2( 120, 64 )
-
-[node name="Wall33" parent="YSort/InternalWalls" instance=ExtResource( 7 )]
-position = Vector2( 136, 56 )
-
-[node name="Wall34" parent="YSort/InternalWalls" instance=ExtResource( 7 )]
-position = Vector2( 152, 48 )
-
-[node name="Wall35" parent="YSort/InternalWalls" instance=ExtResource( 8 )]
-position = Vector2( 152, 41 )
-
-[node name="Wall36" parent="YSort/InternalWalls" instance=ExtResource( 8 )]
-position = Vector2( 136, 33 )
-
-[node name="Wall37" parent="YSort/InternalWalls" instance=ExtResource( 8 )]
-position = Vector2( 120, 24 )
-
-[node name="Wall38" parent="YSort/InternalWalls" instance=ExtResource( 8 )]
-position = Vector2( 104, 17 )
 
 [node name="Furniture" type="YSort" parent="YSort"]
 
@@ -304,7 +339,7 @@ shape = SubResource( 6 )
 position = Vector2( 288, 256 )
 
 [node name="DanceFloor" parent="YSort/Furniture" instance=ExtResource( 17 )]
-position = Vector2( 193, 79 )
+position = Vector2( 229, 62 )
 
 [node name="WaterTable" parent="YSort/Furniture" instance=ExtResource( 13 )]
 position = Vector2( 544, 52 )
@@ -315,17 +350,11 @@ position = Vector2( 283, 131 )
 [node name="WaterTable3" parent="YSort/Furniture" instance=ExtResource( 13 )]
 position = Vector2( 96, 120 )
 
-[node name="Toilet2" parent="YSort/Furniture" instance=ExtResource( 12 )]
-position = Vector2( 256, -48 )
-
 [node name="FoodTable" parent="YSort/Furniture" instance=ExtResource( 14 )]
 position = Vector2( 324, 106 )
 
 [node name="FoodTable2" parent="YSort/Furniture" instance=ExtResource( 14 )]
 position = Vector2( 160, -8 )
-
-[node name="Toilet3" parent="YSort/Furniture" instance=ExtResource( 16 )]
-position = Vector2( 528, 280 )
 
 [node name="BotPath" type="Path2D" parent="YSort"]
 curve = SubResource( 4 )
@@ -343,17 +372,17 @@ navpoly = SubResource( 10 )
 [node name="Camera" type="Camera2D" parent="."]
 position = Vector2( 416, 128 )
 current = true
-limit_left = 0
-limit_top = -110
-limit_right = 710
-limit_bottom = 350
+limit_left = -100
+limit_top = -100
+limit_right = 900
+limit_bottom = 500
 
 [node name="UI" type="CanvasLayer" parent="."]
 
 [node name="StatsLabel" type="Label" parent="UI"]
-margin_left = 9.0
+margin_left = 8.0
 margin_top = 2.0
-margin_right = 135.0
+margin_right = 111.0
 margin_bottom = 29.0
 custom_colors/font_color = Color( 0, 0, 0, 1 )
 custom_fonts/font = SubResource( 5 )
