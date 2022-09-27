@@ -360,8 +360,8 @@ position = Vector2( 160, -8 )
 curve = SubResource( 4 )
 
 [node name="BotSpawnLocation" type="PathFollow2D" parent="YSort/BotPath"]
-position = Vector2( 192, 112 )
-rotation = -0.482513
+position = Vector2( 94, 70 )
+rotation = -1.03275
 
 [node name="Navigation2D" type="Navigation2D" parent="."]
 visible = false

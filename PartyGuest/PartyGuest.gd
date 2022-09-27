@@ -3,9 +3,9 @@ extends KinematicBody2D
 
 """ Preloading Sprites"""
 
-var partyguest_sprites = [preload("res://Assets/PartyGuest/PartyGuest1.png"),
-							preload("res://Assets/PartyGuest/PartyGuest2.png"),
-							preload("res://Assets/PartyGuest/PartyGuest3.png")]
+var partyguest_sprites = [preload("res://Assets/PartyGuest/Idle/PartyGuest_Idle_1.png"),
+						preload("res://Assets/PartyGuest/Idle/PartyGuest_Idle_2.png"),
+						preload("res://Assets/PartyGuest/Idle/PartyGuest_Idle_3.png")]
 							
 
 onready var party_guest_area = get_node("PartyGuestArea")
@@ -33,6 +33,8 @@ var past_conversations = []
 # movement is not yet implemented, but just to be consistent with the Player script
 var can_move = true 
 
+onready var animationTree = get_node("AnimationTree")
+var direction = Vector2.ZERO
 var velocity = Vector2.ZERO
 var max_speed = rand_range(1200, 1300)
 
@@ -161,7 +163,11 @@ func _physics_process(_delta):
 		elif target_object == "":
 			pass
 			# wander()
-
+	
+	# ANIMATIONS
+	animationTree.set("parameters/Idle/blend_position", direction)
+	
+	
 	# UPDATING STATS
 	hunger += 0.00001
 	thirst += 0.00001
@@ -308,7 +314,7 @@ func move_to(delta, target_coordinates):
 	
 	
 	if path.size() > 1:
-		var direction = self.position.direction_to(path[1])
+		direction = self.position.direction_to(path[1])
 		var overlapping_bodies = get_node("PartyGuestArea").get_overlapping_bodies()
 		
 		# repells all bodies except the one in the target group
