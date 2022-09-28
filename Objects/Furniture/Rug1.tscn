@@ -1,0 +1,14 @@
+[gd_scene load_steps=2 format=2]
+
+[ext_resource path="res://Assets/Furniture/isometric_rug.png" type="Texture" id=1]
+
+[node name="Rug1" type="StaticBody2D"]
+
+[node name="Sprite" type="Sprite" parent="."]
+position = Vector2( 0, -18 )
+texture = ExtResource( 1 )
+
+[node name="CollisionPolygon2D" type="CollisionPolygon2D" parent="."]
+position = Vector2( -37, 34.3104 )
+scale = Vector2( 1, -4.39583 )
+polygon = PoolVector2Array( 38, 11.6725, 42, 13.9474, 37, 13.0374 )

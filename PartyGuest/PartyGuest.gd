@@ -37,7 +37,7 @@ var velocity = Vector2.ZERO
 var max_speed = rand_range(1200, 1300)
 
 var possible_targets = ["Toilet", "WaterTable", "TestBeacon", "TestBeacon2", "WaterTable2"] # names of all the furniture items PartyGuest can target
-
+var target_guest
 var activity_message = ""
 var timer_activity
 var target_object = "" # type of target that PartyGuest is targeting (from possible_targets)
@@ -65,7 +65,7 @@ var age # random.randint(18, 40)
 var like_to_play # random.uniform(0, 1)
 var like_to_drink # random.uniform(0, 1.2)
 var aggression # random.uniform(0, 1)
-var like_other_guest # {} #TODO
+var like_other_guests # {} #TODO
 var character
 # _init with arguments is not allowed here, see:
 # https://github.com/godotengine/godot/issues/15866
@@ -228,12 +228,7 @@ func start_activity(interaction_object):
 	get_node("PartyGuestStats").set_text(message)
 	
 
-
-
-
-
 func _on_ActivityTimer_timeout():
-
 	if not is_talking:
 		can_move = true
 			
@@ -242,9 +237,6 @@ func _on_ActivityTimer_timeout():
 		
 		if not leaving and not new_action: 
 			new_action(all_actions.best_action(self).action_name)
-
-	
-
 
 
 func new_action(action_name):
@@ -258,21 +250,27 @@ func new_action(action_name):
 		target_object = 'toilets'
 	elif action_name == "dance":
 		target_object = "dancefloors"
+	elif action_name == "talk":
+		target_object = "guest"
+		target_guest = get_random_guest(like_other_guests())
+		print("going to guest")
 	elif action_name == "leave":
 		#get_node("PartyGuestStats").set_text(guest_name + " is leaving")
 		leaving = true
 		target_object = 'exits'
 	else:
 		target_object = 'player'
-	
+	print(action_name)
 	
 	#target_object = possible_target_groups[randi() % len(possible_target_groups)]
 	
-	
+func get_random_guest(dict):
+   return dict[randi() % dict.size()]
+
+
 func wander():
 	""" Makes Party Guest wander around """
-	pass
-	
+	pass	
 	
 	
 func coordinates_of_target(group_name):
@@ -291,6 +289,14 @@ func coordinates_of_target(group_name):
 		return closest_object.position
 	
 	# if there's no object in that group, it starts chasing the Player (just for fun lol)
+	elif target_object == 'guest':
+		var convo_partner = target_guest
+		if convo_partner in like_other_guests(): #Check if that person is still present
+			return convo_partner.position
+			
+		else:
+			return get_parent().get_node("Player").position
+		
 	else:
 		return get_parent().get_node("Player").position
 
@@ -336,11 +342,7 @@ func move_to(delta, target_coordinates):
 		
 	"""
 		
-
-
-
 """ ChatBox and ChatLog """
-
 func start_conversation():
 	is_talking = true
 	can_move = false
@@ -444,8 +446,6 @@ func _on_HTTPRequest_request_completed(result, response_code, headers, body):
 	emit_signal("request_finished")
 
 
-
-
 func do_somethin():
 	pass
 	# print('player is talking to %s thirst: %s hunger: %s' % [bot_name, thirst, hunger])
@@ -484,10 +484,11 @@ func init_bot():
 	like_to_play = rng.randf_range(0,1)
 	like_to_drink = rng.randf_range(0,1.2)
 	aggression = rng.randf_range(0,1)
-	like_other_guest = {} 
+	like_other_guests = {} 
 	like_to_dance = rng.randf_range(0,1)
 	character = rng.randf_range(0,1)
 	attr_vec = [like_to_dance, like_to_drink, like_to_play, age, sociability, rng.randf_range(-10,10)]
+
 
 func like_other_guests():
 	return get_tree().get_nodes_in_group("bots")
@@ -514,7 +515,7 @@ func transfer_attributes(other_guest):
 	like_to_play = other_guest.like_to_play
 	like_to_drink = other_guest.like_to_drink
 	aggression = other_guest.aggression
-	like_other_guest = other_guest.like_other_guest
+	like_other_guests = other_guest.like_other_guests
 	like_to_dance = other_guest.like_to_dance
 	
 	
@@ -531,7 +532,10 @@ func prompt_init():
 
 
 func map_to_index(list, _float):
-	return list[int(len(list) * _float)]
+	var index = 0
+	if index < _float:
+		index = _float
+	return list[int(len(list) * index)]
 
 
 func prompt_update():

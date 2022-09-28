@@ -34,7 +34,7 @@ func best_action(guest):
 	for action in actions:
 		#print("%s %s" %[action.action_name, action.heuristic(guest)])
 		if action.prerequisite(guest):
-			dim_return = ((5 - guest.past_actions.slice(0,5).count(action.action_name)) / 5)
+			dim_return = ((5 - guest.past_actions.slice(-5,-1).count(action.action_name)) / 5)
 			reward = action.heuristic(guest) * dim_return #diminishing return, the more a guest performs an action the less fun it is
 			#print(stepify(action_heuristic,0.01),"\t", action.action_name)
 			rewards_actions.append("%s: %s" %[action.action_name, reward])
@@ -57,7 +57,7 @@ func talk_to_all(guest):
 		if guest != other_guest:
 			var guest_sim = cosine_sim(guest.attr_vec, other_guest.attr_vec)
 			#print("guest_sim:", guest_sim)
-			reward = (guest_sim*0.1 + talk.heuristic(guest, other_guest)) * ((5 - guest.past_actions.slice(0,5).count(talk.action_name)) / 5) #diminishing return, the more a guest performs an action the less fun it is
+			reward = (guest_sim*0.1 + talk.heuristic(guest, other_guest)) * ((5 - guest.past_actions.slice(-5,-1).count(talk.action_name)) / 5) #diminishing return, the more a guest performs an action the less fun it is
 			rewards_actions.append("%s: %s" %[talk.action_name, reward])
 			if reward > best_r:
 				best_r = reward
