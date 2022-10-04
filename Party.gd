@@ -11,6 +11,7 @@ var party_guest = preload("res://PartyGuest/PartyGuest.tscn")
 var bots
 var best_a
 var time_out
+var num_guests
 
 
 """ Pathfinding """
@@ -70,7 +71,11 @@ func _physics_process(delta):
 	# show time
 	get_node("UI/StatsLabel").set_text(hour + ":" + minute)
 	
-
+	# caclulate number of guests:
+	num_guests = get_tree().get_nodes_in_group("bots").size()
+	if num_guests <= 2:
+		get_tree().change_scene("res://GameOver/GameOverScreen.tscn")
+	
 
 
 func best_action(bot):
