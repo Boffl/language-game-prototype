@@ -1,9 +1,11 @@
 extends Node2D
 
 # Time Variables
-export (int) var second = 16 * 360
+export (int) var second = 0 #16 * 360
 export (int) var minute = 0
 export (int) var hour = 0
+var hour_str
+var minute_str
 var time_speed = 70
 
 
@@ -63,19 +65,22 @@ func _physics_process(delta):
 	minute = second / 60 % 60
 	hour = (second / 3600) % 24
 	if hour < 10:
-		hour = "0" + str(hour)
-	else: hour = str(hour)
+		hour_str = "0" + str(hour)
+	else: hour_str = str(hour)
 	if minute < 10:
-		minute = "0" + str(minute)
-	else: minute = str(minute)	
+		minute_str = "0" + str(minute)
+	else: minute_str = str(minute)	
 	# show time
-	get_node("UI/StatsLabel").set_text(hour + ":" + minute)
+	get_node("UI/StatsLabel").set_text(hour_str + ":" + minute_str)
 	
-	# caclulate number of guests:
+	# Ending the game? 
 	num_guests = get_tree().get_nodes_in_group("bots").size()
 	if num_guests <= 2:
+		# elapsed_time = [hour, minute, second]
 		get_tree().change_scene("res://GameOver/GameOverScreen.tscn")
 	
+	elif minute >= 5:  # for debugging put minute >=5 or so
+		get_tree().change_scene("res://GameWon/GameWonScreen.tscn")
 
 
 func best_action(bot):
