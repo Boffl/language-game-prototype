@@ -77,9 +77,11 @@ func _physics_process(delta):
 	num_guests = get_tree().get_nodes_in_group("bots").size()
 	if num_guests <= 2:
 		# elapsed_time = [hour, minute, second]
+		GlobalSettings.win_message = construct_lose_message()
 		get_tree().change_scene("res://GameOver/GameOverScreen.tscn")
 	
-	elif minute >= 5:  # for debugging put minute >=5 or so
+	elif hour >= 5:  # for debugging put minute >=5 or so
+		GlobalSettings.win_message = construct_win_message()
 		get_tree().change_scene("res://GameWon/GameWonScreen.tscn")
 
 
@@ -99,4 +101,17 @@ func best_action(bot):
 #		best_action(bot)
 #	else:
 #		t.queue_free()
+
+
+func construct_win_message():
+	var message = ""
+	message += "You invited " + str(GlobalSettings.nr_of_guests) + " guests and " + str(get_tree().get_nodes_in_group("bots").size()) + " stayed until the party ended. \n"
+	message += str(get_tree().get_nodes_in_group("bots")[0].guest_name) + " and " + str(get_tree().get_nodes_in_group("bots")[1].guest_name) + " had a lot of fun. \n"
 	
+	return message
+
+
+func construct_lose_message():
+	var message = "Almost everyone has left left. \n"
+	message += str(get_tree().get_nodes_in_group("bots")[0].guest_name) + " and " + str(get_tree().get_nodes_in_group("bots")[1].guest_name) + " agree that your party sucks. \n"
+	return message
