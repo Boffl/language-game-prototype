@@ -530,9 +530,13 @@ func prompt_init():
 	file.open("res://data/adjectives.res", File.READ)
 	var adjectives = str2var(file.get_as_text())
 	file.close()
-	prompt = "%s was at a party with some friends. The party was hosted by %s. "  %[guest_name, host_name] 
-	prompt += "%s was a %s person. " %[guest_name, map_to_index(adjectives["sociability"], sociability)]
-	prompt += "Most people said that %s was %s, and usually %s." % [guest_name, map_to_index(adjectives["character"], character), map_to_index(adjectives["aggression"], aggression)]
+	prompt = "%s was at a party. %s was feeling a bit angry." %[guest_name, guest_name]
+	prompt += " His friends would describe him as a rude and excentric person."
+	prompt += " He loved to drink and would often insult people. He was a vile person."
+	prompt += " It was a friday evening and was at a party. He already had a little bit to drink."
+	#prompt = "%s was at a party with some friends. The party was hosted by %s. "  %[guest_name, host_name] 
+	#prompt += "%s was a %s person. " %[guest_name, map_to_index(adjectives["sociability"], sociability)]
+	#prompt += "Most people said that %s was %s, and usually %s." % [guest_name, map_to_index(adjectives["character"], character), map_to_index(adjectives["aggression"], aggression)]
 
 	return prompt
 

@@ -79,7 +79,8 @@ func _physics_process(delta):
 		# elapsed_time = [hour, minute, second]
 		get_tree().change_scene("res://GameOver/GameOverScreen.tscn")
 	
-	elif minute >= 5:  # for debugging put minute >=5 or so
+	
+	elif hour >= 5:  # for debugging put minute >=5 or so
 		get_tree().change_scene("res://GameWon/GameWonScreen.tscn")
 
 
