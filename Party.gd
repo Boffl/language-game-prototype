@@ -113,5 +113,13 @@ func construct_win_message():
 
 func construct_lose_message():
 	var message = "Almost everyone has left left. \n"
-	message += str(get_tree().get_nodes_in_group("bots")[0].guest_name) + " and " + str(get_tree().get_nodes_in_group("bots")[1].guest_name) + " agree that your party sucks. \n"
+	var num_guests_left = get_tree().get_nodes_in_group("bots").size()
+	
+	if num_guests_left >1:
+		message += str(get_tree().get_nodes_in_group("bots")[0].guest_name) + " and " + str(get_tree().get_nodes_in_group("bots")[1].guest_name) + " agree that your party sucks. \n"
+	elif num_guests_left > 0:
+		message +=  str(get_tree().get_nodes_in_group("bots")[0].guest_name) + " thinks that your party sucks. \n"
+	else:
+		message = "Everyone has left, your party sucks..."
+	
 	return message
