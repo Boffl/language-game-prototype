@@ -72,9 +72,9 @@ text = "Number of Guests: 00"
 margin_top = 31.0
 margin_right = 147.0
 margin_bottom = 47.0
-min_value = 1.0
+min_value = 3.0
 max_value = 20.0
-value = 1.0
+value = 3.0
 ticks_on_borders = true
 
 [node name="Name2" type="Label" parent="CenterContainer/VBoxContainer"]

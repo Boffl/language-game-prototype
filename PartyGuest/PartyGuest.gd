@@ -105,6 +105,8 @@ var ray_directions = []
 var debug_variable
 
 
+
+
 func _ready():
 	"""
 	Called when PartyGuest enters the scene for the first time
@@ -261,9 +263,10 @@ func new_action(action_name):
 		target_guest = get_random_guest(like_other_guests())
 		print("going to guest")
 	elif action_name == "leave":
-		#get_node("PartyGuestStats").set_text(guest_name + " is leaving")
+		get_node("PartyGuestStats").set_text(guest_name + " is leaving")
 		leaving = true
 		target_object = 'exits'
+		get_node("Collision").disabled = true
 	else:
 		target_object = 'player'
 	print(action_name)
