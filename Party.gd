@@ -51,7 +51,7 @@ func _ready():
 	randomize()
 	inivte_guests(GlobalSettings.nr_of_guests)
 	bots = get_tree().get_nodes_in_group("bots")
-	bots[0].do_somethin()
+	#bots[0].do_somethin()
 	
 	# set nr of guests
 	get_node("UI/StatsLabel").set_text("NR OF GUESTS: " + str(get_tree().get_nodes_in_group("bots").size()))

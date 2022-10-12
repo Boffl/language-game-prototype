@@ -35,19 +35,9 @@ _global_script_classes=[ {
 "path": "res://PartyGuest/Actions/eat.gd"
 }, {
 "base": "Node2D",
-"class": "fight",
-"language": "GDScript",
-"path": "res://PartyGuest/Actions/fight.gd"
-}, {
-"base": "Node2D",
 "class": "leave",
 "language": "GDScript",
 "path": "res://PartyGuest/Actions/leave.gd"
-}, {
-"base": "Node2D",
-"class": "move",
-"language": "GDScript",
-"path": "res://PartyGuest/Actions/move.gd"
 }, {
 "base": "Node2D",
 "class": "pee",
@@ -55,24 +45,9 @@ _global_script_classes=[ {
 "path": "res://PartyGuest/Actions/pee.gd"
 }, {
 "base": "Node2D",
-"class": "play_game",
-"language": "GDScript",
-"path": "res://PartyGuest/Actions/play_game.gd"
-}, {
-"base": "Node2D",
-"class": "talk",
-"language": "GDScript",
-"path": "res://PartyGuest/Actions/talk.gd"
-}, {
-"base": "Node2D",
 "class": "vomit",
 "language": "GDScript",
 "path": "res://PartyGuest/Actions/vomit.gd"
-}, {
-"base": "Node2D",
-"class": "wait",
-"language": "GDScript",
-"path": "res://PartyGuest/Actions/wait.gd"
 } ]
 _global_script_class_icons={
 "Pathfinding": "",
@@ -80,14 +55,9 @@ _global_script_class_icons={
 "drink_alc": "",
 "drink_water": "",
 "eat": "",
-"fight": "",
 "leave": "",
-"move": "",
 "pee": "",
-"play_game": "",
-"talk": "",
-"vomit": "",
-"wait": ""
+"vomit": ""
 }
 
 [application]

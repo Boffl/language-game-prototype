@@ -258,10 +258,6 @@ func new_action(action_name):
 		target_object = 'toilets'
 	elif action_name == "dance":
 		target_object = "dancefloors"
-	elif action_name == "talk":
-		target_object = "guest"
-		target_guest = get_random_guest(like_other_guests())
-		print("going to guest")
 	elif action_name == "leave":
 		get_node("PartyGuestStats").set_text(guest_name + " is leaving")
 		leaving = true
@@ -454,10 +450,6 @@ func _on_HTTPRequest_request_completed(result, response_code, headers, body):
 		# signal that result has been yielded
 	emit_signal("request_finished")
 
-
-func do_somethin():
-	pass
-	# print('player is talking to %s thirst: %s hunger: %s' % [bot_name, thirst, hunger])
 
 func init_bot():
 	"""intialize the guests attributes"""
