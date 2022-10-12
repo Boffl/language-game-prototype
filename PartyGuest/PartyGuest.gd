@@ -25,7 +25,6 @@ var bot_name = "default"
 # Values are filled individually in in the initialization
 onready var chatBox = get_node("PartyGuestArea/CanvasLayer/ChatBox")
 
-
 # list of lists of all past conversations
 var past_conversations = []
 
@@ -49,6 +48,8 @@ var possible_target_groups = ["watertables", "toilets", "false_group"] # group n
 
 onready var LinePath = Line2D.new() # used for pathfinding
 var host_name = "Nikolaj"
+
+
 
 var guest_name # using just 'name' is not good, since it already an attribute in the namespace of the parent class
 var present # True
@@ -104,14 +105,25 @@ var ray_directions = []
 
 var debug_variable
 
+var characters = load_j()
 
 
+func load_j():
+	var file
+	var path = "res://PartyGuest/Characters/characters.json"
+	var data = {"hi": 1}
+	file = File.new()
+	file.open(path, File.READ)
+	var d = file.get_as_text()
+	d = parse_json(d)
+	file.close()
+	return d
 
 func _ready():
 	"""
 	Called when PartyGuest enters the scene for the first time
 	"""
-	
+
 	# (temporarily) remove ChatBox
 	get_node("PartyGuestArea/CanvasLayer").remove_child(chatBox)
 	
@@ -451,20 +463,12 @@ func _on_HTTPRequest_request_completed(result, response_code, headers, body):
 	emit_signal("request_finished")
 
 
-func init_bot():
+func init_bot(_name="Steven"):
 	"""intialize the guests attributes"""
-	var rng = RandomNumberGenerator.new()
-	rng.randomize()
-
-	#name randomly chosen from a name list
-	var file = File.new()
-	file.open("res://data/names.res", File.READ)
-	var names = str2var(file.get_as_text())
-	file.close()
-	var index = rng.randi_range(0, len(names) - 1)
-	guest_name = names[index]
 	
-
+	
+	var character = characters[_name]
+	guest_name = _name
 	#initialize variables that are same for all the guests
 	present = true
 	thirst = 0
@@ -480,15 +484,15 @@ func init_bot():
 	past_actions = []
 	
 	#initialize variables that are different for all characters
-	sociability = rng.randf_range(0,1)
-	age = rng.randi_range(18, 40)
-	like_to_play = rng.randf_range(0,1)
-	like_to_drink = rng.randf_range(0,1.2)
-	aggression = rng.randf_range(0,1)
+	sociability = character.sociability
+	age = character.age
+	like_to_play = character.like_to_play
+	like_to_drink = character.like_to_drink
+	aggression = character.aggression
 	like_other_guests = {} 
-	like_to_dance = rng.randf_range(0,1)
-	character = rng.randf_range(0,1)
-	attr_vec = [like_to_dance, like_to_drink, like_to_play, age, sociability, rng.randf_range(-10,10)]
+	like_to_dance = character.like_to_dance
+	character =character.sociability
+	attr_vec = [like_to_dance, like_to_drink, like_to_play, age, sociability]
 
 
 func like_other_guests():
@@ -525,14 +529,11 @@ func prompt_init():
 	file.open("res://data/adjectives.res", File.READ)
 	var adjectives = str2var(file.get_as_text())
 	file.close()
-	prompt = "%s was at a party. %s was feeling a bit angry." %[guest_name, guest_name]
-	prompt += " His friends would describe him as a rude and excentric person."
-	prompt += " He loved to drink and would often insult people. He was a vile person."
-	prompt += " It was a friday evening and was at a party. He already had a little bit to drink."
-	#prompt = "%s was at a party with some friends. The party was hosted by %s. "  %[guest_name, host_name] 
-	#prompt += "%s was a %s person. " %[guest_name, map_to_index(adjectives["sociability"], sociability)]
-	#prompt += "Most people said that %s was %s, and usually %s." % [guest_name, map_to_index(adjectives["character"], character), map_to_index(adjectives["aggression"], aggression)]
-
+	prompt = "%s was an eccentric person. He was easily agitated and got angry frequently. " %[guest_name]
+	prompt += " The people that knew him would often describe him as the worst person, they had ever met."
+	prompt += " He would insult people without a reason and didn’t care for anyone."
+	prompt += " His friends would describe him as a rude and eccentric person. He loved to drink and wreak havoc on any social situation."
+	prompt = "None the less people would still invite him to parties and so it was. Steven was at a colleges home party and was already filled with chagrin."
 	return prompt
 
 

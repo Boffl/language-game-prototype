@@ -1,0 +1,19 @@
+{"Susanne":{
+    "prompt": "Susanna was a cheerful person. She was known for he love of animals and plants.\nShe embraced all that was positive in the world, which could be seen by the inspirational quotes on her bedroom wall.\nLive laugh love, was a phrase she would work into conversations far more frequently than necessary.\nShe did enjoy an occasional drink, but never drank too much. She loved dancing and talking to people. \nIt was a usual Friday evening and she was invited to a friend of hers. The friend was throwing a party at their house.\n",
+    "sociability": 0.9,
+    "age": 25,
+    "aggression": 0.1,
+    "like_to_play": 4,
+    "like_to_dance": 0.9,
+    "like_to_drink": 0.1
+    },
+    "Steven":{
+    "prompt": "Steven was an eccentric person. He was easily agitated and got angry frequently. \nThe people that knew him would often describe him as the worst person, they had ever met. \nHe would insult people without a reason and didn’t care for anyone.\nHis friends would describe him as a rude and eccentric person. He loved to drink and wreak havoc on any social situation.\nNone the less people would still invite him to parties and so it was. Steven was at a colleges home party and was already filled with chagrin.\n",
+    "sociability": 0.9,
+    "age": 25,
+    "aggression": 0.1,
+    "like_to_play": 4,
+    "like_to_dance": 0.9,
+        "like_to_drink": 0.1
+    }
+}
