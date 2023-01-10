@@ -275,8 +275,7 @@ func new_action(action_name):
 		leaving = true
 		target_object = 'exits'
 		get_node("Collision").disabled = true
-	else:
-		target_object = 'player'
+	#else:target_object = 'player'
 	print(action_name)
 	
 	#target_object = possible_target_groups[randi() % len(possible_target_groups)]
