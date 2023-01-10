@@ -10,7 +10,7 @@ func prerequisite(guest):
 	
 	
 func heuristic(guest):
-	return discomfort(guest) * 1
+	return discomfort(guest) * 0.2
 	
 
 func effect(guest):

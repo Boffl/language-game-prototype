@@ -3,6 +3,7 @@
 [ext_resource path="res://DataCollection/Popup.gd" type="Script" id=1]
 
 [node name="DataCollection" type="Control"]
+pause_mode = 2
 anchor_right = 1.355
 anchor_bottom = 1.229
 margin_left = 1.0
@@ -50,4 +51,5 @@ size_flags_vertical = 3
 
 [connection signal="about_to_show" from="Popup" to="Popup" method="_on_Popup_about_to_show"]
 [connection signal="confirmed" from="Popup" to="Popup" method="_on_Popup_confirmed"]
+[connection signal="hide" from="Popup" to="Popup" method="_on_Popup_hide"]
 [connection signal="item_selected" from="Popup/VBoxContainer/HBoxContainer2/CenterContainer/OptionButton" to="Popup" method="_on_OptionButton_item_selected"]
