@@ -12,7 +12,7 @@ _global_script_classes=[ {
 "base": "Node2D",
 "class": "Pathfinding",
 "language": "GDScript",
-"path": "res://Pathfinding/Pathfinding.gd"
+"path": "res://PartyGuest/Pathfinding/Pathfinding.gd"
 }, {
 "base": "Node2D",
 "class": "dance",
