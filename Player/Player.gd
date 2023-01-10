@@ -15,6 +15,7 @@ var can_move = true  # simple boolean, to stop movement, when talking
 var is_talking = false
 
 var partyGuest
+onready var animationTree = get_node("AnimationTree")
 
 
 
@@ -47,6 +48,8 @@ func walking(delta):
 	
 	if can_move:
 		move_and_slide(velocity)
+		var direction = input_vector
+		animationTree.set("parameters/Idle/blend_position", direction)
 	
 
 func interacting(delta):
