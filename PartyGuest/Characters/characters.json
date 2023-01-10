@@ -1,19 +1,64 @@
 {"Susanne":{
-    "prompt": "Susanna was a cheerful person. She was known for he love of animals and plants.\nShe embraced all that was positive in the world, which could be seen by the inspirational quotes on her bedroom wall.\nLive laugh love, was a phrase she would work into conversations far more frequently than necessary.\nShe did enjoy an occasional drink, but never drank too much. She loved dancing and talking to people. \nIt was a usual Friday evening and she was invited to a friend of hers. The friend was throwing a party at their house.\n",
+    "prompt": "Susanne was a woman in her early thirties with a kind and compassionate heart. She was a natural caretaker, always looking out for the needs of those around her and going out of her way to help others. Despite her gentle nature, Susanne was fiercely independent and had a strong sense of self. She knew what she wanted out of life and wasn't afraid to go after it, and her determination and drive often inspired those around her. Susanne had a love for adventure and the outdoors, and could often be found exploring new trails or camping in the wilderness. She was well-respected by her friends and loved ones for her loyalty and generosity, and was always ready with a listening ear or a helping hand.",
     "sociability": 0.9,
     "age": 25,
     "aggression": 0.1,
-    "like_to_play": 4,
+    "like_to_play": 0.4,
     "like_to_dance": 0.9,
     "like_to_drink": 0.1
     },
-    "Steven":{
-    "prompt": "Steven was an eccentric person. He was easily agitated and got angry frequently. \nThe people that knew him would often describe him as the worst person, they had ever met. \nHe would insult people without a reason and didn’t care for anyone.\nHis friends would describe him as a rude and eccentric person. He loved to drink and wreak havoc on any social situation.\nNone the less people would still invite him to parties and so it was. Steven was at a colleges home party and was already filled with chagrin.\n",
+    "Lisa":{
+    "prompt":  "Lisa was a woman in her mid-thirties with a bright and curious mind. She was always eager to learn and try new things, and her enthusiasm was contagious. With her sharp wit and quick sense of humor, Lisa was a joy to be around and could often be found at the center of any social gathering. She was well-read and well-traveled, and had a wealth of interesting stories and insights to share. Despite her outgoing and confident personality, Lisa was also deeply empathetic and always ready to lend a listening ear to a friend in need. Overall, Lisa was the kind of person that one couldn't help but be drawn to, and anyone would be lucky to count her as a friend.",
+    "sociability": 0.8,
+    "age": 34,
+    "aggression": 0.1,
+    "like_to_play": 0.4,
+    "like_to_dance": 0.6,
+        "like_to_drink": 0.5
+    },
+        "Steven":{
+    "prompt": "Steven was a 25 year old man with a short fuse and a quick temper. His aggressive and rude demeanor often put people on edge, and he was not one to back down from a confrontation. When he wasn't getting into arguments or fights, he could often be found at the bar, nursing a drink and looking for trouble. Despite his rough exterior, those who knew him well knew that deep down, he struggled with insecurities and a troubled past. However, he masked this vulnerability with his tough exterior and love of alcohol.",
+    "sociability": 0.2,
+    "age": 25,
+    "aggression": 1,
+    "like_to_play": 0.8,
+    "like_to_dance": 0.1,
+        "like_to_drink": 1
+    },
+        "Martin":{
+    "prompt": "Martin was a man who seemed to exude darkness and malevolence from every pore. He was a master of manipulation, using his charm and charisma to bend others to his will. He had no qualms about using others for his own gain, and was willing to do whatever it took to get what he wanted, no matter who he had to hurt in the process. Martin was deeply selfish and cruel, and took pleasure in causing pain and suffering in others. He was a shadowy figure who seemed to always be scheming and plotting, and those who crossed him often lived to regret it. Despite his evil nature, Martin was intelligent and cunning, and could be incredibly persuasive when he wanted to be. He was a force to be reckoned with, and few people were brave enough to stand up to him.",
     "sociability": 0.9,
+    "age": 32,
+    "aggression": 0.9,
+    "like_to_play": 0.1,
+    "like_to_dance": 0.9,
+        "like_to_drink": 0.7
+    },
+        "Emily":{
+    "prompt": "At the party, Emily was a timid and shy young woman who seemed to shrink into the background whenever anyone else was around. She rarely contributed to conversations, and when she did, it was in a quiet, almost mumbled voice. It was clear that Emily was uncomfortable in social situations, and she seemed to prefer to stand off to the side and observe rather than participate. Despite her shyness, however, Emily had a kind and gentle demeanor, and those who took the time to engage with her found her to be a thoughtful and compassionate person. As the night went on and Emily became more comfortable in her surroundings, she began to open up and participate more, revealing a sharp wit and a love of music and art.",
+    "sociability": 0.1,
     "age": 25,
     "aggression": 0.1,
-    "like_to_play": 4,
-    "like_to_dance": 0.9,
+    "like_to_play": 0.1,
+    "like_to_dance": 0.1,
         "like_to_drink": 0.1
+    },
+        "Samantha":{
+    "sociability": 0.3,
+            "prompt": "Samantha was a woman in her mid-fifties who exuded disdain and impatience in everything she did. She was always in a hurry, and had little tolerance for anything that she perceived as a waste of her time. She was quick to dismiss others' ideas and opinions, and had a habit of interrupting or talking over others in conversations. Even when she wasn't actively being rude, her body language and tone of voice conveyed a general sense of annoyance and frustration with those around her. It wasn't uncommon for people to feel belittled or dismissed after interacting with Samantha, and many found her company to be unpleasant. Despite her flaws, however, Samantha was intelligent and capable, and those who could endure her gruff exterior occasionally found themselves learning from her insights and expertise.",
+            "age": 56,
+    "aggression": 0.8,
+    "like_to_play": 0.2,
+    "like_to_dance": 0.1,
+        "like_to_drink": 0.5
+    },
+            "Greta":{
+    "prompt": "Greta was a shy and timid woman in her mid-twenties who seemed to shrink into the background in social situations. She rarely spoke up or contributed to conversations, and often seemed uncomfortable in her own skin. However, when she had a few drinks in her, Greta transformed into a completely different person. She became loud and boisterous, slurring her words and mumbling inappropriate things. Despite her normally reserved demeanor, she became the life of the party, dancing on tables and trying to engage everyone in her wild antics. While she was amusing to watch when she was drunk, those who knew her well often found her behavior embarrassing and cringed at the thought of what she might say or do next. When she sobered up, Greta was mortified by her behavior and couldn't remember much of what had happened the night before.\n\n\n\n",
+    "sociability": 0.1,
+    "age": 26,
+    "aggression": 0.1,
+    "like_to_play": 0.1,
+    "like_to_dance": 0.2,
+        "like_to_drink": 0.9
     }
 }

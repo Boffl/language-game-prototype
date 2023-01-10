@@ -463,12 +463,14 @@ func _on_HTTPRequest_request_completed(result, response_code, headers, body):
 	emit_signal("request_finished")
 
 
-func init_bot(_name="Steven"):
+func init_bot():
 	"""intialize the guests attributes"""
-	
-	
-	var character = characters[_name]
-	guest_name = _name
+	var rng = RandomNumberGenerator.new()
+	rng.randomize()
+	var _names = ["Susanne", "Lisa", "Steven", "Martin", "Emily", "Samantha", "Emily", "Greta"]
+	var index = rng.randi_range (0,characters.size() -1 )
+	guest_name = _names[index]
+	var character = characters[guest_name]
 	#initialize variables that are same for all the guests
 	present = true
 	thirst = 0

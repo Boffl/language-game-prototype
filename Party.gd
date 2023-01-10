@@ -26,7 +26,7 @@ func inivte_guests(num):
 	for n in num:
 		var bot = party_guest.instance()
 		
-		bot.init_bot("Steven")
+		bot.init_bot()
 		#best_action(bot)
 		#prompt_init.prompt_init(bot)
 		#print(bot.prompt)
