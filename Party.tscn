@@ -125,9 +125,9 @@ _data = {
 }
 
 [sub_resource type="NavigationPolygon" id=10]
-vertices = PoolVector2Array( 366, 55, 280, -11, 276, -20, 288, -26, 327, -7, 385, 24, 388, 39, 403, 61, 448, 40, 497, 65, 436, 95, 422, 86, 401, 90, 414, 95, 190, 219, -55, 97, -25.1089, 81.7725, -12, 87, 380.462, 126.97, 411, 144, 352, 173, 305, 140, 256, 166, 274, 177, 428, 104, 65, 48, 70, 51, 347, -15, 397, 12, 113, 28, 366, 72, 183, -4, 182, -16, 192, -19, 204, -14, 256, 5, 112, 15, 160, 8, 272, -48, 288.642, -39.5948, 263, -31, 256, -48, 248, -37, 239, -19, 237, -8, 139, 1 )
-polygons = [ PoolIntArray( 0, 1, 2, 3, 4, 5, 6 ), PoolIntArray( 7, 8, 9, 10, 11 ), PoolIntArray( 12, 7, 11, 13 ), PoolIntArray( 14, 15, 16, 17 ), PoolIntArray( 18, 19, 20, 21 ), PoolIntArray( 22, 23, 14 ), PoolIntArray( 13, 24, 18, 12 ), PoolIntArray( 14, 17, 25, 26 ), PoolIntArray( 27, 28, 5, 4 ), PoolIntArray( 14, 26, 29, 22 ), PoolIntArray( 30, 12, 18, 21, 29 ), PoolIntArray( 31, 32, 33, 34 ), PoolIntArray( 21, 22, 29 ), PoolIntArray( 35, 0, 30, 29, 36, 37 ), PoolIntArray( 38, 39, 3, 2, 40, 41 ), PoolIntArray( 42, 41, 40, 43 ), PoolIntArray( 34, 42, 43 ), PoolIntArray( 34, 43, 44, 31 ), PoolIntArray( 35, 1, 0 ), PoolIntArray( 36, 45, 37 ), PoolIntArray( 35, 37, 31, 44 ) ]
-outlines = [ PoolVector2Array( -55, 97, -25.1089, 81.7725, -12, 87, 65, 48, 70, 51, 113, 28, 112, 15, 139, 1, 160, 8, 183, -4, 182, -16, 192, -19, 204, -14, 248, -37, 256, -48, 272, -48, 288.642, -39.5948, 288, -26, 327, -7, 347, -15, 397, 12, 385, 24, 388, 39, 366, 55, 366, 72, 401, 90, 403, 61, 448, 40, 497, 65, 436, 95, 422, 86, 414, 95, 428, 104, 380.462, 126.97, 411, 144, 352, 173, 305, 140, 256, 166, 274, 177, 190, 219 ), PoolVector2Array( 237, -8, 239, -19, 263, -31, 276, -20, 280, -11, 256, 5 ) ]
+vertices = PoolVector2Array( 288, -26, 327, -7, 360, 44, 280, -11, 276, -20, 448, 40, 497, 65, 453, 79, 410, 69, 391, 60, 380.462, 126.97, 411, 144, 343, 174, 310, 160, 190, 219, -55, 97, -25.1089, 81.7725, -12, 87, 65, 48, 70, 51, 391, 86, 409, 95, 405, 100, 347, -15, 397, 12, 385, 24, 113, 28, 274, 177, 359, 70, 279, 175, 183, -4, 182, -16, 192, -19, 204, -14, 359, 62, 112, 15, 139, 1, 160, 8, 256, 5, 272, -48, 288.642, -39.5948, 263, -31, 256, -48, 248, -37, 239, -19, 237, -8 )
+polygons = [ PoolIntArray( 0, 1, 2, 3, 4 ), PoolIntArray( 5, 6, 7, 8, 9 ), PoolIntArray( 10, 11, 12, 13 ), PoolIntArray( 14, 15, 16, 17 ), PoolIntArray( 14, 17, 18, 19 ), PoolIntArray( 20, 9, 8, 21, 22 ), PoolIntArray( 23, 24, 25, 2, 1 ), PoolIntArray( 14, 19, 26, 27 ), PoolIntArray( 28, 20, 22, 10, 13 ), PoolIntArray( 28, 13, 29, 27, 30, 31, 32, 33, 34 ), PoolIntArray( 27, 26, 35, 36, 37 ), PoolIntArray( 27, 37, 30 ), PoolIntArray( 2, 34, 33, 38 ), PoolIntArray( 39, 40, 0, 4, 41, 42 ), PoolIntArray( 43, 42, 41, 44 ), PoolIntArray( 33, 43, 44 ), PoolIntArray( 33, 44, 45 ), PoolIntArray( 38, 3, 2 ), PoolIntArray( 38, 33, 45 ) ]
+outlines = [ PoolVector2Array( -55, 97, -25.1089, 81.7725, -12, 87, 65, 48, 70, 51, 113, 28, 112, 15, 139, 1, 160, 8, 183, -4, 182, -16, 192, -19, 204, -14, 248, -37, 256, -48, 272, -48, 288.642, -39.5948, 288, -26, 327, -7, 347, -15, 397, 12, 385, 24, 360, 44, 359, 62, 359, 70, 391, 86, 391, 60, 448, 40, 497, 65, 453, 79, 410, 69, 409, 95, 405, 100, 380.462, 126.97, 411, 144, 343, 174, 310, 160, 279, 175, 274, 177, 190, 219 ), PoolVector2Array( 237, -8, 239, -19, 263, -31, 276, -20, 280, -11, 256, 5 ) ]
 
 [sub_resource type="DynamicFont" id=5]
 size = 22
@@ -141,7 +141,7 @@ font_data = ExtResource( 9 )
 extents = Vector2( 57.893, 44.5829 )
 
 [node name="Party" type="Node2D"]
-position = Vector2( 65, 69 )
+position = Vector2( 53, 62 )
 script = ExtResource( 11 )
 
 [node name="Pathfinding" type="Node2D" parent="."]
@@ -364,7 +364,7 @@ position = Vector2( 258, -12 )
 position = Vector2( 71, 35 )
 
 [node name="WaterTable3" parent="YSort/Furniture" instance=ExtResource( 13 )]
-position = Vector2( 302, 155 )
+position = Vector2( 167, 189 )
 
 [node name="FoodTable" parent="YSort/Furniture" instance=ExtResource( 14 )]
 position = Vector2( 89, 27 )
@@ -392,14 +392,11 @@ scale = Vector2( -1, 1 )
 [node name="FoodTable5" parent="YSort/Furniture" instance=ExtResource( 22 )]
 position = Vector2( 34, 58 )
 
-[node name="WaterTable4" parent="YSort/Furniture" instance=ExtResource( 13 )]
-position = Vector2( 283, 165 )
-
 [node name="big plant" parent="YSort/Furniture" instance=ExtResource( 21 )]
 position = Vector2( 161, -8 )
 
 [node name="big plant3" parent="YSort/Furniture" instance=ExtResource( 21 )]
-position = Vector2( 293, 165 )
+position = Vector2( 73, 156 )
 
 [node name="FoodTable6" parent="YSort/Furniture" instance=ExtResource( 24 )]
 position = Vector2( -6, 76 )
@@ -414,6 +411,7 @@ rotation = -2.20482
 [node name="Navigation2D" type="Navigation2D" parent="."]
 
 [node name="PartyGuestMovement" type="NavigationPolygonInstance" parent="Navigation2D"]
+position = Vector2( 9, 1 )
 navpoly = SubResource( 10 )
 
 [node name="Camera" type="Camera2D" parent="."]
