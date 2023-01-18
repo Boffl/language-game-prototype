@@ -226,6 +226,7 @@ hframes = 8
 frame = 7
 
 [node name="TalkingArea" type="Area2D" parent="." groups=["player"]]
+scale = Vector2( 1.08896, 1.44941 )
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="TalkingArea"]
 rotation = 1.5708

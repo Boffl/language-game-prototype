@@ -4,12 +4,11 @@
 [ext_resource path="res://Objects/Furniture/FurniturePermission.gd" type="Script" id=2]
 
 [sub_resource type="CapsuleShape2D" id=1]
-radius = 16.0
+radius = 52.4999
 height = 16.0
 
-[sub_resource type="CapsuleShape2D" id=2]
-radius = 5.33333
-height = 6.66667
+[sub_resource type="CircleShape2D" id=2]
+radius = 30.5941
 
 [node name="Toilet" type="StaticBody2D" groups=["toilets"]]
 script = ExtResource( 2 )
@@ -22,8 +21,7 @@ shape = SubResource( 1 )
 [node name="InteractionArea" type="Area2D" parent="."]
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="InteractionArea"]
-rotation = 1.5708
-scale = Vector2( 1.5, 1.5 )
+position = Vector2( -3, -4 )
 shape = SubResource( 2 )
 
 [node name="Sprite" type="Sprite" parent="."]
