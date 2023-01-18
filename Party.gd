@@ -123,3 +123,9 @@ func construct_lose_message():
 		message = "Everyone has left, your party sucks..."
 	
 	return message
+
+
+
+func _on_StartButton_pressed():
+	print("trying to reload scene")
+	get_tree().reload_current_scene()

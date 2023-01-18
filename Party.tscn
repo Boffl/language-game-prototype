@@ -1,4 +1,4 @@
-[gd_scene load_steps=32 format=2]
+[gd_scene load_steps=33 format=2]
 
 [ext_resource path="res://Assets/Walls_Floors/Basic_Floor_Tile.png" type="Texture" id=1]
 [ext_resource path="res://Assets/Walls_Floors/Basic_Wall_left.png" type="Texture" id=2]
@@ -129,6 +129,10 @@ polygons = [ PoolIntArray( 0, 1, 2, 3, 4, 5, 6 ), PoolIntArray( 7, 8, 9, 10, 11 
 outlines = [ PoolVector2Array( -55, 97, -25.1089, 81.7725, -12, 87, 65, 48, 70, 51, 113, 28, 112, 15, 139, 1, 160, 8, 183, -4, 182, -16, 192, -19, 204, -14, 248, -37, 256, -48, 272, -48, 288.642, -39.5948, 288, -26, 327, -7, 347, -15, 397, 12, 385, 24, 388, 39, 366, 55, 366, 72, 401, 90, 403, 61, 448, 40, 497, 65, 436, 95, 422, 86, 414, 95, 428, 104, 380.462, 126.97, 411, 144, 352, 173, 305, 140, 256, 166, 274, 177, 190, 219 ), PoolVector2Array( 237, -8, 239, -19, 263, -31, 276, -20, 280, -11, 256, 5 ) ]
 
 [sub_resource type="DynamicFont" id=5]
+size = 22
+font_data = ExtResource( 9 )
+
+[sub_resource type="DynamicFont" id=11]
 size = 22
 font_data = ExtResource( 9 )
 
@@ -425,3 +429,13 @@ margin_bottom = 27.0
 custom_colors/font_color = Color( 0, 0, 0, 1 )
 custom_fonts/font = SubResource( 5 )
 text = "stats"
+
+[node name="StartButton" type="Button" parent="UI"]
+margin_left = 89.0
+margin_top = 4.0
+margin_right = 153.0
+margin_bottom = 37.0
+custom_fonts/font = SubResource( 11 )
+text = "restart"
+
+[connection signal="pressed" from="UI/StartButton" to="." method="_on_StartButton_pressed"]
