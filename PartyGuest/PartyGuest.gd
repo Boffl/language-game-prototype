@@ -205,7 +205,7 @@ func start_activity(interaction_object):
 	# WaterTable
 	if interaction_object.is_in_group("watertables"):
 		if current_action.action_name == "drink water":
-			message = guest_name + " is drinkin water" # alc or water?
+			message = guest_name + " is drinking water" # alc or water?
 			wait_time = current_action.effect(self)
 		elif current_action.action_name == "drink alcohol":
 			message = guest_name + " is having a drink" # alc or water?
@@ -228,7 +228,7 @@ func start_activity(interaction_object):
 	
 	#DanceFloor
 	if interaction_object.is_in_group("dancefloors"):
-		message = guest_name + "is dancing."
+		message = guest_name + " is dancing."
 		wait_time = current_action.effect(self)
 
 	if interaction_object.is_in_group("player"):
@@ -249,6 +249,7 @@ func start_activity(interaction_object):
 	
 
 func _on_ActivityTimer_timeout():
+	get_node("PartyGuestStats").set_text("Timer out")
 	if not is_talking:
 		can_move = true
 			
@@ -261,6 +262,7 @@ func _on_ActivityTimer_timeout():
 
 func new_action(action_name):
 	# setting a target object for the new action
+	get_node("PartyGuestStats").set_text("wants to " + action_name)
 	new_action = true  # boolean to prevent calculating new best action before this
 	# action is performed
 	next_action = action_name
@@ -270,6 +272,8 @@ func new_action(action_name):
 		target_object = 'toilets'
 	elif action_name == "dance":
 		target_object = "dancefloors"
+	elif action_name == "eat":
+		target_object = "foodtables"
 	elif action_name == "leave":
 		get_node("PartyGuestStats").set_text(guest_name + " is leaving")
 		leaving = true
