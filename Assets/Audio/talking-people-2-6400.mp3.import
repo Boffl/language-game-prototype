@@ -1,0 +1,15 @@
+[remap]
+
+importer="mp3"
+type="AudioStreamMP3"
+path="res://.import/talking-people-2-6400.mp3-e4708064a73ed83c65c7aa8b2d4ce538.mp3str"
+
+[deps]
+
+source_file="res://Assets/Audio/talking-people-2-6400.mp3"
+dest_files=[ "res://.import/talking-people-2-6400.mp3-e4708064a73ed83c65c7aa8b2d4ce538.mp3str" ]
+
+[params]
+
+loop=true
+loop_offset=0

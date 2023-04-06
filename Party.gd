@@ -55,6 +55,7 @@ func _ready():
 	
 	# set nr of guests
 	get_node("UI/StatsLabel").set_text("NR OF GUESTS: " + str(get_tree().get_nodes_in_group("bots").size()))
+
 	
 
 

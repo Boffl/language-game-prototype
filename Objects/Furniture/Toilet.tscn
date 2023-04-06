@@ -4,7 +4,7 @@
 [ext_resource path="res://Objects/Furniture/FurniturePermission.gd" type="Script" id=2]
 
 [sub_resource type="CapsuleShape2D" id=1]
-radius = 52.4999
+radius = 27.5
 height = 16.0
 
 [sub_resource type="CircleShape2D" id=2]
@@ -14,16 +14,17 @@ radius = 30.5941
 script = ExtResource( 2 )
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
-rotation = 1.5708
+rotation = -0.178024
 scale = Vector2( 0.4, 0.4 )
 shape = SubResource( 1 )
 
 [node name="InteractionArea" type="Area2D" parent="."]
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="InteractionArea"]
-position = Vector2( -3, -4 )
+position = Vector2( -1, 0 )
+rotation = -0.87441
 shape = SubResource( 2 )
 
 [node name="Sprite" type="Sprite" parent="."]
-position = Vector2( 0, -19 )
+position = Vector2( 0, -11 )
 texture = ExtResource( 1 )
