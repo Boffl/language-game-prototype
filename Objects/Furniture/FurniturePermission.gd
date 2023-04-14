@@ -15,7 +15,11 @@ func _ready():
 #func _process(delta):
 #	pass
 
-
+func toilet_in_use(party_guest_area):
+	# check if toilet is in use by someone else
+	var toilet_bodies = get_node("/root/Party/PrivacyArea").get_overlapping_areas()
+	if toilet_bodies.size() > 1 and not party_guest_area in toilet_bodies:   # It will always overlap with the InteractionArea
+		return true
 
 func can_i_use():
 	

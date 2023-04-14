@@ -205,7 +205,7 @@ func start_activity(interaction_object):
 	# WaterTable
 	if interaction_object.is_in_group("watertables"):
 		if current_action.action_name == "drink water":
-			message = guest_name + " is drinkin water" # alc or water?
+			message = guest_name + " is drinking water" # alc or water?
 			wait_time = current_action.effect(self)
 		elif current_action.action_name == "drink alcohol":
 			message = guest_name + " is having a drink" # alc or water?
@@ -228,7 +228,7 @@ func start_activity(interaction_object):
 	
 	#DanceFloor
 	if interaction_object.is_in_group("dancefloors"):
-		message = guest_name + "is dancing."
+		message = guest_name + " is dancing."
 		wait_time = current_action.effect(self)
 
 	if interaction_object.is_in_group("player"):
@@ -249,6 +249,7 @@ func start_activity(interaction_object):
 	
 
 func _on_ActivityTimer_timeout():
+	get_node("PartyGuestStats").set_text("Timer out")
 	if not is_talking:
 		can_move = true
 			
@@ -261,6 +262,7 @@ func _on_ActivityTimer_timeout():
 
 func new_action(action_name):
 	# setting a target object for the new action
+	get_node("PartyGuestStats").set_text("wants to " + action_name)
 	new_action = true  # boolean to prevent calculating new best action before this
 	# action is performed
 	next_action = action_name
@@ -270,13 +272,14 @@ func new_action(action_name):
 		target_object = 'toilets'
 	elif action_name == "dance":
 		target_object = "dancefloors"
+	elif action_name == "eat":
+		target_object = "foodtables"
 	elif action_name == "leave":
 		get_node("PartyGuestStats").set_text(guest_name + " is leaving")
 		leaving = true
 		target_object = 'exits'
 		get_node("Collision").disabled = true
-	else:
-		target_object = 'player'
+	#else:target_object = 'player'
 	print(action_name)
 	
 	#target_object = possible_target_groups[randi() % len(possible_target_groups)]
@@ -298,24 +301,35 @@ func coordinates_of_target(group_name):
 	
 	# checks if there are any objects in the group
 	if objects_in_group.size() > 0:
-		closest_object = objects_in_group[0]
-		# checks which possible object is closest (in absolute distance)
-		for object in objects_in_group:
-			if object.position.distance_to(self.position) < closest_object.position.distance_to(self.position):
-				closest_object = object
-		return closest_object.position
+
+		
+		if objects_in_group[0].name == "Toilet":
+			# check if there is someone in the toilet
+			if objects_in_group[0].toilet_in_use(party_guest_area):
+				# For now just wait, later wander maybe?
+				return self.position  
+			else:
+				return objects_in_group[0].position
+				
+		else:
+			closest_object = objects_in_group[0]
+			# checks which possible object is closest (in absolute distance)
+			for object in objects_in_group:
+				if object.position.distance_to(self.position) < closest_object.position.distance_to(self.position):
+					closest_object = object
+			return closest_object.position
 	
 	# if there's no object in that group, it starts chasing the Player (just for fun lol)
-	elif target_object == 'guest':
-		var convo_partner = target_guest
-		if convo_partner in like_other_guests(): #Check if that person is still present
-			return convo_partner.position
+	#elif target_object == 'guest':
+	#	var convo_partner = target_guest
+	#	if convo_partner in like_other_guests(): #Check if that person is still present
+	#		return convo_partner.position
 			
-		else:
-			return get_parent().get_node("Player").position
+	#	else:
+	#		return get_parent().get_node("Player").position
 		
-	else:
-		return get_parent().get_node("Player").position
+	#else:
+	#	return get_parent().get_node("Player").position
 
 
 func move_to(delta, target_coordinates):

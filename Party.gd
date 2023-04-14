@@ -55,6 +55,7 @@ func _ready():
 	
 	# set nr of guests
 	get_node("UI/StatsLabel").set_text("NR OF GUESTS: " + str(get_tree().get_nodes_in_group("bots").size()))
+
 	
 
 
@@ -123,3 +124,9 @@ func construct_lose_message():
 		message = "Everyone has left, your party sucks..."
 	
 	return message
+
+
+
+func _on_StartButton_pressed():
+	print("trying to reload scene")
+	get_tree().reload_current_scene()

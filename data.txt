@@ -1,8 +1,0 @@
-label,text
-dance,"Nikolaj: \"asdf\"\nFrancesa: \" you are in testing mode. To use GPT3 start from the main menu.\"\nNikolaj: \"asdf\"\nFrancesa: \" you are in testing mode. To use GPT3 start from the main menu.\"\n"
-dance,"Nikolaj: \"asdf\"\nShirell: \" you are in testing mode. To use GPT3 start from the main menu.\"\nNikolaj: \"asdf\"\nShirell: \" you are in testing mode. To use GPT3 start from the main menu.\"\n"
-leave,"Nikolaj: \"asdf\"\nGranville: \" you are in testing mode. To use GPT3 start from the main menu.\"\nNikolaj: \"asdf\"\nGranville: \" you are in testing mode. To use GPT3 start from the main menu.\"\n"
-leave,"Nikolaj: \"asdf\"\nArtemus: \" you are in testing mode. To use GPT3 start from the main menu.\"\nNikolaj: \"asdf\"\nArtemus: \" you are in testing mode. To use GPT3 start from the main menu.\"\n"
-drink alcohol,"Nikolaj: \"asdf\"\nArtemus: \" you are in testing mode. To use GPT3 start from the main menu.\"\nNikolaj: \"asdf\"\nArtemus: \" you are in testing mode. To use GPT3 start from the main menu.\"\n"
-pee,"Nikolaj: \"asdf\"\nDewanda: \" you are in testing mode. To use GPT3 start from the main menu.\"\nNikolaj: \"asdf\"\nDewanda: \" you are in testing mode. To use GPT3 start from the main menu.\"\n"
-Null,"\nNikolaj: \"hi\"\nKandace: \"Hey! Thanks for having us over!\"\n"

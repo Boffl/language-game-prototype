@@ -18,11 +18,13 @@ func _ready():
 
 func _on_Popup_about_to_show():
 	# set the label. The text is changed before from the PartyGuest.gd script
+	get_tree().paused = true
 	text_label.text = text 
 	text = ""
 
 
 func _on_Popup_confirmed():
+	
 	chosen_index = drop_down.selected
 	# preparing for the file, with escape characters and enclosed in quotes
 	var conversation = "\"" + text_label.text.c_escape() + "\""
@@ -39,6 +41,11 @@ func _on_Popup_confirmed():
 	file.store_line(label + "," + conversation)
 	file.close()
 	print("Datapoint saved to data.txt")
+	get_tree().paused = false
 
 
 
+
+
+func _on_Popup_hide():
+	get_tree().paused = false
