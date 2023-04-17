@@ -1,0 +1,3 @@
+drink alcohol,"Nikolaj: \"Hey Martin, how\'s it goin\?\"\nMartin: \"It\'s going good. I\'m just a bit thirsty.\"\nNikolaj: \"do you want a drink\?\"\nMartin: \"Yeah, that would be great.\"\n"
+eat,"Nikolaj: \"Hey Lisa, what do you want to do\?\"\nLisa: \"I don\'t know, what do you want to do\?\"\nNikolaj: \"Go have a snack with you! Are you down\?\"\nLisa: \"Yeah, I\'m down.\"\n"
+eat,"Nikolaj: \"Hey Lisa, what do you want to do\?\"\nLisa: \"I don\'t know, what do you want to do\?\"\nNikolaj: \"Go have a snack with you! Are you down\?\"\nLisa: \"Yeah, I\'m down.\"\n"

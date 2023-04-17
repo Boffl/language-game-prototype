@@ -3,9 +3,7 @@ extends KinematicBody2D
 
 """ Preloading Sprites"""
 
-var partyguest_sprites = [preload("res://Assets/PartyGuest/Idle/PartyGuest_Idle_1.png"),
-						preload("res://Assets/PartyGuest/Idle/PartyGuest_Idle_2.png"),
-						preload("res://Assets/PartyGuest/Idle/PartyGuest_Idle_3.png")]
+var partyguest_sprites = [preload("res://Assets/PartyGuest/PartyGuest_Sprites_1.png")]
 							
 
 onready var party_guest_area = get_node("PartyGuestArea")
@@ -44,7 +42,7 @@ var timer_activity
 var target_object = "" # type of target that PartyGuest is targeting (from possible_targets)
 var path =  [] # path that PartyGuest follows is stored here
 
-var possible_target_groups = ["watertables", "toilets", "false_group"] # group names of the furniture items
+var possible_target_groups = ["watertables", "toilets", "foodtables", "false_group"] # group names of the furniture items
 
 onready var LinePath = Line2D.new() # used for pathfinding
 var host_name = "Nikolaj"
@@ -83,6 +81,9 @@ var attr_vec
 var new_action
 
 #for cosine similarity
+
+
+var animation_str = "Idle"
 
 
 # for the classification
@@ -178,8 +179,11 @@ func _physics_process(_delta):
 			pass
 			# wander()
 	
+	
+	
 	# ANIMATIONS
-	animationTree.set("parameters/Idle/blend_position", direction)
+	animationTree.set("parameters/" + animation_str +"/blend_position", direction)
+	
 	
 	
 	# UPDATING STATS
@@ -205,9 +209,13 @@ func start_activity(interaction_object):
 	# WaterTable
 	if interaction_object.is_in_group("watertables"):
 		if current_action.action_name == "drink water":
+			animation_str = "Drink"
+			animationTree.get("parameters/playback").travel("Drink")
 			message = guest_name + " is drinking water" # alc or water?
 			wait_time = current_action.effect(self)
 		elif current_action.action_name == "drink alcohol":
+			animationTree.get("parameters/playback").travel("Drink")
+			animation_str = "Drink"
 			message = guest_name + " is having a drink" # alc or water?
 			wait_time = current_action.effect(self)
 
@@ -250,6 +258,8 @@ func start_activity(interaction_object):
 
 func _on_ActivityTimer_timeout():
 	get_node("PartyGuestStats").set_text("Timer out")
+	animation_str = "Idle"
+	animationTree.get("parameters/playback").travel("Idle")
 	if not is_talking:
 		can_move = true
 			
