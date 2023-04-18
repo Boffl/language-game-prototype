@@ -91,7 +91,7 @@ signal request_finished
 var label
 
 # for classification with GPT-3
-var url = "https://api.openai.com/v1/completions"
+var url = "https://party-game123-api.herokuapp.com/classify/"
 var gpt3_key = GlobalSettings.api_key
 var api_key_request = "Authorization: Bearer " + gpt3_key
 var text = ""
@@ -445,18 +445,20 @@ func classify_conversation(var text):
 		
 		text += "\nAfter the conversation " + guest_name + "went to "
 		
-		parameters = {
-		"model": "text-davinci-002",
-		"prompt": text,
-		"temperature": 0.9,
-		"max_tokens": 4,
-		"frequency_penalty": 2,
-		"presence_penalty": 0.2,
-		"logit_bias": logit_bias,
-		"stop": ["\""]
-	}
+		# when using gpt as a classifier
+		#parameters = {
+		#"model": "text-davinci-002",
+		#"prompt": text,
+		#"temperature": 0.9,
+		#"max_tokens": 4,
+		#"frequency_penalty": 2,
+		#"presence_penalty": 0.2,
+		#"logit_bias": logit_bias,
+		#"stop": ["\""]
+	#}
+		parameters = {"text": text}
 		
-		$HTTPRequest.request(url, ["Content-Type: application/json", api_key_request], true, HTTPClient.METHOD_POST, JSON.print(parameters))
+		$HTTPRequest.request(url, ["Content-Type: application/json"], true, HTTPClient.METHOD_POST, JSON.print(parameters))
 		yield(self, "request_finished")
 	
 	
@@ -473,7 +475,7 @@ func _on_HTTPRequest_request_completed(result, response_code, headers, body):
 	# print(body.get_string_from_utf8())
 
 	# catch errors in the response:
-	if json.has("error"):
+	if json.has("error"):  # has no effect when using our api...
 		# TODO: this should appear on the screen maybe. At least if it is a problem with the
 		# API key, such that we can inform the users if their API key has expired
 		label = "[color=#000000] There was an error with OpenAI: "
@@ -481,7 +483,11 @@ func _on_HTTPRequest_request_completed(result, response_code, headers, body):
 		print("There was an error with parsing the request:")
 		print(json["error"]["message"])
 	else:
-		label = json['choices'][0]['text'].strip_edges(true, true)
+		# Getting GPT-s classification
+		# label = json['choices'][0]['text'].strip_edges(true, true)
+		
+		# getting classification from our classifier
+		label = json["prediction"]
 
 		# signal that result has been yielded
 	emit_signal("request_finished")
