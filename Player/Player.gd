@@ -77,9 +77,9 @@ func interacting(delta):
 				is_talking = false
 				can_move = true
 				partyGuest.end_conversation()
-				print("Player is no longer talking to " + partyGuest.guest_name)
+				# print("Player is no longer talking to " + partyGuest.guest_name)
 				get_node("InteractionLabel").set_text("press SPACE to talk")
-				partyGuest.can_move = true
+				# partyGuest.can_move = true Why was this here???
 	
 	# hide interaction label if not near any objects
 	elif bodies.size() == 0:

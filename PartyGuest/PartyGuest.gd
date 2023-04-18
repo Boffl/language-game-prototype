@@ -395,10 +395,9 @@ func end_conversation():
 	# past_conversations.append(get_node("PartyGuestArea/CanvasLayer/ChatBox").chat_log)
 	# calculate sentiment of conversation or something
 	var text = last_sentences() # take last sentences from the chabox
-	data_collection(text)
+	# data_collection(text)
 	classify_conversation(text)
 	is_talking = false
-	can_move = true
 	get_node("PartyGuestArea/CanvasLayer").remove_child(chatBox)
 	
 	
@@ -437,15 +436,18 @@ func classify_conversation(var text):
 	#  classify the conversation and choose an action
 	# :param num: number of sentences to use (e.g. num=4 for using the last 4)
 	
-	if GlobalSettings.testing_mode:
+	# if GlobalSettings.testing_mode:  # could use this, but now I wanna just test our api:
+	if not true:
 		print("you are in testing mode, will chose action randomly")
 		label = labels[randi() % labels.size()]
 	
 	else:
 		
-		text += "\nAfter the conversation " + guest_name + "went to "
 		
 		# when using gpt as a classifier
+		# text += "\nAfter the conversation " + guest_name + "went to "
+		
+		
 		#parameters = {
 		#"model": "text-davinci-002",
 		#"prompt": text,
@@ -459,13 +461,26 @@ func classify_conversation(var text):
 		parameters = {"text": text}
 		
 		$HTTPRequest.request(url, ["Content-Type: application/json"], true, HTTPClient.METHOD_POST, JSON.print(parameters))
+		
+		# stop movement, before the conversation is classified
+		get_node("PartyGuestStats").set_text("Deciding what to do")
+		new_action = false
+		can_move = false
+		
 		yield(self, "request_finished")
+		
+		# move again, and set label
+		get_node("PartyGuestStats").set_text("wants to " + label)
+		can_move = true
 	
 	
 	print("Action from the conversation: ", label)
 
 	if all_actions.str_action_dict.has(label):
 		new_action(label)
+	else:  # calculate new best action
+		new_action(all_actions.best_action(self).action_name)
+		
 
 
 func _on_HTTPRequest_request_completed(result, response_code, headers, body):
