@@ -1,4 +1,4 @@
-[gd_scene load_steps=38 format=2]
+[gd_scene load_steps=37 format=2]
 
 [ext_resource path="res://Assets/Walls_Floors/Basic_Floor_Tile.png" type="Texture" id=1]
 [ext_resource path="res://Assets/Walls_Floors/Basic_Wall_left.png" type="Texture" id=2]
@@ -118,20 +118,17 @@
 0/shapes = [  ]
 0/z_index = 0
 
-[sub_resource type="CircleShape2D" id=6]
-radius = 8.0
-
 [sub_resource type="RectangleShape2D" id=14]
 
 [sub_resource type="Curve2D" id=4]
 _data = {
-"points": PoolVector2Array( 0, 0, 0, 0, 206, 110, 0, 0, 0, 0, 131, 8, 0, 0, 0, 0, 165, 17, 0, 0, 0, 0, 186, 6, 0, 0, 0, 0, 185, -17, 0, 0, 0, 0, 307, 61, 0, 0, 0, 0, 351, 67, 0, 0, 0, 0, 387, 100, 0, 0, 0, 0, 375, 127, 0, 0, 0, 0, 403, 144, 0, 0, 0, 0, 376, 168, 0, 0, 0, 0, 324, 152, 0, 0, 0, 0, 307, 132, 0, 0, 0, 0, 152, 144, 0, 0, 0, 0, 205, 109 )
+"points": PoolVector2Array( 0, 0, 0, 0, 206, 110, 0, 0, 0, 0, 131, 8, 0, 0, 0, 0, 165, 17, 0, 0, 0, 0, 186, 6, 0, 0, 0, 0, 185, -17, 0, 0, 0, 0, 307, 61, 0, 0, 0, 0, 351, 67, 0, 0, 0, 0, 387, 100, 0, 0, 0, 0, 375, 127, 0, 0, 0, 0, 344, 86, 0, 0, 0, 0, 295, 88, 0, 0, 0, 0, 239, 72, 0, 0, 0, 0, 270, 156, 0, 0, 0, 0, 307, 132, 0, 0, 0, 0, 152, 144, 0, 0, 0, 0, 205, 109 )
 }
 
 [sub_resource type="NavigationPolygon" id=10]
-vertices = PoolVector2Array( 380.462, 126.97, 280, -11, 276, -20, 288, -26, 327, -7, 359, 70, 411, 144, 347, 169, 317, 155, 141, 190, -55, 97, -25.1089, 81.7725, -12, 87, 65, 48, 70, 51, 166, 173, 347, -15, 397, 12, 385, 24, 360, 44, 453, 79, 416, 76, 404, 75, 396, 65, 439, 46, 463, 69, 190, 219, 177, 208, 195, 192, 274, 177, 113, 28, 160, 8, 403, 93, 409, 95, 405, 100, 183, -4, 182, -16, 192, -19, 204, -14, 112, 15, 139, 1, 272, -48, 288.642, -39.5948, 263, -31, 256, -48, 248, -37, 239, -19, 237, -8, 279, 175, 256, 5, 359, 62 )
-polygons = [ PoolIntArray( 0, 1, 2, 3, 4, 5 ), PoolIntArray( 0, 6, 7, 8 ), PoolIntArray( 9, 10, 11, 12 ), PoolIntArray( 9, 12, 13, 14, 15 ), PoolIntArray( 16, 17, 18, 19, 4 ), PoolIntArray( 20, 21, 22, 23, 24, 25 ), PoolIntArray( 26, 27, 28, 29 ), PoolIntArray( 15, 14, 30, 31 ), PoolIntArray( 32, 22, 21, 33, 34 ), PoolIntArray( 35, 36, 37, 38, 29 ), PoolIntArray( 30, 39, 40, 31 ), PoolIntArray( 41, 42, 3, 2, 43, 44 ), PoolIntArray( 45, 44, 43, 46 ), PoolIntArray( 38, 45, 46 ), PoolIntArray( 38, 46, 47 ), PoolIntArray( 28, 15, 31, 35, 29 ), PoolIntArray( 48, 29, 38, 47, 49, 8 ), PoolIntArray( 0, 8, 49, 1 ), PoolIntArray( 32, 34, 0, 5 ), PoolIntArray( 50, 5, 4 ), PoolIntArray( 50, 4, 19 ) ]
-outlines = [ PoolVector2Array( -55, 97, -25.1089, 81.7725, -12, 87, 65, 48, 70, 51, 113, 28, 112, 15, 139, 1, 160, 8, 183, -4, 182, -16, 192, -19, 204, -14, 248, -37, 256, -48, 272, -48, 288.642, -39.5948, 288, -26, 327, -7, 347, -15, 397, 12, 385, 24, 360, 44, 359, 62, 359, 70, 403, 93, 404, 75, 396, 65, 439, 46, 463, 69, 453, 79, 416, 76, 409, 95, 405, 100, 380.462, 126.97, 411, 144, 347, 169, 317, 155, 279, 175, 274, 177, 190, 219, 177, 208, 195, 192, 166, 173, 141, 190 ), PoolVector2Array( 237, -8, 239, -19, 263, -31, 276, -20, 280, -11, 256, 5 ) ]
+vertices = PoolVector2Array( 288, -26, 327, -7, 280, -11, 276, -20, 141, 190, -55, 97, -25.1089, 81.7725, -12, 87, 65, 48, 70, 51, 166, 173, 380.462, 126.97, 401, 141, 347, 169, 317, 155, 190, 219, 177, 208, 195, 192, 274, 177, 113, 28, 160, 8, 410, 65, 439, 46, 463, 69, 453, 79, 418, 86, 404, 75, 403, 93, 421, 103, 406, 110, 347, -15, 389, 19, 385, 24, 366, 49, 183, -4, 182, -16, 192, -19, 204, -14, 112, 15, 139, 1, 272, -48, 288.642, -39.5948, 263, -31, 256, -48, 248, -37, 239, -19, 237, -8, 360, 67, 359, 62, 255, -2, 279, 175 )
+polygons = [ PoolIntArray( 0, 1, 2, 3 ), PoolIntArray( 4, 5, 6, 7 ), PoolIntArray( 4, 7, 8, 9, 10 ), PoolIntArray( 11, 12, 13, 14 ), PoolIntArray( 15, 16, 17, 18 ), PoolIntArray( 10, 9, 19, 20 ), PoolIntArray( 21, 22, 23, 24, 25, 26 ), PoolIntArray( 27, 26, 25, 28, 29 ), PoolIntArray( 30, 31, 32 ), PoolIntArray( 30, 32, 33, 1 ), PoolIntArray( 34, 35, 36, 37, 18 ), PoolIntArray( 19, 38, 39, 20 ), PoolIntArray( 40, 41, 0, 3, 42, 43 ), PoolIntArray( 44, 43, 42, 45 ), PoolIntArray( 37, 44, 45 ), PoolIntArray( 37, 45, 46 ), PoolIntArray( 47, 27, 29, 11, 14 ), PoolIntArray( 17, 10, 20, 34, 18 ), PoolIntArray( 1, 33, 48, 49, 2 ), PoolIntArray( 47, 14, 50, 18, 37, 46, 49, 48 ) ]
+outlines = [ PoolVector2Array( -55, 97, -25.1089, 81.7725, -12, 87, 65, 48, 70, 51, 113, 28, 112, 15, 139, 1, 160, 8, 183, -4, 182, -16, 192, -19, 204, -14, 248, -37, 256, -48, 272, -48, 288.642, -39.5948, 288, -26, 327, -7, 347, -15, 389, 19, 385, 24, 366, 49, 359, 62, 360, 67, 403, 93, 404, 75, 410, 65, 439, 46, 463, 69, 453, 79, 418, 86, 421, 103, 406, 110, 380.462, 126.97, 401, 141, 347, 169, 317, 155, 279, 175, 274, 177, 190, 219, 177, 208, 195, 192, 166, 173, 141, 190 ), PoolVector2Array( 237, -8, 239, -19, 263, -31, 276, -20, 280, -11, 255, -2 ) ]
 
 [sub_resource type="DynamicFont" id=5]
 size = 22
@@ -335,19 +332,6 @@ position = Vector2( 377, 64 )
 
 [node name="Furniture" type="YSort" parent="YSort"]
 
-[node name="TestBeacon" type="KinematicBody2D" parent="YSort/Furniture"]
-position = Vector2( 159, 115 )
-__meta__ = {
-"_edit_group_": true
-}
-
-[node name="Sprite" type="Sprite" parent="YSort/Furniture/TestBeacon"]
-texture = ExtResource( 10 )
-
-[node name="CollisionShape2D" type="CollisionShape2D" parent="YSort/Furniture/TestBeacon"]
-scale = Vector2( 0.5, 0.5 )
-shape = SubResource( 6 )
-
 [node name="Toilet" parent="YSort/Furniture" instance=ExtResource( 12 )]
 position = Vector2( 466, 56 )
 scale = Vector2( -1, 1 )
@@ -364,8 +348,17 @@ shape = SubResource( 14 )
 [node name="FoodTable3" parent="YSort/Furniture" instance=ExtResource( 19 )]
 position = Vector2( 114, 18 )
 
+[node name="DanceFloor3" parent="YSort/Furniture" instance=ExtResource( 17 )]
+position = Vector2( 201, 56 )
+
+[node name="DanceFloor2" parent="YSort/Furniture" instance=ExtResource( 17 )]
+position = Vector2( 177, 98 )
+
 [node name="DanceFloor" parent="YSort/Furniture" instance=ExtResource( 17 )]
-position = Vector2( 173, 50 )
+position = Vector2( 149, 59 )
+
+[node name="WaterTable4" parent="YSort/Furniture" instance=ExtResource( 13 )]
+position = Vector2( 299, 26 )
 
 [node name="WaterTable" parent="YSort/Furniture" instance=ExtResource( 13 )]
 position = Vector2( 258, -12 )
@@ -385,11 +378,11 @@ position = Vector2( 160, -8 )
 [node name="Node2D" parent="YSort/Furniture" instance=ExtResource( 16 )]
 position = Vector2( 375, 151 )
 
-[node name="FoodTable4" parent="YSort/Furniture" instance=ExtResource( 20 )]
+[node name="Sofa2" parent="YSort/Furniture" instance=ExtResource( 20 )]
 position = Vector2( 208, -26 )
 
-[node name="FoodTable7" parent="YSort/Furniture" instance=ExtResource( 20 )]
-position = Vector2( 320, -17 )
+[node name="Sofa" parent="YSort/Furniture" instance=ExtResource( 20 )]
+position = Vector2( 315, -18 )
 scale = Vector2( -1, 1 )
 
 [node name="big plant2" parent="YSort/Furniture" instance=ExtResource( 23 )]
@@ -421,7 +414,7 @@ rotation = -2.20482
 [node name="Navigation2D" type="Navigation2D" parent="."]
 
 [node name="PartyGuestMovement" type="NavigationPolygonInstance" parent="Navigation2D"]
-position = Vector2( 1, -1 )
+position = Vector2( -1, 0 )
 navpoly = SubResource( 10 )
 
 [node name="Camera" type="Camera2D" parent="."]
@@ -455,7 +448,7 @@ text = "restart"
 script = ExtResource( 15 )
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="PrivacyArea"]
-position = Vector2( 451, 62 )
+position = Vector2( 450, 64 )
 rotation = 0.640322
 shape = SubResource( 12 )
 

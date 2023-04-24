@@ -161,11 +161,13 @@ func _physics_process(_delta):
 	"""
 	
 	if can_move: # maybe have to put a different variable for doing an activity?
+		animationTree.get("parameters/playback").travel("Idle")
 		if party_guest_area.get_overlapping_areas().size()>0:
 			# this is a list of the overlapping areas. If there are multiple, the first will be
 			# The area with the player, the second the one with the Interaction object and the third, fourth, etc
 			# the one with other bots
 			var areas = party_guest_area.get_overlapping_areas()
+			
 			
 			if areas[0].get_parent().is_in_group(target_object):
 				can_move = false 
@@ -231,11 +233,13 @@ func start_activity(interaction_object):
 			
 	#FoodTable
 	if interaction_object.is_in_group("foodtables"):
+		animationTree.get("parameters/playback").travel("Eat")
 		message = guest_name + " is eating something."
 		wait_time = current_action.effect(self)
 	
 	#DanceFloor
 	if interaction_object.is_in_group("dancefloors"):
+		animationTree.get("parameters/playback").travel("Dance")
 		message = guest_name + " is dancing."
 		wait_time = current_action.effect(self)
 

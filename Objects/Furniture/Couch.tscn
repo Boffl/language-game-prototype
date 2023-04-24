@@ -5,7 +5,7 @@
 [sub_resource type="CapsuleShape2D" id=1]
 radius = 11.6666
 
-[node name="FoodTable" type="StaticBody2D" groups=["foodtables"]]
+[node name="FoodTable" type="StaticBody2D"]
 
 [node name="Sprite" type="Sprite" parent="." groups=["Sofa"]]
 position = Vector2( 0, -18 )
