@@ -46,7 +46,7 @@ func walking(delta):
 	else:
 		velocity = velocity.move_toward(Vector2.ZERO, FRICTION * delta)
 	
-	if can_move:
+	if can_move and input_vector != Vector2.ZERO:
 		move_and_slide(velocity)
 		var direction = input_vector
 		animationTree.set("parameters/Idle/blend_position", direction)

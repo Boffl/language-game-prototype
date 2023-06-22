@@ -9,7 +9,8 @@ size = 100
 font_data = ExtResource( 1 )
 
 [sub_resource type="DynamicFont" id=2]
-size = 28
+size = 30
+extra_spacing_top = 14
 font_data = ExtResource( 3 )
 
 [node name="GameOver" type="Control"]
@@ -38,20 +39,20 @@ margin_right = 639.0
 margin_bottom = 379.0
 
 [node name="VBoxContainer" type="VBoxContainer" parent="TopContainer"]
-margin_left = 246.0
-margin_top = 153.0
-margin_right = 394.0
-margin_bottom = 207.0
+margin_left = 241.0
+margin_top = 145.0
+margin_right = 398.0
+margin_bottom = 215.0
 
 [node name="ReturnButton" type="Button" parent="TopContainer/VBoxContainer"]
-margin_right = 148.0
-margin_bottom = 36.0
+margin_right = 157.0
+margin_bottom = 52.0
 custom_fonts/font = SubResource( 2 )
 text = "Main Menu"
 
 [node name="WinStats" type="Label" parent="TopContainer/VBoxContainer"]
-margin_top = 40.0
-margin_right = 148.0
-margin_bottom = 54.0
+margin_top = 56.0
+margin_right = 157.0
+margin_bottom = 70.0
 
 [connection signal="pressed" from="TopContainer/VBoxContainer/ReturnButton" to="." method="_on_ReturnButton_pressed"]

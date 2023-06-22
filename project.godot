@@ -63,7 +63,7 @@ _global_script_class_icons={
 [application]
 
 config/name="Party Simulator"
-run/main_scene="res://Party.tscn"
+run/main_scene="res://MainMenu/MainMenu.tscn"
 config/icon="res://icon.png"
 
 [autoload]

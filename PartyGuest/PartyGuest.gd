@@ -135,6 +135,7 @@ func _ready():
 	get_parent().get_parent().add_child(LinePath)
 	LinePath.set_default_color(Color(1, 0.5, 0.5, 0.7))
 	LinePath.set_width(5)
+	LinePath.visible = false
 	
 #	# timer for switching targets
 #	timer_activity = Timer.new()

@@ -179,6 +179,7 @@ blend_mode = 1
 states/Idle/node = SubResource( 20 )
 states/Idle/position = Vector2( 163, 94.5 )
 start_node = "Idle"
+graph_offset = Vector2( -235.094, 0 )
 
 [sub_resource type="AnimationNodeStateMachinePlayback" id=22]
 
